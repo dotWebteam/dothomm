@@ -13,8 +13,8 @@ export const TEST_UNIT = {
   name: "player",
   coordinates: { x: 0, y: 1 },
   actionPoints: {
-    max: 1,
-    current: 1,
+    max: 2,
+    current: 2,
   },
 };
 

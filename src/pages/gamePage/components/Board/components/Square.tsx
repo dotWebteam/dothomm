@@ -1,10 +1,15 @@
 import { FC } from "react";
 import styled from "styled-components";
 
+// redux
 import { RootState } from "../../../../../store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { moveToSquare } from "../../../boardSlice";
 
+//components
+import Unit from "./Unit";
+
+// utils
 import { isAdjacentCoordinateWithActionPoints } from "../utils";
 
 interface ISquare {
@@ -54,13 +59,15 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       className={className}
       onClick={handleClick}
     >
-      x:{x}y:{y}
-      {unitName}
+      {unitName && <Unit unitID={1} />}
     </StyledSquare>
   );
 };
 
 const StyledSquare = styled.div<{ isHighlighted?: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-content: center;
   border: 1px solid black;
   ${({ isHighlighted }) => isHighlighted && "background-color: LightGreen;"}
   width: 50px;
