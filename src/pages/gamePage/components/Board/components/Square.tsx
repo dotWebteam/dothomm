@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 import { RootState } from "../../../../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { moveToSquare } from "../../../../../store/boardSlice";
+import { moveToSquare } from "../../../boardSlice";
+
+import { isAdjacentCoordinateWithActionPoints } from "../utils";
 
 interface ISquare {
   x: number;
@@ -12,42 +14,55 @@ interface ISquare {
 }
 
 const Square: FC<ISquare> = ({ x, y, className }) => {
-  const squareState = useSelector(
-    (state: RootState) => state.board.board[y][x]
-  );
+  const squareState = useSelector((state: RootState) => state.game.board[y][x]);
   const { unitName } = squareState;
 
-  const activeUser = useSelector((state: RootState) => state.board.activeUnit);
+  const activeUser = useSelector((state: RootState) => state.game.activeUnit);
 
   const {
     name: activeUsername,
     coordinates: { x: prevX, y: prevY },
+    actionPoints: { max, current },
   } = activeUser;
 
   const dispatch = useDispatch();
 
+  const isPossibleToMove = isAdjacentCoordinateWithActionPoints(
+    prevX,
+    prevY,
+    x,
+    y,
+    current
+  );
+
   const handleClick = () => {
-    dispatch(
-      moveToSquare({
-        prevX,
-        prevY,
-        nextX: x,
-        nextY: y,
-        username: activeUsername,
-      })
-    );
+    if (isPossibleToMove)
+      dispatch(
+        moveToSquare({
+          prevX,
+          prevY,
+          nextX: x,
+          nextY: y,
+          username: activeUsername,
+        })
+      );
   };
 
   return (
-    <StyledSquare className={className} onClick={handleClick}>
+    <StyledSquare
+      isHighlighted={isPossibleToMove}
+      className={className}
+      onClick={handleClick}
+    >
       x:{x}y:{y}
       {unitName}
     </StyledSquare>
   );
 };
 
-const StyledSquare = styled.div`
+const StyledSquare = styled.div<{ isHighlighted?: boolean }>`
   border: 1px solid black;
+  ${({ isHighlighted }) => isHighlighted && "background-color: LightGreen;"}
   width: 50px;
   height: 50px;
   :hover {

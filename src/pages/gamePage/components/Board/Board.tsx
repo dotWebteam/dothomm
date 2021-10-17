@@ -2,11 +2,7 @@ import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Square from "./components/Square";
-
-import { getUnitInSquare } from "./utils";
-
-const NUMBERS_OF_ROWS = 5;
-const NUMBERS_OF_COLUMNS = 8;
+import { NUMBERS_OF_BOARD_ROWS, NUMBERS_OF_BOARD_COLUMNS } from "./constants";
 
 const Board: FC = () => {
   const [boardState, setBoardState] = useState<any>([]);
@@ -15,8 +11,8 @@ const Board: FC = () => {
 
   const getSquares = () => {
     let squaresArr = [];
-    for (let y = 0; y < NUMBERS_OF_ROWS; ++y)
-      for (let x = 0; x < NUMBERS_OF_COLUMNS; ++x) {
+    for (let y = 0; y < NUMBERS_OF_BOARD_ROWS; ++y)
+      for (let x = 0; x < NUMBERS_OF_BOARD_COLUMNS; ++x) {
         squaresArr.push(<StyledSquare x={x} y={y} />);
       }
     return squaresArr;

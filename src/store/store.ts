@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import boardReducer from "./boardSlice";
+import gameReducer from "../pages/gamePage/boardSlice";
 
 export const store = configureStore({
   reducer: {
-    board: boardReducer,
+    game: gameReducer,
   },
 });
 
