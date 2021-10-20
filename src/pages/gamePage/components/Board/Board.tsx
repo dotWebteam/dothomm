@@ -1,10 +1,16 @@
 import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../../store/store";
+import { nextTurn } from "../../boardSlice";
+
 import Square from "./components/Square";
 import { NUMBERS_OF_BOARD_ROWS, NUMBERS_OF_BOARD_COLUMNS } from "./constants";
 
 const Board: FC = () => {
+  const activeUser = useSelector((state: RootState) => state.game.activeUnit);
   const [boardState, setBoardState] = useState<any>([]);
 
   const initBoard = () => {};
@@ -21,6 +27,21 @@ const Board: FC = () => {
   useEffect(() => {
     setBoardState(getSquares());
   }, []);
+
+  const {
+    id: activeUserID,
+    name: activeUsername,
+    coordinates: { x: prevX, y: prevY },
+    actionPoints: { max, current: currentActionPoints },
+  } = activeUser;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!currentActionPoints) {
+      dispatch(nextTurn({ activeUnit: activeUser }));
+    }
+  }, [activeUser]);
 
   return <StyledWrapper>{boardState}</StyledWrapper>;
 };

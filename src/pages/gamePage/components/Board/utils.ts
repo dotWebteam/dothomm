@@ -61,3 +61,15 @@ export const isAdjacentCoordinateWithActionPoints = (
     ).find(([x, y]) => nextX === x && nextY === y)
   );
 };
+
+/** Returns number of action points needed to get from one coordinate to another */
+export const getHowManyActionPointsToMove = (
+  prevX: number,
+  prevY: number,
+  nextX: number,
+  nextY: number
+) => {
+  const xDiff = Math.abs(prevX - nextX);
+  const yDiff = Math.abs(prevY - nextY);
+  return Math.max(xDiff, yDiff);
+};

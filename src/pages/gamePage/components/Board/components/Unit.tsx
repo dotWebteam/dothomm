@@ -1,15 +1,17 @@
 import { FC } from "react";
 import styled from "styled-components";
-
-import PlayerIcon from "../../../pictures/Hero.png";
+import { getUnitSpriteByName } from "../../../pictures/utils";
+import { UnitType } from "../../../types";
 
 interface IUnit {
-  classname?: string;
-  unitID: number;
+  className?: string;
+  unitType: UnitType;
 }
 
-const Unit: FC<IUnit> = ({ classname }) => {
-  return <StyledImg src={PlayerIcon} />;
+const Unit: FC<IUnit> = ({ className, unitType }) => {
+  return (
+    <StyledImg className={className} src={getUnitSpriteByName(unitType)} />
+  );
 };
 
 const StyledImg = styled.img`

@@ -1,8 +1,18 @@
+type unitTypes = {
+  HERO: "HERO";
+  PEASANT: "PEASANT";
+};
+
+export type UnitType = unitTypes[keyof unitTypes];
+
 export type SquareState = {
-  unitName?: string;
+  type?: string;
+  id?: number;
+  unitType?: UnitType;
 };
 
 export type Unit = {
+  id: number;
   name: string;
   coordinates: {
     x: number;
@@ -12,6 +22,9 @@ export type Unit = {
     max: number;
     current: number;
   };
+  isActive: boolean;
+  isOwner: boolean;
+  isDead: boolean;
 };
 
 export interface BoardState {

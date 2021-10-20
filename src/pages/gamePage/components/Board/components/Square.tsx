@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styled from "styled-components";
+import { isEmpty } from "lodash";
 
 // redux
 import { RootState } from "../../../../../store/store";
@@ -11,6 +12,7 @@ import Unit from "./Unit";
 
 // utils
 import { isAdjacentCoordinateWithActionPoints } from "../utils";
+import Obstacle from "./Obstacle";
 
 interface ISquare {
   x: number;
@@ -20,25 +22,34 @@ interface ISquare {
 
 const Square: FC<ISquare> = ({ x, y, className }) => {
   const squareState = useSelector((state: RootState) => state.game.board[y][x]);
-  const { unitName } = squareState;
+  const { type: squareFillType, id, unitType } = squareState;
+
+  const hasObstacle = squareFillType === "obstacle";
+  const hasUnit = squareFillType === "unit" && unitType;
+  const isFreeSquare = !hasObstacle && !hasUnit;
 
   const activeUser = useSelector((state: RootState) => state.game.activeUnit);
 
   const {
+    id: activeUserID,
     name: activeUsername,
     coordinates: { x: prevX, y: prevY },
-    actionPoints: { max, current },
+    actionPoints: { max, current: currentActionPoints },
+    isOwner,
   } = activeUser;
 
   const dispatch = useDispatch();
 
-  const isPossibleToMove = isAdjacentCoordinateWithActionPoints(
-    prevX,
-    prevY,
-    x,
-    y,
-    current
-  );
+  const isPossibleToMove =
+    isAdjacentCoordinateWithActionPoints(
+      prevX,
+      prevY,
+      x,
+      y,
+      currentActionPoints
+    ) &&
+    isFreeSquare &&
+    isOwner;
 
   const handleClick = () => {
     if (isPossibleToMove)
@@ -48,7 +59,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
           prevY,
           nextX: x,
           nextY: y,
-          username: activeUsername,
+          id: activeUserID,
         })
       );
   };
@@ -59,7 +70,8 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       className={className}
       onClick={handleClick}
     >
-      {unitName && <Unit unitID={1} />}
+      {hasUnit && <Unit unitType={unitType} />}
+      {hasObstacle && <Obstacle id={1} />}
     </StyledSquare>
   );
 };
@@ -68,6 +80,7 @@ const StyledSquare = styled.div<{ isHighlighted?: boolean }>`
   display: flex;
   justify-content: center;
   align-content: center;
+  align-items: center;
   border: 1px solid black;
   ${({ isHighlighted }) => isHighlighted && "background-color: LightGreen;"}
   width: 50px;
