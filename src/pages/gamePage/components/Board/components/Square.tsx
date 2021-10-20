@@ -38,6 +38,8 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     isOwner,
   } = activeUser;
 
+  const hasActiveUnit = prevX === x && prevY === y;
+
   const dispatch = useDispatch();
 
   const isPossibleToMove =
@@ -67,6 +69,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
   return (
     <StyledSquare
       isHighlighted={isPossibleToMove}
+      hasActiveUnit={hasActiveUnit}
       className={className}
       onClick={handleClick}
     >
@@ -76,12 +79,15 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
   );
 };
 
-const StyledSquare = styled.div<{ isHighlighted?: boolean }>`
+const StyledSquare = styled.div<{
+  isHighlighted?: boolean;
+  hasActiveUnit?: boolean;
+}>`
   display: flex;
   justify-content: center;
   align-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid ${({ hasActiveUnit }) => (hasActiveUnit ? "red" : "black")};
   ${({ isHighlighted }) => isHighlighted && "background-color: LightGreen;"}
   width: 50px;
   height: 50px;
