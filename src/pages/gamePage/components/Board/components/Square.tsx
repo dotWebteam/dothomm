@@ -1,7 +1,9 @@
 import { FC } from "react";
 import styled from "styled-components";
 
+// assets
 import attackCursor from "../../../../../pictures/attackCursor.png";
+import moveCursor from "../../../../../pictures/moveCursor.png";
 
 // redux
 import { RootState } from "../../../../../store/store";
@@ -81,7 +83,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   return (
     <StyledSquare
-      isHighlighted={isPossibleToMove}
+      isPossibleToMove={isPossibleToMove}
       hasActiveUnit={hasActiveUnit}
       isPossibleToAttack={isPossibleToAttack}
       className={className}
@@ -100,7 +102,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 };
 
 const StyledSquare = styled.div<{
-  isHighlighted?: boolean;
+  isPossibleToMove?: boolean;
   hasActiveUnit?: boolean;
   isPossibleToAttack?: boolean;
 }>`
@@ -109,13 +111,16 @@ const StyledSquare = styled.div<{
   align-content: center;
   align-items: center;
   border: 1px solid ${({ hasActiveUnit }) => (hasActiveUnit ? "red" : "black")};
-  ${({ isHighlighted }) => isHighlighted && "background-color: LightGreen;"}
+  ${({ isPossibleToMove }) =>
+    isPossibleToMove && "background-color: LightGreen;"}
   width: 50px;
   height: 50px;
   :hover {
     background-color: Gainsboro;
     ${({ isPossibleToAttack }) =>
       isPossibleToAttack && `cursor: url(${attackCursor}), auto;`}
+    ${({ isPossibleToMove }) =>
+      isPossibleToMove && `cursor: url(${moveCursor}), auto;`}
   }
 `;
 
