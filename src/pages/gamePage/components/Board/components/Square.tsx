@@ -1,6 +1,7 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import styled from "styled-components";
-import { isEmpty } from "lodash";
+
+import attackCursor from "../../../../../pictures/attackCursor.png";
 
 // redux
 import { RootState } from "../../../../../store/store";
@@ -46,19 +47,21 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const dispatch = useDispatch();
 
-  const isPossibleToMove =
-    isAdjacentCoordinateWithActionPoints(
-      prevX,
-      prevY,
-      x,
-      y,
-      currentActionPoints
-    ) &&
-    isFreeSquare &&
-    isOwner;
+  const isReachable = isAdjacentCoordinateWithActionPoints(
+    prevX,
+    prevY,
+    x,
+    y,
+    currentActionPoints
+  );
+
+  const isPossibleToMove = isReachable && isFreeSquare && isOwner;
 
   const isPossibleToAttack =
-    unitInSquare && !unitInSquare.isOwner && currentActionPoints > 0;
+    isReachable &&
+    unitInSquare &&
+    !unitInSquare.isOwner &&
+    currentActionPoints > 0;
 
   const handleClick = () => {
     if (isPossibleToMove)
@@ -80,6 +83,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     <StyledSquare
       isHighlighted={isPossibleToMove}
       hasActiveUnit={hasActiveUnit}
+      isPossibleToAttack={isPossibleToAttack}
       className={className}
       onClick={handleClick}
     >
@@ -98,6 +102,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 const StyledSquare = styled.div<{
   isHighlighted?: boolean;
   hasActiveUnit?: boolean;
+  isPossibleToAttack?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -109,6 +114,8 @@ const StyledSquare = styled.div<{
   height: 50px;
   :hover {
     background-color: Gainsboro;
+    ${({ isPossibleToAttack }) =>
+      isPossibleToAttack && `cursor: url(${attackCursor}), auto;`}
   }
 `;
 
