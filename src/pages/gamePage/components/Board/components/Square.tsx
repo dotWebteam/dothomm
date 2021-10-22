@@ -5,13 +5,13 @@ import { isEmpty } from "lodash";
 // redux
 import { RootState } from "../../../../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { moveToSquare } from "../../../boardSlice";
+import { attack, moveToSquare } from "../../../boardSlice";
 
 //components
 import Unit from "./Unit";
 
 // utils
-import { isAdjacentCoordinateWithActionPoints } from "../utils";
+import { isAdjacentCoordinateWithActionPoints } from "../utils/movingUtils";
 import Obstacle from "./Obstacle";
 
 interface ISquare {
@@ -23,6 +23,10 @@ interface ISquare {
 const Square: FC<ISquare> = ({ x, y, className }) => {
   const squareState = useSelector((state: RootState) => state.game.board[y][x]);
   const { type: squareFillType, id, unitType } = squareState;
+
+  const unitInSquare = useSelector((state: RootState) =>
+    state.game.units.find(({ id: unitID }) => unitID === id)
+  );
 
   const hasObstacle = squareFillType === "obstacle";
   const hasUnit = squareFillType === "unit" && unitType;
@@ -53,6 +57,9 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     isFreeSquare &&
     isOwner;
 
+  const isPossibleToAttack =
+    unitInSquare && !unitInSquare.isOwner && currentActionPoints > 0;
+
   const handleClick = () => {
     if (isPossibleToMove)
       dispatch(
@@ -64,6 +71,9 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
           id: activeUserID,
         })
       );
+    if (isPossibleToAttack) {
+      dispatch(attack({ attacker: activeUser, defender: unitInSquare }));
+    }
   };
 
   return (
@@ -73,7 +83,13 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       className={className}
       onClick={handleClick}
     >
-      {hasUnit && <Unit unitType={unitType} />}
+      {hasUnit && (
+        <Unit
+          unitType={unitType}
+          healthPoints={unitInSquare?.healthPoints.current}
+          actionPoints={hasActiveUnit ? currentActionPoints : undefined}
+        />
+      )}
       {hasObstacle && <Obstacle id={1} />}
     </StyledSquare>
   );

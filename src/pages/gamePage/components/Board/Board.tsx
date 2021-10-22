@@ -13,8 +13,6 @@ const Board: FC = () => {
   const activeUser = useSelector((state: RootState) => state.game.activeUnit);
   const [boardState, setBoardState] = useState<any>([]);
 
-  const initBoard = () => {};
-
   const getSquares = () => {
     let squaresArr = [];
     for (let y = 0; y < NUMBERS_OF_BOARD_ROWS; ++y)

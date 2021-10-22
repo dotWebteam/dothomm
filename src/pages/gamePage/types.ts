@@ -18,6 +18,11 @@ export type Unit = {
     x: number;
     y: number;
   };
+  attack: number;
+  healthPoints: {
+    max: number;
+    current: number;
+  };
   actionPoints: {
     max: number;
     current: number;

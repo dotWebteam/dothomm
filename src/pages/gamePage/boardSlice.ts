@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getHowManyActionPointsToMove } from "./components/Board/utils/movingUtils";
 import {
-  INITIAL_BOARD_STATE,
-  INITIAL_UNITS_STATE,
-  TEST_UNIT_1,
-} from "./components/Board/constants";
-import { getHowManyActionPointsToMove } from "./components/Board/utils";
+  getInitialUnitsState,
+  getInitialBoardState,
+} from "./components/Board/utils/initializeUtils";
 
 import { BoardState, Unit } from "./types";
+import { isUnitDead } from "./components/Board/utils/attackUtils";
 
 const initialState: BoardState = {
-  board: INITIAL_BOARD_STATE,
-  units: INITIAL_UNITS_STATE,
-  activeUnit: TEST_UNIT_1,
+  board: getInitialBoardState(),
+  units: getInitialUnitsState(),
+  activeUnit: getInitialUnitsState()[0],
 };
 
 export const gameSlice = createSlice({
@@ -57,9 +57,28 @@ export const gameSlice = createSlice({
       const nextActiveUnit = units[nextActiveUnitArrayPosition];
       state.activeUnit = nextActiveUnit;
     },
+
+    attack: (
+      state,
+      action: PayloadAction<{ attacker: Unit; defender: Unit }>
+    ) => {
+      const { attacker } = action.payload;
+      const { id: attackerID } = attacker;
+      const { id: defenderID } = action.payload.defender;
+      const { units } = state;
+      const attackerUnit = units.find(({ id }) => id === attackerID);
+      const defenderUnit = units.find(({ id }) => id === defenderID);
+      if (attackerUnit && defenderUnit) {
+        defenderUnit.healthPoints.current -= attackerUnit.attack;
+        if (isUnitDead(defenderUnit)) {
+          defenderUnit.isDead = true;
+        }
+        state.activeUnit.actionPoints.current -= 1;
+      }
+    },
   },
 });
 
-export const { moveToSquare, nextTurn } = gameSlice.actions;
+export const { moveToSquare, nextTurn, attack } = gameSlice.actions;
 
 export default gameSlice.reducer;
