@@ -19,8 +19,14 @@ const Unit: FC<IUnit> = ({
   return (
     <StyledWrapper>
       <StyledImg className={className} src={getUnitSpriteByName(unitType)} />
-      <StyledHealthCounter>{healthPoints}</StyledHealthCounter>
-      <StyledActionPointsCounter>{actionPoints}</StyledActionPointsCounter>
+      <StyledCounters>
+        {healthPoints && (
+          <StyledHealthCounter>{healthPoints}</StyledHealthCounter>
+        )}
+        {actionPoints && (
+          <StyledActionPointsCounter>{actionPoints}</StyledActionPointsCounter>
+        )}
+      </StyledCounters>
     </StyledWrapper>
   );
 };
@@ -37,10 +43,17 @@ const StyledImg = styled.img`
 
 const StyledHealthCounter = styled.div`
   background-color: red;
+  min-width: 30px;
 `;
 
 const StyledActionPointsCounter = styled.div`
   background-color: yellow;
+  min-width: 30px;
+`;
+
+const StyledCounters = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export default Unit;
