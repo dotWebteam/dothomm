@@ -1,19 +1,32 @@
-type unitTypes = {
-  HERO: "HERO";
+type UnitTypes = {
+  HERO: "SWORDSMAN";
   PEASANT: "PEASANT";
 };
 
-export type UnitType = unitTypes[keyof unitTypes];
+export type UnitType = UnitTypes[keyof UnitTypes];
+
+export type DeadBodyTypes = {
+  DEAD_BODY_HERO: "DEAD_BODY_SWORDSMAN";
+  DEAD_BODY_PEASANT: "DEAD_BODY_PEASANT";
+};
+
+type ObstacleTypes = DeadBodyTypes & {
+  STONES: "STONES";
+};
+
+export type DeadBodyType = DeadBodyTypes[keyof DeadBodyTypes];
+export type ObstacleType = ObstacleTypes[keyof ObstacleTypes];
 
 export type SquareState = {
   type?: string;
   id?: number;
   unitType?: UnitType;
+  obstacleType?: ObstacleType;
 };
 
 export type Unit = {
   id: number;
-  name: string;
+  unitType: UnitType;
   coordinates: {
     x: number;
     y: number;
@@ -28,7 +41,7 @@ export type Unit = {
     current: number;
   };
   isActive: boolean;
-  isOwner: boolean;
+  owner: string;
   isDead: boolean;
 };
 
@@ -36,4 +49,5 @@ export interface BoardState {
   board: Array<Array<SquareState>>;
   units: Array<Unit>;
   activeUnit: Unit;
+  deadUnits?: Array<Unit>;
 }

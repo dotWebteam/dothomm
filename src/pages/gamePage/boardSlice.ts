@@ -6,12 +6,13 @@ import {
 } from "./components/Board/utils/initializeUtils";
 
 import { BoardState, Unit } from "./types";
-import { isUnitDead } from "./components/Board/utils/attackUtils";
+import { getDeadBody, isUnitDead } from "./components/Board/utils/attackUtils";
 
 const initialState: BoardState = {
   board: getInitialBoardState(),
   units: getInitialUnitsState(),
   activeUnit: getInitialUnitsState()[0],
+  deadUnits: [],
 };
 
 export const gameSlice = createSlice({
@@ -62,16 +63,22 @@ export const gameSlice = createSlice({
       state,
       action: PayloadAction<{ attacker: Unit; defender: Unit }>
     ) => {
-      const { attacker } = action.payload;
+      const { attacker, defender } = action.payload;
       const { id: attackerID } = attacker;
-      const { id: defenderID } = action.payload.defender;
+      const { id: defenderID } = defender;
       const { units } = state;
       const attackerUnit = units.find(({ id }) => id === attackerID);
       const defenderUnit = units.find(({ id }) => id === defenderID);
       if (attackerUnit && defenderUnit) {
         defenderUnit.healthPoints.current -= attackerUnit.attack;
         if (isUnitDead(defenderUnit)) {
-          defenderUnit.isDead = true;
+          units.splice(units.indexOf(defenderUnit), 1);
+          state.deadUnits?.push(defenderUnit);
+          // clear the board
+          const {
+            coordinates: { x, y },
+          } = defender;
+          state.board[y][x] = getDeadBody(defenderID, defender.unitType);
         }
         state.activeUnit.actionPoints.current -= 1;
       }

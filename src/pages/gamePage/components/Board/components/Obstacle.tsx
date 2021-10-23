@@ -1,15 +1,21 @@
 import { FC } from "react";
 import styled from "styled-components";
 
-import PlayerIcon from "../../../pictures/Stones.png";
+import { getObstacleSpriteByName } from "../../../pictures/utils";
+import { ObstacleType } from "../../../types";
 
 interface IObstacle {
   className?: string;
-  id: number;
+  obstacleType: ObstacleType;
 }
 
-const Obstacle: FC<IObstacle> = ({ className }) => {
-  return <StyledImg className={className} src={PlayerIcon} />;
+const Obstacle: FC<IObstacle> = ({ className, obstacleType }) => {
+  return (
+    <StyledImg
+      className={className}
+      src={getObstacleSpriteByName(obstacleType)}
+    />
+  );
 };
 
 const StyledImg = styled.img`

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  nickname: "",
+  nickname: "admin",
 };
 
 export const userSlice = createSlice({

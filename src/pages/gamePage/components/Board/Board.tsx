@@ -28,7 +28,6 @@ const Board: FC = () => {
 
   const {
     id: activeUserID,
-    name: activeUsername,
     coordinates: { x: prevX, y: prevY },
     actionPoints: { max, current: currentActionPoints },
   } = activeUser;

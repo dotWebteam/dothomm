@@ -6,9 +6,9 @@ export const NUMBERS_OF_BOARD_COLUMNS = 8;
 export const INITIAL_BOARD_STATE: Array<Array<SquareState>> = [
   [{}, {}, {}, {}, {}, {}, {}, {}],
   [{}, {}, {}, {}, {}, {}, { type: "obstacle", id: 1 }, {}],
-  [{ type: "unit", id: 1, unitType: "HERO" }, {}, {}, {}, {}, {}, {}, {}],
+  [{ type: "unit", id: 1, unitType: "SWORDSMAN" }, {}, {}, {}, {}, {}, {}, {}],
   [{ type: "unit", id: 2, unitType: "PEASANT" }, {}, {}, {}, {}, {}, {}, {}],
-  [{ type: "unit", id: 3, unitType: "HERO" }, {}, {}, {}, {}, {}, {}, {}],
+  [{ type: "unit", id: 3, unitType: "SWORDSMAN" }, {}, {}, {}, {}, {}, {}, {}],
 ];
 
 export const TEST_UNIT_1 = {
@@ -20,6 +20,7 @@ export const TEST_UNIT_1 = {
     current: 2,
   },
   isActive: true,
+  owner: "admin",
   isOwner: true,
   isDead: false,
 };
@@ -33,6 +34,7 @@ export const TEST_UNIT_2 = {
     current: 1,
   },
   isActive: true,
+  owner: "admin",
   isOwner: true,
   isDead: false,
 };
@@ -46,6 +48,7 @@ export const TEST_UNIT_3 = {
     current: 2,
   },
   isActive: true,
+  owner: "admin",
   isOwner: true,
   isDead: false,
 };

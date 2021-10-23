@@ -34,11 +34,12 @@ const Unit: FC<IUnit> = ({
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledImg = styled.img`
-  width: 70px;
+  max-height: 100px;
 `;
 
 const StyledHealthCounter = styled.div`

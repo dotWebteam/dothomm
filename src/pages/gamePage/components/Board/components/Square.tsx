@@ -25,25 +25,27 @@ interface ISquare {
 
 const Square: FC<ISquare> = ({ x, y, className }) => {
   const squareState = useSelector((state: RootState) => state.game.board[y][x]);
-  const { type: squareFillType, id, unitType } = squareState;
+  const { type: squareFillType, id, unitType, obstacleType } = squareState;
 
   const unitInSquare = useSelector((state: RootState) =>
     state.game.units.find(({ id: unitID }) => unitID === id)
   );
 
-  const hasObstacle = squareFillType === "obstacle";
+  const hasObstacle = squareFillType === "obstacle" && obstacleType;
   const hasUnit = squareFillType === "unit" && unitType;
   const isFreeSquare = !hasObstacle && !hasUnit;
 
-  const activeUser = useSelector((state: RootState) => state.game.activeUnit);
+  const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
+
+  const user = useSelector((state: RootState) => state.user);
+
+  const isOwnerOfActiveUnit = user.nickname === activeUnit.owner;
 
   const {
     id: activeUserID,
-    name: activeUsername,
     coordinates: { x: prevX, y: prevY },
     actionPoints: { max, current: currentActionPoints },
-    isOwner,
-  } = activeUser;
+  } = activeUnit;
 
   const hasActiveUnit = prevX === x && prevY === y;
 
@@ -57,12 +59,12 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     currentActionPoints
   );
 
-  const isPossibleToMove = isReachable && isFreeSquare && isOwner;
+  const isPossibleToMove = isReachable && isFreeSquare && isOwnerOfActiveUnit;
 
   const isPossibleToAttack =
     isReachable &&
     unitInSquare &&
-    !unitInSquare.isOwner &&
+    unitInSquare.owner !== activeUnit.owner &&
     currentActionPoints > 0;
 
   const handleClick = () => {
@@ -77,7 +79,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
         })
       );
     if (isPossibleToAttack) {
-      dispatch(attack({ attacker: activeUser, defender: unitInSquare }));
+      dispatch(attack({ attacker: activeUnit, defender: unitInSquare }));
     }
   };
 
@@ -96,7 +98,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
           actionPoints={hasActiveUnit ? currentActionPoints : undefined}
         />
       )}
-      {hasObstacle && <Obstacle id={1} />}
+      {hasObstacle && <Obstacle obstacleType={obstacleType} />}
     </StyledSquare>
   );
 };

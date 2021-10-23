@@ -1,10 +1,10 @@
-import { SquareState, Unit } from "../../../types";
+import { SquareState, Unit, UnitType } from "../../../types";
 
 /** Returns initial units state for game */
 export const getInitialUnitsState: () => Unit[] = () => {
-  const TEST_UNIT_1 = {
+  const TEST_UNIT_1: Unit = {
     id: 1,
-    name: "hero",
+    unitType: "SWORDSMAN",
     coordinates: { x: 0, y: 2 },
     attack: 2,
     healthPoints: {
@@ -15,32 +15,32 @@ export const getInitialUnitsState: () => Unit[] = () => {
       max: 2,
       current: 2,
     },
+    owner: "admin",
     isActive: true,
-    isOwner: true,
     isDead: false,
   };
 
-  const TEST_UNIT_2 = {
+  const TEST_UNIT_2: Unit = {
     id: 2,
-    name: "player 2",
+    unitType: "PEASANT",
     coordinates: { x: 0, y: 3 },
     attack: 2,
     healthPoints: {
-      max: 5,
-      current: 5,
+      max: 1,
+      current: 1,
     },
     actionPoints: {
       max: 1,
       current: 1,
     },
+    owner: "player",
     isActive: true,
-    isOwner: true,
     isDead: false,
   };
 
-  const TEST_UNIT_3 = {
+  const TEST_UNIT_3: Unit = {
     id: 3,
-    name: "player 3",
+    unitType: "SWORDSMAN",
     coordinates: { x: 0, y: 4 },
     attack: 2,
     healthPoints: {
@@ -51,8 +51,8 @@ export const getInitialUnitsState: () => Unit[] = () => {
       max: 2,
       current: 2,
     },
+    owner: "admin",
     isActive: true,
-    isOwner: false,
     isDead: false,
   };
   return [TEST_UNIT_1, TEST_UNIT_2, TEST_UNIT_3];
@@ -62,9 +62,36 @@ export const getInitialUnitsState: () => Unit[] = () => {
 export const getInitialBoardState: () => Array<Array<SquareState>> = () => {
   return [
     [{}, {}, {}, {}, {}, {}, {}, {}],
-    [{}, {}, {}, {}, {}, {}, { type: "obstacle", id: 1 }, {}],
-    [{ type: "unit", id: 1, unitType: "HERO" }, {}, {}, {}, {}, {}, {}, {}],
+    [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      { type: "obstacle", id: 1, obstacleType: "STONES" },
+      {},
+    ],
+    [
+      { type: "unit", id: 1, unitType: "SWORDSMAN" },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
     [{ type: "unit", id: 2, unitType: "PEASANT" }, {}, {}, {}, {}, {}, {}, {}],
-    [{ type: "unit", id: 3, unitType: "HERO" }, {}, {}, {}, {}, {}, {}, {}],
+    [
+      { type: "unit", id: 3, unitType: "SWORDSMAN" },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
   ];
 };
