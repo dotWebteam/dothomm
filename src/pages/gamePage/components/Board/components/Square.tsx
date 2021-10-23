@@ -2,8 +2,8 @@ import { FC } from "react";
 import styled from "styled-components";
 
 // assets
-import attackCursor from "../../../../../pictures/attackCursor.png";
-import moveCursor from "../../../../../pictures/moveCursor.png";
+import attackCursor from "../../../../../pictures/cursor/attackCursor.png";
+import moveCursor from "../../../../../pictures/cursor/moveCursor.png";
 
 // redux
 import { RootState } from "../../../../../store/store";
