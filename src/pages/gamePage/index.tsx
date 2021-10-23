@@ -9,8 +9,10 @@ const gamePage: FC = () => {
   return (
     <GamePageWrapper>
       <UnitInfoSidebar />
-      <Board />
-      <Footer />
+      <StyledMainContainer>
+        <Board />
+        <Footer />
+      </StyledMainContainer>
     </GamePageWrapper>
   );
 };
@@ -18,5 +20,7 @@ const gamePage: FC = () => {
 const GamePageWrapper = styled.div`
   display: flex;
 `;
+
+const StyledMainContainer = styled.div``;
 
 export default gamePage;

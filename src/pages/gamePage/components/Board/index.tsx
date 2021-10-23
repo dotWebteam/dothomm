@@ -48,8 +48,6 @@ const Board: FC = () => {
 
 const StyledWrapper = styled.div`
   display: grid;
-  width: 430px;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2px;
 `;

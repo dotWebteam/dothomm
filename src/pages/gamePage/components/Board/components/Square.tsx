@@ -61,8 +61,10 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const isPossibleToMove = isReachable && isFreeSquare && isOwnerOfActiveUnit;
 
+  const isNear = isAdjacentCoordinateWithActionPoints(prevX, prevY, x, y, 1);
+
   const isPossibleToAttack =
-    isReachable &&
+    isNear &&
     unitInSquare &&
     unitInSquare.owner !== activeUnit.owner &&
     currentActionPoints > 0 &&

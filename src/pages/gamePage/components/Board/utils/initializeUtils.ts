@@ -39,7 +39,7 @@ export const getInitialUnitsState: () => Unit[] = () => {
       max: 1,
       current: 1,
     },
-    owner: "player",
+    owner: "admin",
     isActive: true,
     isDead: false,
   };
@@ -58,7 +58,7 @@ export const getInitialUnitsState: () => Unit[] = () => {
       max: 2,
       current: 2,
     },
-    owner: "admin",
+    owner: "player",
     isActive: true,
     isDead: false,
   };

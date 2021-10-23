@@ -1,10 +1,11 @@
 import { FC } from "react";
 import styled from "styled-components";
-import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 
 import Button from "../../components/Button";
 
+import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 import leatherBackground from "../../pictures/leatherBackground.png";
+import windowBorder from "../../pictures/windowBorders.png";
 
 const LobbyPage: FC = () => {
   return (
@@ -37,9 +38,10 @@ const LobbyPageWrapper = styled.div`
 
 const LoginContainer = styled.div`
   background: url(${leatherBackground});
-  padding: 20px;
+  padding: 40px;
   background-color: #2d1d0f;
   border: 1px solid #ad8e42;
+  border-image: url(${windowBorder}) 40 / 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
