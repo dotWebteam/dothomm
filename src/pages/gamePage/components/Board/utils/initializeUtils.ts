@@ -1,4 +1,8 @@
-import { SquareState, Unit, UnitType } from "../../../types";
+import { SquareState, Unit } from "../../../types";
+import {
+  NUMBERS_OF_BOARD_ROWS,
+  NUMBERS_OF_BOARD_COLUMNS,
+} from "../constants/boardConstants";
 
 /** Returns initial units state for game */
 export const getInitialUnitsState: () => Unit[] = () => {
@@ -64,9 +68,9 @@ export const getInitialUnitsState: () => Unit[] = () => {
 /** Returns initial board state for game */
 export const getInitialBoardState: () => Array<Array<SquareState>> = () => {
   return [
-    [{}, {}, {}, {}, {}, {}, {}, {}],
+    [{ type: "unit", id: 3, unitType: "PEASANT" }, {}, {}, {}, {}, {}, {}, {}],
     [
-      {},
+      { type: "unit", id: 3, unitType: "PEASANT" },
       {},
       {},
       {},
@@ -80,7 +84,7 @@ export const getInitialBoardState: () => Array<Array<SquareState>> = () => {
       {},
       {},
       {},
-      {},
+      { type: "obstacle", id: 1, obstacleType: "STONES" },
       {},
       {},
       {},

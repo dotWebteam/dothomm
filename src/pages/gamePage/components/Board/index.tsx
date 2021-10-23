@@ -20,7 +20,7 @@ const Board: FC = () => {
     let squaresArr = [];
     for (let y = 0; y < NUMBERS_OF_BOARD_ROWS; ++y)
       for (let x = 0; x < NUMBERS_OF_BOARD_COLUMNS; ++x) {
-        squaresArr.push(<StyledSquare x={x} y={y} />);
+        squaresArr.push(<StyledSquare x={x} y={y} key={`${x}${y}`} />);
       }
     return squaresArr;
   };

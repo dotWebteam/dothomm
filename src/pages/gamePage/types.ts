@@ -59,4 +59,5 @@ export interface BoardState {
   units: Array<Unit>;
   activeUnit: Unit;
   deadUnits?: Array<Unit>;
+  lastAction: string;
 }

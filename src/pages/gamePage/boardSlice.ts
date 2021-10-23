@@ -19,6 +19,7 @@ const initialState: BoardState = {
   units: getInitialUnitsState(),
   activeUnit: getInitialUnitsState()[0],
   deadUnits: [],
+  lastAction: "The battle has began!",
 };
 
 export const gameSlice = createSlice({
@@ -38,7 +39,8 @@ export const gameSlice = createSlice({
       const { prevX, prevY, nextX, nextY, id } = action.payload;
       const { units } = state;
       const unitIndex = units.findIndex(({ id: currID }) => currID === id);
-      units[unitIndex].coordinates = state.activeUnit.coordinates = {
+      const movingUnit = units[unitIndex];
+      movingUnit.coordinates = state.activeUnit.coordinates = {
         x: nextX,
         y: nextY,
       };
@@ -52,6 +54,7 @@ export const gameSlice = createSlice({
       state.board[nextY][nextX].unitType = state.board[prevY][prevX].unitType;
       state.board[prevY][prevX] = {};
       state.board[nextY][nextX].id = id;
+      state.lastAction = `${movingUnit.unitType} is moving to coordinate ${nextX} ${nextY}`;
     },
 
     nextTurn: (state, action: PayloadAction<{ activeUnit: Unit }>) => {
@@ -82,6 +85,7 @@ export const gameSlice = createSlice({
         );
         defenderUnit.healthPoints.current = currentUnitHealthPoints;
         defenderUnit.count -= unitsKilled;
+        state.lastAction = `${defender.unitType} of ${defender.owner} was attacked by ${attacker.unitType} of ${attacker.owner}! ${unitsKilled} units was killed`;
         if (isUnitDead(defenderUnit)) {
           units.splice(units.indexOf(defenderUnit), 1);
           state.deadUnits?.push(defenderUnit);
@@ -90,6 +94,7 @@ export const gameSlice = createSlice({
             coordinates: { x, y },
           } = defender;
           state.board[y][x] = getDeadBody(defenderID, defender.unitType);
+          state.lastAction = `${defender.unitType} of ${defender.owner} was destroyed!`;
         }
         state.activeUnit.actionPoints.current -= 1;
       }
