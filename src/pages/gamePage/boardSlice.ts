@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { random } from "lodash";
+
 import { getHowManyActionPointsToMove } from "./components/Board/utils/movingUtils";
 import {
   getInitialUnitsState,
@@ -6,7 +8,11 @@ import {
 } from "./components/Board/utils/initializeUtils";
 
 import { BoardState, Unit } from "./types";
-import { getDeadBody, isUnitDead } from "./components/Board/utils/attackUtils";
+import {
+  getDeadBody,
+  isUnitDead,
+  getHowManyUnitsDied,
+} from "./components/Board/utils/attackUtils";
 
 const initialState: BoardState = {
   board: getInitialBoardState(),
@@ -70,7 +76,12 @@ export const gameSlice = createSlice({
       const attackerUnit = units.find(({ id }) => id === attackerID);
       const defenderUnit = units.find(({ id }) => id === defenderID);
       if (attackerUnit && defenderUnit) {
-        defenderUnit.healthPoints.current -= attackerUnit.attack;
+        const { unitsKilled, currentUnitHealthPoints } = getHowManyUnitsDied(
+          attacker,
+          defender
+        );
+        defenderUnit.healthPoints.current = currentUnitHealthPoints;
+        defenderUnit.count -= unitsKilled;
         if (isUnitDead(defenderUnit)) {
           units.splice(units.indexOf(defenderUnit), 1);
           state.deadUnits?.push(defenderUnit);

@@ -4,7 +4,7 @@ import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
   ADJACENT_COORDINATES,
-} from "../constants";
+} from "../constants/boardConstants";
 
 /** Get adjacent squares coordinates */
 export const getAdjacentSquaresCoordinates = (x: number, y: number) => {

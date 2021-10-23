@@ -65,7 +65,8 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     isReachable &&
     unitInSquare &&
     unitInSquare.owner !== activeUnit.owner &&
-    currentActionPoints > 0;
+    currentActionPoints > 0 &&
+    isOwnerOfActiveUnit;
 
   const handleClick = () => {
     if (isPossibleToMove)
@@ -96,6 +97,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
           unitType={unitType}
           healthPoints={unitInSquare?.healthPoints.current}
           actionPoints={hasActiveUnit ? currentActionPoints : undefined}
+          count={unitInSquare?.count}
         />
       )}
       {hasObstacle && <Obstacle obstacleType={obstacleType} />}

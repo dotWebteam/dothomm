@@ -6,6 +6,7 @@ import { UnitType } from "../../../types";
 interface IUnit {
   className?: string;
   unitType: UnitType;
+  count?: number;
   healthPoints?: number;
   actionPoints?: number;
 }
@@ -15,6 +16,7 @@ const Unit: FC<IUnit> = ({
   unitType,
   healthPoints,
   actionPoints,
+  count,
 }) => {
   return (
     <StyledWrapper>
@@ -26,6 +28,7 @@ const Unit: FC<IUnit> = ({
         {actionPoints && (
           <StyledActionPointsCounter>{actionPoints}</StyledActionPointsCounter>
         )}
+        {count && <StyledArmyCountCounter>{count}</StyledArmyCountCounter>}
       </StyledCounters>
     </StyledWrapper>
   );
@@ -49,6 +52,11 @@ const StyledHealthCounter = styled.div`
 
 const StyledActionPointsCounter = styled.div`
   background-color: yellow;
+  min-width: 30px;
+`;
+
+const StyledArmyCountCounter = styled.div`
+  background-color: blue;
   min-width: 30px;
 `;
 

@@ -7,7 +7,10 @@ import { RootState } from "../../../../store/store";
 import { nextTurn } from "../../boardSlice";
 
 import Square from "./components/Square";
-import { NUMBERS_OF_BOARD_ROWS, NUMBERS_OF_BOARD_COLUMNS } from "./constants";
+import {
+  NUMBERS_OF_BOARD_ROWS,
+  NUMBERS_OF_BOARD_COLUMNS,
+} from "./constants/boardConstants";
 
 const Board: FC = () => {
   const activeUser = useSelector((state: RootState) => state.game.activeUnit);

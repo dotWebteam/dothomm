@@ -1,4 +1,4 @@
-import { SquareState } from "../../types";
+import { SquareState } from "../../../types";
 
 export const NUMBERS_OF_BOARD_ROWS = 5;
 export const NUMBERS_OF_BOARD_COLUMNS = 8;

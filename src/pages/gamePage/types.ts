@@ -31,7 +31,11 @@ export type Unit = {
     x: number;
     y: number;
   };
-  attack: number;
+  attack: {
+    min: number;
+    max: number;
+  };
+  count: number;
   healthPoints: {
     max: number;
     current: number;
@@ -44,6 +48,11 @@ export type Unit = {
   owner: string;
   isDead: boolean;
 };
+
+export type UnitTemplate = Omit<
+  Unit,
+  "id" | "coordinates" | "isActive" | "owner" | "count"
+>;
 
 export interface BoardState {
   board: Array<Array<SquareState>>;
