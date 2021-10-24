@@ -4,7 +4,7 @@ import styled from "styled-components";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../store/store";
-import { nextTurn } from "../../boardSlice";
+import { endGame, nextTurn } from "../../boardSlice";
 
 import Square from "./components/Square";
 import {
@@ -43,13 +43,37 @@ const Board: FC = () => {
     }
   }, [activeUser]);
 
-  return <StyledWrapper>{boardState}</StyledWrapper>;
+  const myUnits = useSelector((state: RootState) =>
+    state.game.units.filter(({ owner }) => owner === state.user.nickname)
+  );
+
+  const myName = useSelector((state: RootState) => state.user.nickname);
+
+  const opponentUnits = useSelector((state: RootState) =>
+    state.game.units.filter(({ owner }) => owner !== state.user.nickname)
+  );
+
+  const opponentName = useSelector(
+    (state: RootState) => state.game.opponentName
+  );
+
+  useEffect(() => {
+    if (myUnits.length === 0) dispatch(endGame({ winnerName: opponentName }));
+    if (opponentUnits.length === 0) dispatch(endGame({ winnerName: myName }));
+  }, [myUnits, opponentUnits]);
+
+  const winner = useSelector((state: RootState) => state.game.winner);
+
+  return (
+    <StyledWrapper hasWinner={Boolean(winner)}>{boardState}</StyledWrapper>
+  );
 };
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<{ hasWinner?: boolean }>`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2px;
+  ${({ hasWinner }) => hasWinner && "pointer-events: none;"}
 `;
 
 const StyledSquare = styled(Square)`

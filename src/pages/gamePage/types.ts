@@ -52,7 +52,11 @@ export type Unit = {
 export type UnitTemplate = Omit<
   Unit,
   "id" | "coordinates" | "isActive" | "owner" | "count"
->;
+> & {
+  cost: number;
+};
+
+export type UnitTemplateWithCount = UnitTemplate & { count: number };
 
 export interface BoardState {
   board: Array<Array<SquareState>>;
@@ -60,4 +64,6 @@ export interface BoardState {
   activeUnit: Unit;
   deadUnits?: Array<Unit>;
   lastAction: string;
+  opponentName: string;
+  winner: string;
 }

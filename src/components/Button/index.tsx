@@ -8,17 +8,19 @@ import leatherBackground from "../../pictures/leatherBackground.png";
 
 interface IButton {
   to?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 const Button: FC<IButton> = (props: any) => {
-  const { to } = props;
-  if (to)
-    return (
-      <StyledLink to={to}>
-        <StyledButton {...props} />
-      </StyledLink>
-    );
-  return <StyledButton {...props} />;
+  const { to, onClick, disabled } = props;
+
+  const ButtonComponent = (
+    <StyledButton onClick={onClick} disabled={disabled} {...props} />
+  );
+
+  if (to) return <StyledLink to={to}>{ButtonComponent}</StyledLink>;
+  return ButtonComponent;
 };
 
 const StyledButton = styled.div`

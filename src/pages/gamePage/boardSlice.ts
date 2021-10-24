@@ -20,6 +20,8 @@ const initialState: BoardState = {
   activeUnit: getInitialUnitsState()[0],
   deadUnits: [],
   lastAction: "The battle has began!",
+  opponentName: "player",
+  winner: "",
 };
 
 export const gameSlice = createSlice({
@@ -99,9 +101,13 @@ export const gameSlice = createSlice({
         state.activeUnit.actionPoints.current -= 1;
       }
     },
+
+    endGame: (state, action: PayloadAction<{ winnerName: string }>) => {
+      state.winner = action.payload.winnerName;
+    },
   },
 });
 
-export const { moveToSquare, nextTurn, attack } = gameSlice.actions;
+export const { moveToSquare, nextTurn, attack, endGame } = gameSlice.actions;
 
 export default gameSlice.reducer;

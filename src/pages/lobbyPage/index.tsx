@@ -1,20 +1,36 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 
 import Button from "../../components/Button";
+
+import UnitsCollection from "./components/UnitsCollection";
 
 import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 import leatherBackground from "../../pictures/leatherBackground.png";
 import windowBorder from "../../pictures/windowBorders.png";
 
+import LIST_OF_UNITS from "../../constants/listOfUnits";
+import { UnitTemplateWithCount } from "../gamePage/types";
+import MyUnits from "./components/MyUnits";
+
 const LobbyPage: FC = () => {
+  const [money, setMoney] = useState<number>(500);
+
+  const [myUnits, setMyUnits] = useState<Array<UnitTemplateWithCount>>([]);
+
   return (
     <LobbyPageWrapper>
       <LoginContainer>
         <StyledTitle>Match Lobby</StyledTitle>
-        <StyledSubTitle>
-          Heroes of Might and Magic inspired webgame
-        </StyledSubTitle>
+        <StyledSubTitle>Number of available money: {money}</StyledSubTitle>
+        <StyledShopTitle>Buy units</StyledShopTitle>
+        <UnitsCollection
+          units={LIST_OF_UNITS}
+          setMoney={setMoney}
+          setMyUnits={setMyUnits}
+        />
+        <StyledMyTroopsTitle>My units</StyledMyTroopsTitle>
+        <MyUnits units={myUnits} setMoney={setMoney} setMyUnits={setMyUnits} />
         <Button to="/game"> Start the game! </Button>
       </LoginContainer>
     </LobbyPageWrapper>
@@ -58,6 +74,14 @@ const StyledButton = styled(Button)`
   :last-child {
     margin-left: 8px;
   }
+`;
+
+const StyledShopTitle = styled.span`
+  font-size: 40px;
+`;
+
+const StyledMyTroopsTitle = styled.span`
+  font-size: 40px;
 `;
 
 export default LobbyPage;
