@@ -1,12 +1,20 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { getUnitSpriteByName } from "../../../pictures/utils";
-import { UnitType } from "../../../types";
+import { UnitType,UnitSpecie } from "../../../types";
 
 interface IUnit {
   className?: string;
   unitType: UnitType;
+  UnitSpecie:UnitSpecie;
+  Tier:number;
   count?: number;
+  morale?: number;
+  attack:number;
+  defense:number;
+  criticalDmg:number;
+  percent:number;
+  Initiate?:number
   healthPoints?: number;
   actionPoints?: number;
 }
@@ -14,9 +22,18 @@ interface IUnit {
 const Unit: FC<IUnit> = ({
   className,
   unitType,
+  UnitSpecie,
+  Tier,
+  count,
+  morale,
+  attack,
+  defense,
+  criticalDmg,
+  percent,
   healthPoints,
   actionPoints,
-  count,
+  Initiate,
+  
 }) => {
   return (
     <StyledWrapper>
@@ -29,6 +46,9 @@ const Unit: FC<IUnit> = ({
           <StyledActionPointsCounter>{actionPoints}</StyledActionPointsCounter>
         )}
         {count && <StyledArmyCountCounter>{count}</StyledArmyCountCounter>}
+        {Initiate && (
+          <StyledInitiateCounter>{Initiate}</StyledInitiateCounter>
+        )}
       </StyledCounters>
     </StyledWrapper>
   );
@@ -54,7 +74,10 @@ const StyledActionPointsCounter = styled.div`
   background-color: yellow;
   min-width: 30px;
 `;
-
+const StyledInitiateCounter = styled.div`
+  background-color: black;
+  min-width: 30px;
+`;
 const StyledArmyCountCounter = styled.div`
   background-color: blue;
   min-width: 30px;

@@ -1,4 +1,5 @@
 import { SquareState, Unit } from "../../../types";
+import{MoraleChange} from "./movingUtils";
 import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
@@ -25,12 +26,6 @@ export const getInitialUnitsState: () => Unit[] = () => {
     criticalDmg: {
       percent: 1.25,
       chance: 0.1,
-    },
-    morale: {
-      morale: 0.5,
-      BattleBalance: 1,
-      friendlyTroops: 0,
-      nonFriendlyTroops: 0,
     },
     actionPoints: { max: 3, current: 3 },
     isActive: false,
@@ -59,12 +54,6 @@ export const getInitialUnitsState: () => Unit[] = () => {
       percent:1.25,
       chance:0.1,
     },
-    morale:{
-      morale:0.5,
-      BattleBalance:1,
-      friendlyTroops:0,
-      nonFriendlyTroops:0,
-    },
     actionPoints: { max: 3, current: 3 },
     isActive: false,
     isDead: false,
@@ -91,12 +80,6 @@ export const getInitialUnitsState: () => Unit[] = () => {
       percent: 1.5,
       chance: 0.25,
     },
-    morale: {
-      morale: 0.5,
-      BattleBalance: 1,
-      friendlyTroops: 0,
-      nonFriendlyTroops: 0,
-    },
     actionPoints: { max: 4, current: 4 },
     isActive: true,
     isDead: false,
@@ -107,7 +90,7 @@ export const getInitialUnitsState: () => Unit[] = () => {
     count: 2,
     owner: 1
   };
-  return [TEST_UNIT_1, TEST_UNIT_2, TEST_UNIT_3];
+  return MoraleChange([TEST_UNIT_1, TEST_UNIT_2, TEST_UNIT_3]);
 };
 
 /** Returns initial board state for game */

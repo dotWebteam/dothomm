@@ -59,7 +59,7 @@ export type Unit = {
     percent: number;
     chance:number;
   }
-  morale:{
+  morale?:{
     morale:number;
     BattleBalance:number;
     friendlyTroops:number;

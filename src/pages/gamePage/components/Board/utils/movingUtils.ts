@@ -1,11 +1,17 @@
 import { uniqWith } from "lodash";
+import Unit from "../components/Unit";
 
 import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
   ADJACENT_COORDINATES,
 } from "../constants/boardConstants";
-
+export const MoraleChange=(arr:Array<typeof Unit>):Array<typeof Unit> =>{
+  for(let i = 0;i<arr.length;i++) { 
+    arr[i].Tier*arr[i].count;
+ }
+  return arr;
+};
 /** Get adjacent squares coordinates */
 export const getAdjacentSquaresCoordinates = (x: number, y: number) => {
   return ADJACENT_COORDINATES.map(([adjX, adjY]) =>
@@ -75,3 +81,4 @@ export const getHowManyActionPointsToMove = (
   //диагональ =1,5 хода
   return (Math.min(xDiff,  yDiff)*1.5+(Math.max(xDiff,yDiff)-Math.min(xDiff , yDiff)));
 };
+
