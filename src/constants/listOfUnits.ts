@@ -31,7 +31,7 @@ export const SWORDSMAN: UnitTemplate = {
 };
 
 export const PEASANT: UnitTemplate = {
-  Tier:3,
+  Tier:1,
   UnitSpecie:"HUMAN",
   unitType: "PEASANT",
   attack: {

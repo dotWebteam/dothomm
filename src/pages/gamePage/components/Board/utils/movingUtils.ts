@@ -16,8 +16,9 @@ export const getAdjacentSquaresCoordinates = (x: number, y: number) => {
       ? [x + adjX, y + adjY]
       : []
   ).filter((el) => el.length > 0);
+//добавить обработку по диагонали
 };
-
+//nihuya ne ponyal no och intersno 
 /** Get adjacent squares coordinates considering available action points*/
 export const getAdjacentSquaresCoordinatesWithActionPoints = (
   x: number,
@@ -25,7 +26,7 @@ export const getAdjacentSquaresCoordinatesWithActionPoints = (
   actionPoints: number,
   arrOfAdjCoordinates: Array<Array<number>> = []
 ) => {
-  if (actionPoints <= 0) {
+  if (actionPoints <= 0.5) {
     return arrOfAdjCoordinates;
   }
   getAdjacentSquaresCoordinates(x, y).forEach(([adjX, adjY]) => {
@@ -34,7 +35,7 @@ export const getAdjacentSquaresCoordinatesWithActionPoints = (
     getAdjacentSquaresCoordinatesWithActionPoints(
       adjX,
       adjY,
-      actionPoints - 1,
+      actionPoints - getHowManyActionPointsToMove(x,y,adjX,adjY), //искренне надеюсь что здесь обработка движений
       arrOfAdjCoordinates
     );
   });
@@ -71,5 +72,6 @@ export const getHowManyActionPointsToMove = (
 ) => {
   const xDiff = Math.abs(prevX - nextX);
   const yDiff = Math.abs(prevY - nextY);
-  return Math.max(xDiff, yDiff);
+  //диагональ =1,5 хода
+  return (Math.min(xDiff,  yDiff)*1.5+(Math.max(xDiff,yDiff)-Math.min(xDiff , yDiff)));
 };

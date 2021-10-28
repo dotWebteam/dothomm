@@ -8,59 +8,104 @@ import {
 export const getInitialUnitsState: () => Unit[] = () => {
   const TEST_UNIT_1: Unit = {
     id: 1,
-    unitType: "SWORDSMAN",
+    Tier: 1,
+    UnitSpecie: "HUMAN",
+    unitType: "PEASANT",
     coordinates: { x: 0, y: 2 },
-    attack: { min: 2, max: 3 },
-    count: 2,
-    healthPoints: {
-      max: 5,
-      current: 5,
-    },
-    actionPoints: {
+    attack: {
+      attackPower: 4,
+      min: 1,
       max: 2,
-      current: 2,
     },
-    owner: "admin",
-    isActive: true,
+    healthPoints: {
+      max: 2,
+      current: 1,
+      defense: 1,
+    },
+    criticalDmg: {
+      percent: 1.25,
+      chance: 0.1,
+    },
+    morale: {
+      morale: 0.5,
+      BattleBalance: 1,
+      friendlyTroops: 0,
+      nonFriendlyTroops: 0,
+    },
+    actionPoints: { max: 3, current: 3 },
+    isActive: false,
     isDead: false,
+    count: 1,
+    owner: 1
   };
 
   const TEST_UNIT_2: Unit = {
     id: 2,
+    Tier:1,
+    UnitSpecie:"HUMAN",
     unitType: "PEASANT",
-    coordinates: { x: 0, y: 3 },
-    attack: { min: 2, max: 3 },
-    count: 100,
+    coordinates: { x: 0, y: 2 },
+    attack: {
+      attackPower:4,
+      min: 1,
+      max: 2,
+    },
     healthPoints: {
-      max: 1,
+      max: 2,
       current: 1,
+      defense:1,
     },
-    actionPoints: {
-      max: 1,
-      current: 1,
+    criticalDmg:{
+      percent:1.25,
+      chance:0.1,
     },
-    owner: "admin",
-    isActive: true,
+    morale:{
+      morale:0.5,
+      BattleBalance:1,
+      friendlyTroops:0,
+      nonFriendlyTroops:0,
+    },
+    actionPoints: { max: 3, current: 3 },
+    isActive: false,
     isDead: false,
+    count: 1,
+    owner: 1
   };
 
   const TEST_UNIT_3: Unit = {
     id: 3,
+    Tier: 3,
+    UnitSpecie: "HUMAN",
     unitType: "SWORDSMAN",
-    coordinates: { x: 0, y: 4 },
-    attack: { min: 2, max: 3 },
+    attack: {
+      attackPower: 9,
+      min: 7,
+      max: 9,
+    },
     healthPoints: {
-      max: 5,
-      current: 5,
+      max: 35,
+      current: 35,
+      defense: 15,
     },
-    count: 20,
-    actionPoints: {
-      max: 2,
-      current: 2,
+    criticalDmg: {
+      percent: 1.5,
+      chance: 0.25,
     },
-    owner: "player",
+    morale: {
+      morale: 0.5,
+      BattleBalance: 1,
+      friendlyTroops: 0,
+      nonFriendlyTroops: 0,
+    },
+    actionPoints: { max: 4, current: 4 },
     isActive: true,
     isDead: false,
+    coordinates: {
+      x: 0,
+      y: 0
+    },
+    count: 2,
+    owner: 1
   };
   return [TEST_UNIT_1, TEST_UNIT_2, TEST_UNIT_3];
 };
