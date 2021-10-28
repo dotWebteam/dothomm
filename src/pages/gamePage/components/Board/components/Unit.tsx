@@ -10,10 +10,10 @@ interface IUnit {
   Tier:number;
   count?: number;
   morale?: number;
-  attack:number;
-  defense:number;
-  criticalDmg:number;
-  percent:number;
+  attack?:number;
+  defense?:number;
+  criticalDmg?:number;
+  percent?:number;
   Initiate?:number
   healthPoints?: number;
   actionPoints?: number;

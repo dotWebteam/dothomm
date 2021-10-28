@@ -6,11 +6,18 @@ import {
   NUMBERS_OF_BOARD_COLUMNS,
   ADJACENT_COORDINATES,
 } from "../constants/boardConstants";
-export const MoraleChange=(arr:Array<typeof Unit>):Array<typeof Unit> =>{
+export const Balance=(arr:number[][]):number[] =>{
+  let id1=arr[0][3];
+  let balance1=0;
+  let balance2=0;
   for(let i = 0;i<arr.length;i++) { 
-    arr[i].Tier*arr[i].count;
+    if(arr[i][3]===id1){
+    balance1+=arr[i][1]*arr[i][2];
+    }else{
+      balance2+=arr[i][1]*arr[i][2];
+    }
  }
-  return arr;
+ return [balance1,balance2];
 };
 /** Get adjacent squares coordinates */
 export const getAdjacentSquaresCoordinates = (x: number, y: number) => {

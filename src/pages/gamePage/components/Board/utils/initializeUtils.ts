@@ -1,5 +1,5 @@
 import { SquareState, Unit } from "../../../types";
-import{MoraleChange} from "./movingUtils";
+import{Balance} from "./movingUtils";
 import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
@@ -7,7 +7,8 @@ import {
 
 /** Returns initial units state for game */
 export const getInitialUnitsState: () => Unit[] = () => {
-  const TEST_UNIT_1: Unit = {
+  const TEST_UNIT: Unit[] = [
+    const TEST_UNIT_2: Unit = {
     id: 1,
     Tier: 1,
     UnitSpecie: "HUMAN",
@@ -32,7 +33,7 @@ export const getInitialUnitsState: () => Unit[] = () => {
     isDead: false,
     count: 1,
     owner: 1
-  };
+  },
 
   const TEST_UNIT_2: Unit = {
     id: 2,
@@ -59,9 +60,9 @@ export const getInitialUnitsState: () => Unit[] = () => {
     isDead: false,
     count: 1,
     owner: 1
-  };
+  }
 
-  const TEST_UNIT_3: Unit = {
+  const TEST_UNIT_3: Unit = [{
     id: 3,
     Tier: 3,
     UnitSpecie: "HUMAN",
@@ -89,8 +90,13 @@ export const getInitialUnitsState: () => Unit[] = () => {
     },
     count: 2,
     owner: 1
-  };
-  return MoraleChange([TEST_UNIT_1, TEST_UNIT_2, TEST_UNIT_3]);
+  }];
+  let balance_unit1=0;
+  let balance_user2=0;
+  [balance_unit1,balance_user2]=Balance([[TEST_UNIT[0].Tier,TEST_UNIT[0].count,TEST_UNIT[0].owner], [TEST_UNIT[1].Tier,TEST_UNIT[1].count,TEST_UNIT[1].owner], [TEST_UNIT[2].Tier,TEST_UNIT[2].count,TEST_UNIT[2].owner]]);
+  let BattleBalance=balance_unit1/balance_user2;
+  //MoraleChange([TEST_UNIT_1,TEST_UNIT_2,TEST_UNIT_3]);
+  return [TEST_UNIT[0],TEST_UNIT[1],TEST_UNIT[2]];
 };
 
 /** Returns initial board state for game */
