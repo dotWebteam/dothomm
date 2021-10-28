@@ -46,6 +46,7 @@ export const gameSlice = createSlice({
         x: nextX,
         y: nextY,
       };
+      //
       state.activeUnit.actionPoints.current -= getHowManyActionPointsToMove(
         prevX,
         prevY,
@@ -58,7 +59,7 @@ export const gameSlice = createSlice({
       state.board[nextY][nextX].id = id;
       state.lastAction = `${movingUnit.unitType} is moving to coordinate ${nextX} ${nextY}`;
     },
-
+//
     nextTurn: (state, action: PayloadAction<{ activeUnit: Unit }>) => {
       const { id: prevActiveUserID } = action.payload.activeUnit;
       const { units } = state;
