@@ -1,11 +1,24 @@
 import { uniqWith } from "lodash";
+import Unit from "../components/Unit";
 
 import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
   ADJACENT_COORDINATES,
 } from "../constants/boardConstants";
-
+export const Balance=(arr:number[][]):number[] =>{
+  let id1=arr[0][3];
+  let balance1=0;
+  let balance2=0;
+  for(let i = 0;i<arr.length;i++) { 
+    if(arr[i][3]===id1){
+    balance1+=arr[i][1]*arr[i][2];
+    }else{
+      balance2+=arr[i][1]*arr[i][2];
+    }
+ }
+ return [balance1,balance2];
+};
 /** Get adjacent squares coordinates */
 export const getAdjacentSquaresCoordinates = (x: number, y: number) => {
   return ADJACENT_COORDINATES.map(([adjX, adjY]) =>
@@ -16,8 +29,9 @@ export const getAdjacentSquaresCoordinates = (x: number, y: number) => {
       ? [x + adjX, y + adjY]
       : []
   ).filter((el) => el.length > 0);
+//добавить обработку по диагонали
 };
-
+//nihuya ne ponyal no och intersno 
 /** Get adjacent squares coordinates considering available action points*/
 export const getAdjacentSquaresCoordinatesWithActionPoints = (
   x: number,
@@ -25,7 +39,7 @@ export const getAdjacentSquaresCoordinatesWithActionPoints = (
   actionPoints: number,
   arrOfAdjCoordinates: Array<Array<number>> = []
 ) => {
-  if (actionPoints <= 0) {
+  if (actionPoints <= 0.5) {
     return arrOfAdjCoordinates;
   }
   getAdjacentSquaresCoordinates(x, y).forEach(([adjX, adjY]) => {
@@ -34,7 +48,7 @@ export const getAdjacentSquaresCoordinatesWithActionPoints = (
     getAdjacentSquaresCoordinatesWithActionPoints(
       adjX,
       adjY,
-      actionPoints - 1,
+      actionPoints - getHowManyActionPointsToMove(x,y,adjX,adjY), //искренне надеюсь что здесь обработка движений
       arrOfAdjCoordinates
     );
   });
@@ -71,5 +85,7 @@ export const getHowManyActionPointsToMove = (
 ) => {
   const xDiff = Math.abs(prevX - nextX);
   const yDiff = Math.abs(prevY - nextY);
-  return Math.max(xDiff, yDiff);
+  //диагональ =1,5 хода
+  return (Math.min(xDiff,  yDiff)*1.5+(Math.max(xDiff,yDiff)-Math.min(xDiff , yDiff)));
 };
+
