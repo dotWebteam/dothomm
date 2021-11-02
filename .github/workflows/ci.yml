@@ -16,6 +16,7 @@ jobs:
         with:
           node-verison: "10.x"
       - run: npm install
+      - run: npm cache clean --force
       - run: npm run build
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@v1
