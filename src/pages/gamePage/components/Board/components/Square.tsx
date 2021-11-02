@@ -37,13 +37,15 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
 
-  const user = useSelector((state: RootState) => state.user);
-
   const dispatch = useDispatch();
+
+  const currentPlayerName = useSelector(
+    (state: RootState) => state.game.myName
+  );
 
   if (!activeUnit) return null; // TODO: Think and remove this
 
-  const isOwnerOfActiveUnit = user.nickname === activeUnit.owner;
+  const isOwnerOfActiveUnit = currentPlayerName === activeUnit.owner;
 
   const {
     id: activeUserID,
@@ -96,6 +98,8 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       className={className}
       onClick={handleClick}
     >
+      {isPossibleToMove}
+      {Boolean(isOwnerOfActiveUnit)}
       {hasUnit && (
         <Unit
           unitType={unitType}

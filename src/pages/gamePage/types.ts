@@ -64,8 +64,10 @@ export interface BoardState {
   activeUnit?: Unit;
   deadUnits?: Array<Unit>;
   lastAction: string;
+  myName: string;
   opponentName: string;
   winner: string;
+  isOnline: boolean;
 }
 
 export type BackgroundTypes = {

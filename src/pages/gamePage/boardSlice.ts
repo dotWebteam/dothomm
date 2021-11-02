@@ -16,8 +16,10 @@ const initialState: BoardState = {
   units: [],
   deadUnits: [],
   lastAction: "The battle has began!",
+  myName: "player 1", // TODO: Take it from user controller
   opponentName: "player 2",
   winner: "",
+  isOnline: false,
 };
 
 export const gameSlice = createSlice({
@@ -92,6 +94,9 @@ export const gameSlice = createSlice({
       const nextActiveUnitArrayPosition = (prevUnitIndex + 1) % units.length;
       const nextActiveUnit = units[nextActiveUnitArrayPosition];
       state.activeUnit = nextActiveUnit;
+      if (!state.isOnline && nextActiveUnit.owner !== state.myName) {
+        [state.opponentName, state.myName] = [state.myName, state.opponentName];
+      }
     },
 
     attack: (
@@ -133,12 +138,9 @@ export const gameSlice = createSlice({
     ) => {
       const { userName, opponentName } = action.payload;
       const units = partition(state.units, ({ owner }) => {
-        console.log("owner:", owner, "userName", userName);
-        console.log(owner === userName);
         return owner === userName;
       });
       const [myUnits, opponentUnits] = units;
-      console.log(units, state.units, myUnits, opponentUnits);
       if (state.activeUnit) {
         if (myUnits.length === 0) state.winner = opponentName;
         if (opponentUnits.length === 0) state.winner = userName;

@@ -38,14 +38,14 @@ const Board: FC = () => {
     }
   }, [activeUnit]);
 
+  const userName = useSelector((state: RootState) => state.game.myName);
+
   const myUnits = useSelector((state: RootState) =>
-    state.game.units.filter(({ owner }) => owner === state.user.nickname)
+    state.game.units.filter(({ owner }) => owner === userName)
   );
 
-  const userName = useSelector((state: RootState) => state.user.nickname);
-
   const opponentUnits = useSelector((state: RootState) =>
-    state.game.units.filter(({ owner }) => owner !== state.user.nickname)
+    state.game.units.filter(({ owner }) => owner !== userName)
   );
 
   const opponentName = useSelector(

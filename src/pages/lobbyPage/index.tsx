@@ -24,7 +24,7 @@ const LobbyPage: FC = () => {
 
   const dispatch = useDispatch();
 
-  const userName = useSelector((state: RootState) => state.user.nickname);
+  const userName = useSelector((state: RootState) => state.game.myName);
 
   const handleClick = () =>
     dispatch(
