@@ -17,7 +17,7 @@ const LoginPage: FC = () => {
         </StyledSubTitle>
         <ButtonSection>
           <StyledButton> Play online</StyledButton>
-          <StyledButton to="/lobby">Play offline mode (hotseat)</StyledButton>
+          <StyledButton to="/lobby">Play offline (hotseat)</StyledButton>
         </ButtonSection>
       </LoginContainer>
     </LoginPageWrapper>
