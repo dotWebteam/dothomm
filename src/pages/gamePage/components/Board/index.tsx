@@ -4,7 +4,7 @@ import styled from "styled-components";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../store/store";
-import { endGame, nextTurn } from "../../boardSlice";
+import { checkForWinner, nextTurn } from "../../boardSlice";
 
 import Square from "./components/Square";
 import {
@@ -13,7 +13,7 @@ import {
 } from "./constants/boardConstants";
 
 const Board: FC = () => {
-  const activeUser = useSelector((state: RootState) => state.game.activeUnit);
+  const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
   const [boardState, setBoardState] = useState<any>([]);
 
   const getSquares = () => {
@@ -32,16 +32,16 @@ const Board: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (activeUser && !activeUser?.actionPoints.current) {
-      dispatch(nextTurn({ activeUnit: activeUser }));
+    if (activeUnit && !activeUnit?.actionPoints.current) {
+      dispatch(nextTurn({ activeUnit: activeUnit }));
     }
-  }, [activeUser]);
+  }, [activeUnit]);
 
   const myUnits = useSelector((state: RootState) =>
     state.game.units.filter(({ owner }) => owner === state.user.nickname)
   );
 
-  const myName = useSelector((state: RootState) => state.user.nickname);
+  const userName = useSelector((state: RootState) => state.user.nickname);
 
   const opponentUnits = useSelector((state: RootState) =>
     state.game.units.filter(({ owner }) => owner !== state.user.nickname)
@@ -52,9 +52,8 @@ const Board: FC = () => {
   );
 
   useEffect(() => {
-    if (!activeUser) return;
-    if (myUnits.length === 0) dispatch(endGame({ winnerName: opponentName }));
-    if (opponentUnits.length === 0) dispatch(endGame({ winnerName: myName }));
+    if (myUnits.length === 0 || opponentUnits.length === 0)
+      dispatch(checkForWinner({ userName, opponentName }));
   }, [myUnits, opponentUnits]);
 
   const winner = useSelector((state: RootState) => state.game.winner);

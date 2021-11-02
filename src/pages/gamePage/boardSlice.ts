@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { random } from "lodash";
+import { partition, random } from "lodash";
 
 import { getHowManyActionPointsToMove } from "./components/Board/utils/movingUtils";
 import { getInitialBoardAndUnitsState } from "./components/Board/utils/initializeUtils";
@@ -16,7 +16,7 @@ const initialState: BoardState = {
   units: [],
   deadUnits: [],
   lastAction: "The battle has began!",
-  opponentName: "player",
+  opponentName: "player 2",
   winner: "",
 };
 
@@ -127,13 +127,27 @@ export const gameSlice = createSlice({
       }
     },
 
-    endGame: (state, action: PayloadAction<{ winnerName: string }>) => {
-      state.winner = action.payload.winnerName;
+    checkForWinner: (
+      state,
+      action: PayloadAction<{ userName: string; opponentName: string }>
+    ) => {
+      const { userName, opponentName } = action.payload;
+      const units = partition(state.units, ({ owner }) => {
+        console.log("owner:", owner, "userName", userName);
+        console.log(owner === userName);
+        return owner === userName;
+      });
+      const [myUnits, opponentUnits] = units;
+      console.log(units, state.units, myUnits, opponentUnits);
+      if (state.activeUnit) {
+        if (myUnits.length === 0) state.winner = opponentName;
+        if (opponentUnits.length === 0) state.winner = userName;
+      }
     },
   },
 });
 
-export const { initBoard, moveToSquare, nextTurn, attack, endGame } =
+export const { initBoard, moveToSquare, nextTurn, attack, checkForWinner } =
   gameSlice.actions;
 
 export default gameSlice.reducer;

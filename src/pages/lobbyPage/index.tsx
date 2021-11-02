@@ -5,8 +5,9 @@ import Button from "../../components/Button";
 
 import UnitsCollection from "./components/UnitsCollection";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initBoard } from "../gamePage/boardSlice";
+import { RootState } from "../../store/store";
 
 import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 import leatherBackground from "../../pictures/leatherBackground.png";
@@ -23,12 +24,14 @@ const LobbyPage: FC = () => {
 
   const dispatch = useDispatch();
 
+  const userName = useSelector((state: RootState) => state.user.nickname);
+
   const handleClick = () =>
     dispatch(
       initBoard({
         firstPlayerUnitTemplates: myUnits,
         secondPlayerUnitTemplates: myUnits,
-        userName: "player 1",
+        userName: userName,
         opponentName: "player 2",
       })
     );
