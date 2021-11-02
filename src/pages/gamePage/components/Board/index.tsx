@@ -11,6 +11,7 @@ import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
 } from "./constants/boardConstants";
+import { getBackgroundPictureByName } from "../../pictures/utils";
 
 const Board: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -64,6 +65,7 @@ const Board: FC = () => {
 };
 
 const StyledWrapper = styled.div<{ hasWinner?: boolean }>`
+  background: center / cover url(${getBackgroundPictureByName("BEACH")});
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2px;

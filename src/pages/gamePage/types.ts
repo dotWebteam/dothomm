@@ -67,3 +67,10 @@ export interface BoardState {
   opponentName: string;
   winner: string;
 }
+
+export type BackgroundTypes = {
+  BEACH: "BEACH";
+  BOAT: "BOAT";
+};
+
+export type BackgroundType = BackgroundTypes[keyof BackgroundTypes];

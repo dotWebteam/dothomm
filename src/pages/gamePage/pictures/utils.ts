@@ -9,7 +9,11 @@ import PeasantDeadBodyIcon from "./obstacles/deadBodies/PeasantDeadBody.png";
 // obstacles
 import StonesIcon from "./obstacles/Stones.png";
 
-import { UnitType, ObstacleType } from "../types";
+// backgrounds
+import BeachBackground from "./boardBackgrounds/CmBkBch.png";
+import BoatBackground from "./boardBackgrounds/CmBkBoat.png";
+
+import { UnitType, ObstacleType, BackgroundType } from "../types";
 
 /** Return unit sprite src by its name */
 export const getUnitSpriteByName = (unitname: UnitType) => {
@@ -38,5 +42,15 @@ export const getDeadBodySpriteByName = (deadBodyName: ObstacleType) => {
       return SwordsmanDeadBodyIcon;
     case "PEASANT":
       return PeasantDeadBodyIcon;
+  }
+};
+
+/** Return background picture src by its name */
+export const getBackgroundPictureByName = (picName: BackgroundType) => {
+  switch (picName) {
+    case "BEACH":
+      return BeachBackground;
+    case "BOAT":
+      return BoatBackground;
   }
 };

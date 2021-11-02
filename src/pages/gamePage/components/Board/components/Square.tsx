@@ -120,15 +120,15 @@ const StyledSquare = styled.div<{
   align-items: center;
   border: 1px solid ${({ hasActiveUnit }) => (hasActiveUnit ? "red" : "black")};
   ${({ isPossibleToMove }) =>
-    isPossibleToMove && "background-color: LightGreen;"}
+    isPossibleToMove && "background-color: #90ee9026;"}
   width: 50px;
   height: 50px;
   :hover {
-    background-color: Gainsboro;
+    border: 1px solid red;
     ${({ isPossibleToAttack }) =>
       isPossibleToAttack && `cursor: url(${attackCursor}), auto;`}
     ${({ isPossibleToMove }) =>
-      isPossibleToMove && `cursor: url(${moveCursor}), auto;`}
+      isPossibleToMove && `cursor: url(${moveCursor}), auto;`};
   }
 `;
 
