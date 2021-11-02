@@ -8,114 +8,13 @@ import {
   SECOND_PLAYER_POSSIBLE_INITIAL_COORDINATES,
 } from "../constants/boardConstants";
 
-/** Returns initial units state for game */
-export const getInitialUnitsState: () => Unit[] = () => {
-  const TEST_UNIT_1: Unit = {
-    id: 1,
-    unitType: "SWORDSMAN",
-    coordinates: { x: 0, y: 2 },
-    attack: { min: 2, max: 3 },
-    count: 2,
-    healthPoints: {
-      max: 5,
-      current: 5,
-    },
-    actionPoints: {
-      max: 2,
-      current: 2,
-    },
-    owner: "admin",
-    isActive: true,
-    isDead: false,
-  };
-
-  const TEST_UNIT_2: Unit = {
-    id: 2,
-    unitType: "PEASANT",
-    coordinates: { x: 0, y: 3 },
-    attack: { min: 2, max: 3 },
-    count: 100,
-    healthPoints: {
-      max: 1,
-      current: 1,
-    },
-    actionPoints: {
-      max: 1,
-      current: 1,
-    },
-    owner: "admin",
-    isActive: true,
-    isDead: false,
-  };
-
-  const TEST_UNIT_3: Unit = {
-    id: 3,
-    unitType: "SWORDSMAN",
-    coordinates: { x: 0, y: 4 },
-    attack: { min: 2, max: 3 },
-    healthPoints: {
-      max: 5,
-      current: 5,
-    },
-    count: 20,
-    actionPoints: {
-      max: 2,
-      current: 2,
-    },
-    owner: "player",
-    isActive: true,
-    isDead: false,
-  };
-  return [TEST_UNIT_1, TEST_UNIT_2, TEST_UNIT_3];
-};
-
-/** Returns initial board state for game */
-export const getInitialBoardState: () => Array<Array<SquareState>> = () => {
-  return [
-    [{ type: "unit", id: 3, unitType: "PEASANT" }, {}, {}, {}, {}, {}, {}, {}],
-    [
-      { type: "unit", id: 3, unitType: "PEASANT" },
-      {},
-      {},
-      {},
-      {},
-      {},
-      { type: "obstacle", id: 1, obstacleType: "STONES" },
-      {},
-    ],
-    [
-      { type: "unit", id: 1, unitType: "SWORDSMAN" },
-      {},
-      {},
-      {},
-      { type: "obstacle", id: 1, obstacleType: "STONES" },
-      {},
-      {},
-      {},
-    ],
-    [{ type: "unit", id: 2, unitType: "PEASANT" }, {}, {}, {}, {}, {}, {}, {}],
-    [
-      { type: "unit", id: 3, unitType: "SWORDSMAN" },
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-    ],
-  ];
-};
-
-/** Returns initial board and units synchronized state for game */
-
-export const getInitialBoardAndUnitsState = (
-  firstPlayerUnitTemplates: Array<UnitTemplateWithCount>,
-  secondPlayerUnitTemplates: Array<UnitTemplateWithCount>,
+/** Setting the owners and unique indexes */
+const getUnitsForPlayersWithOwnerAndId = (
+  firstPlayerUnitTemplates: UnitTemplateWithCount[],
+  secondPlayerUnitTemplates: UnitTemplateWithCount[],
   firstPlayer: string,
   secondPlayer: string
 ) => {
-  // Setting the owners and unique indexes
   const firstPlayerUnits = firstPlayerUnitTemplates.map(
     (UnitTemplate, index) => {
       return { ...UnitTemplate, owner: firstPlayer, id: index };
@@ -127,8 +26,14 @@ export const getInitialBoardAndUnitsState = (
       return { ...UnitTemplate, owner: secondPlayer, id: offset + index };
     }
   );
+  return { firstPlayerUnits, secondPlayerUnits };
+};
 
-  // Setting coordinates by random (TODO: set coordinates manually by players)
+/** Setting coordinates by random (TODO: set coordinates manually by players) */
+const getUnitsWithRandomCoordinates = (
+  firstPlayerUnits: Omit<Unit, "coordinates" | "isActive">[],
+  secondPlayerUnits: Omit<Unit, "coordinates" | "isActive">[]
+) => {
   let firstPlayerPossibleInitialCoordinates = shuffle(
     FIRST_PLAYER_POSSIBLE_INITIAL_COORDINATES
   );
@@ -161,8 +66,15 @@ export const getInitialBoardAndUnitsState = (
     };
   });
 
-  // Sorting units by actionPoints and adding isActive flag
-  const unitsArray = firstPlayerUnitsWithCoordinates
+  return { firstPlayerUnitsWithCoordinates, secondPlayerUnitsWithCoordinates };
+};
+
+/** Sorting units by actionPoints and adding isActive flag */
+const getUnitsArrayFromTwoPlayersArraysWithCoordiates = (
+  firstPlayerUnitsWithCoordinates: Omit<Unit, "isActive">[],
+  secondPlayerUnitsWithCoordinates: Omit<Unit, "isActive">[]
+) => {
+  return firstPlayerUnitsWithCoordinates
     .concat(secondPlayerUnitsWithCoordinates)
     .sort(
       (firstEl, secondEl) =>
@@ -171,8 +83,10 @@ export const getInitialBoardAndUnitsState = (
     .map((unit, index) =>
       index === 0 ? { ...unit, isActive: true } : { ...unit, isActive: false }
     );
+};
 
-  // Setting initial units on board state
+/** Setting initial units on board state */
+const getInitialBoardState = (unitsArray: Unit[]) => {
   let board = [
     [{}, {}, {}, {}, {}, {}, {}, {}],
     [{}, {}, {}, {}, {}, {}, {}, {}],
@@ -192,6 +106,38 @@ export const getInitialBoardAndUnitsState = (
         : {};
     })
   );
+  return board;
+};
 
-  return { units: unitsArray, board: board, activeUnit: unitsArray[0] };
+/** Returns initial board and units synchronized state for game */
+export const getInitialBoardAndUnitsState = (
+  firstPlayerUnitTemplates: Array<UnitTemplateWithCount>,
+  secondPlayerUnitTemplates: Array<UnitTemplateWithCount>,
+  firstPlayer: string,
+  secondPlayer: string
+) => {
+  // Setting the owners and unique indexes
+  const { firstPlayerUnits, secondPlayerUnits } =
+    getUnitsForPlayersWithOwnerAndId(
+      firstPlayerUnitTemplates,
+      secondPlayerUnitTemplates,
+      firstPlayer,
+      secondPlayer
+    );
+
+  // Setting coordinates by random (TODO: set coordinates manually by players)
+  const { firstPlayerUnitsWithCoordinates, secondPlayerUnitsWithCoordinates } =
+    getUnitsWithRandomCoordinates(firstPlayerUnits, secondPlayerUnits);
+
+  // Sorting units by actionPoints and adding isActive flag
+  const unitsArray = getUnitsArrayFromTwoPlayersArraysWithCoordiates(
+    firstPlayerUnitsWithCoordinates,
+    secondPlayerUnitsWithCoordinates
+  );
+
+  return {
+    units: unitsArray,
+    board: getInitialBoardState(unitsArray),
+    activeUnit: unitsArray[0],
+  };
 };
