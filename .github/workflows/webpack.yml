@@ -1,34 +1,27 @@
-name: CI/CD
-
+name: CI and CD
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    branches:
+      - main
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-    
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Install
-      run: |
-        npm install
-        npx webpack
-    - name: Build
-      run: npm run build
-      env:
-        CI: false
-    - name: Deploy
-      run: npm run deploy
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set-up Node
+        uses: actions/setup-node@v1
+        with:
+          node-verison: "10.x"
+      - run: npm install
+      - run: npm cache clean --force
+      - run: npm run build
+        env:
+          CI: false
+      - name: Deploy
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target-branch: gh-pages
+          build-dir: build
+        env:
+          CI: false
