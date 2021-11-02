@@ -26,4 +26,4 @@ jobs:
           build-dir: build
         env:
           CI: false
-          GITHUB_TOKEN: ${{ secrets.MY_SECRET}}
+          GITHUB_TOKEN: ${{ secrets.MY_SECRET || github.token}}
