@@ -25,4 +25,5 @@ jobs:
           build_dir: build
         env:
           CI: false
+          GH_PAT: ${{ secrets.dotblackjack }}
           GITHUB_TOKEN: ${{ secrets.MY_SECRET }}
