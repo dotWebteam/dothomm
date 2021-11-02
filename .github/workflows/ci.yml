@@ -25,4 +25,5 @@ jobs:
           target-branch: gh-pages
           build-dir: build
         env:
+          CI: false
           GITHUB_TOKEN: ${{ secrets.MY_SECRET}}
