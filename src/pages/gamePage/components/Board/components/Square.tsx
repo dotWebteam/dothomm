@@ -39,6 +39,10 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const user = useSelector((state: RootState) => state.user);
 
+  const dispatch = useDispatch();
+
+  if (!activeUnit) return null; // TODO: Think and remove this
+
   const isOwnerOfActiveUnit = user.nickname === activeUnit.owner;
 
   const {
@@ -48,8 +52,6 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
   } = activeUnit;
 
   const hasActiveUnit = prevX === x && prevY === y;
-
-  const dispatch = useDispatch();
 
   const isReachable = isAdjacentCoordinateWithActionPoints(
     prevX,

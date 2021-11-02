@@ -1,7 +1,11 @@
-import { SquareState, Unit } from "../../../types";
+import { random, shuffle } from "lodash";
+
+import { SquareState, Unit, UnitTemplateWithCount } from "../../../types";
 import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
+  FIRST_PLAYER_POSSIBLE_INITIAL_COORDINATES,
+  SECOND_PLAYER_POSSIBLE_INITIAL_COORDINATES,
 } from "../constants/boardConstants";
 
 /** Returns initial units state for game */
@@ -101,4 +105,93 @@ export const getInitialBoardState: () => Array<Array<SquareState>> = () => {
       {},
     ],
   ];
+};
+
+/** Returns initial board and units synchronized state for game */
+
+export const getInitialBoardAndUnitsState = (
+  firstPlayerUnitTemplates: Array<UnitTemplateWithCount>,
+  secondPlayerUnitTemplates: Array<UnitTemplateWithCount>,
+  firstPlayer: string,
+  secondPlayer: string
+) => {
+  // Setting the owners and unique indexes
+  const firstPlayerUnits = firstPlayerUnitTemplates.map(
+    (UnitTemplate, index) => {
+      return { ...UnitTemplate, owner: firstPlayer, id: index };
+    }
+  );
+  const offset = firstPlayerUnitTemplates.length;
+  const secondPlayerUnits = secondPlayerUnitTemplates.map(
+    (UnitTemplate, index) => {
+      return { ...UnitTemplate, owner: secondPlayer, id: offset + index };
+    }
+  );
+
+  // Setting coordinates by random (TODO: set coordinates manually by players)
+  let firstPlayerPossibleInitialCoordinates = shuffle(
+    FIRST_PLAYER_POSSIBLE_INITIAL_COORDINATES
+  );
+
+  const firstPlayerUnitsWithCoordinates = firstPlayerUnits.map((unit) => {
+    const coordinates = firstPlayerPossibleInitialCoordinates.pop();
+    if (!coordinates)
+      throw new Error(
+        "The number of available coordinates for the first player is less than the number of its units!"
+      );
+    return {
+      ...unit,
+      coordinates: coordinates,
+    };
+  });
+
+  let secondPlayerPossibleInitialCoordinates = shuffle(
+    SECOND_PLAYER_POSSIBLE_INITIAL_COORDINATES
+  );
+
+  const secondPlayerUnitsWithCoordinates = secondPlayerUnits.map((unit) => {
+    const coordinates = secondPlayerPossibleInitialCoordinates.pop();
+    if (!coordinates)
+      throw new Error(
+        "The number of available coordinates for the second player is less than the number of its units!"
+      );
+    return {
+      ...unit,
+      coordinates: coordinates,
+    };
+  });
+
+  // Sorting units by actionPoints and adding isActive flag
+  const unitsArray = firstPlayerUnitsWithCoordinates
+    .concat(secondPlayerUnitsWithCoordinates)
+    .sort(
+      (firstEl, secondEl) =>
+        firstEl.actionPoints.max - secondEl.actionPoints.max
+    )
+    .map((unit, index) =>
+      index === 0 ? { ...unit, isActive: true } : { ...unit, isActive: false }
+    );
+
+  // Setting initial units on board state
+  let board = [
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+  ];
+  unitsArray.forEach(({ coordinates: { x, y }, unitType, id }) => {
+    board[y][x] = { type: "unit", unitType, id };
+  });
+
+  // Add random obstacles to board
+  board.forEach((row) =>
+    row.forEach((square) => {
+      square = Boolean(random())
+        ? { type: "obstacle", id: 1, obstacleType: "STONES" }
+        : {};
+    })
+  );
+
+  return { units: unitsArray, board: board, activeUnit: unitsArray[0] };
 };

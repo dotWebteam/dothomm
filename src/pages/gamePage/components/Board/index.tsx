@@ -29,16 +29,10 @@ const Board: FC = () => {
     setBoardState(getSquares());
   }, []);
 
-  const {
-    id: activeUserID,
-    coordinates: { x: prevX, y: prevY },
-    actionPoints: { max, current: currentActionPoints },
-  } = activeUser;
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!currentActionPoints) {
+    if (activeUser && !activeUser?.actionPoints.current) {
       dispatch(nextTurn({ activeUnit: activeUser }));
     }
   }, [activeUser]);
@@ -58,6 +52,7 @@ const Board: FC = () => {
   );
 
   useEffect(() => {
+    if (!activeUser) return;
     if (myUnits.length === 0) dispatch(endGame({ winnerName: opponentName }));
     if (opponentUnits.length === 0) dispatch(endGame({ winnerName: myName }));
   }, [myUnits, opponentUnits]);

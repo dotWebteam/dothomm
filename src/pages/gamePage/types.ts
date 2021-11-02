@@ -61,7 +61,7 @@ export type UnitTemplateWithCount = UnitTemplate & { count: number };
 export interface BoardState {
   board: Array<Array<SquareState>>;
   units: Array<Unit>;
-  activeUnit: Unit;
+  activeUnit?: Unit;
   deadUnits?: Array<Unit>;
   lastAction: string;
   opponentName: string;

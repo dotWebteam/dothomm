@@ -5,6 +5,9 @@ import Button from "../../components/Button";
 
 import UnitsCollection from "./components/UnitsCollection";
 
+import { useDispatch } from "react-redux";
+import { initBoard } from "../gamePage/boardSlice";
+
 import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 import leatherBackground from "../../pictures/leatherBackground.png";
 import windowBorder from "../../pictures/windowBorders.png";
@@ -17,6 +20,18 @@ const LobbyPage: FC = () => {
   const [money, setMoney] = useState<number>(500);
 
   const [myUnits, setMyUnits] = useState<Array<UnitTemplateWithCount>>([]);
+
+  const dispatch = useDispatch();
+
+  const handleClick = () =>
+    dispatch(
+      initBoard({
+        firstPlayerUnitTemplates: myUnits,
+        secondPlayerUnitTemplates: myUnits,
+        userName: "player 1",
+        opponentName: "player 2",
+      })
+    );
 
   return (
     <LobbyPageWrapper>
@@ -31,7 +46,10 @@ const LobbyPage: FC = () => {
         />
         <StyledMyTroopsTitle>My units</StyledMyTroopsTitle>
         <MyUnits units={myUnits} setMoney={setMoney} setMyUnits={setMyUnits} />
-        <Button to="/game"> Start the game! </Button>
+        <Button onClick={handleClick} to="/game">
+          {" "}
+          Start the game!{" "}
+        </Button>
       </LoginContainer>
     </LobbyPageWrapper>
   );

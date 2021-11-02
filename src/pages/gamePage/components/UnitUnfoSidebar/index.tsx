@@ -5,7 +5,7 @@ import { RootState } from "../../../../store/store";
 
 const UnitInfoSidebar: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
-  return (
+  return activeUnit ? (
     <div>
       <div>Unit name: {capitalize(activeUnit.unitType)}</div>
       <div>
@@ -15,7 +15,7 @@ const UnitInfoSidebar: FC = () => {
       <div>Unit's count: {activeUnit.count}</div>
       <div>Owner: {activeUnit.owner}</div>
     </div>
-  );
+  ) : null;
 };
 
 export default UnitInfoSidebar;

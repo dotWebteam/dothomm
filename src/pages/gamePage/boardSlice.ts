@@ -2,12 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { random } from "lodash";
 
 import { getHowManyActionPointsToMove } from "./components/Board/utils/movingUtils";
-import {
-  getInitialUnitsState,
-  getInitialBoardState,
-} from "./components/Board/utils/initializeUtils";
+import { getInitialBoardAndUnitsState } from "./components/Board/utils/initializeUtils";
 
-import { BoardState, Unit } from "./types";
+import { BoardState, Unit, UnitTemplateWithCount } from "./types";
 import {
   getDeadBody,
   isUnitDead,
@@ -15,9 +12,8 @@ import {
 } from "./components/Board/utils/attackUtils";
 
 const initialState: BoardState = {
-  board: getInitialBoardState(),
-  units: getInitialUnitsState(),
-  activeUnit: getInitialUnitsState()[0],
+  board: [],
+  units: [],
   deadUnits: [],
   lastAction: "The battle has began!",
   opponentName: "player",
@@ -28,6 +24,33 @@ export const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
+    initBoard: (
+      state,
+      action: PayloadAction<{
+        firstPlayerUnitTemplates: Array<UnitTemplateWithCount>;
+        secondPlayerUnitTemplates: Array<UnitTemplateWithCount>;
+        userName: string;
+        opponentName: string;
+      }>
+    ) => {
+      const {
+        firstPlayerUnitTemplates,
+        secondPlayerUnitTemplates,
+        opponentName,
+        userName,
+      } = action.payload;
+      state.opponentName = opponentName;
+      const { units, board, activeUnit } = getInitialBoardAndUnitsState(
+        firstPlayerUnitTemplates,
+        secondPlayerUnitTemplates,
+        userName,
+        opponentName
+      );
+      state.units = units;
+      state.board = board;
+      state.activeUnit = activeUnit;
+    },
+
     moveToSquare: (
       state,
       action: PayloadAction<{
@@ -38,6 +61,7 @@ export const gameSlice = createSlice({
         id: number;
       }>
     ) => {
+      if (!state.activeUnit) throw Error("No active unit found!"); // TODO: Move this checking logic somewhere
       const { prevX, prevY, nextX, nextY, id } = action.payload;
       const { units } = state;
       const unitIndex = units.findIndex(({ id: currID }) => currID === id);
@@ -74,6 +98,7 @@ export const gameSlice = createSlice({
       state,
       action: PayloadAction<{ attacker: Unit; defender: Unit }>
     ) => {
+      if (!state.activeUnit) throw Error("No active unit found!"); // TODO: Move this checking logic somewhere
       const { attacker, defender } = action.payload;
       const { id: attackerID } = attacker;
       const { id: defenderID } = defender;
@@ -108,6 +133,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { moveToSquare, nextTurn, attack, endGame } = gameSlice.actions;
+export const { initBoard, moveToSquare, nextTurn, attack, endGame } =
+  gameSlice.actions;
 
 export default gameSlice.reducer;
