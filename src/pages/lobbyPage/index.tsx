@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import styled from "styled-components";
 
 import Button from "../../components/Button";
+import Modal from "../../components/Modal";
 
 import UnitsCollection from "./components/UnitsCollection";
 
@@ -66,7 +67,7 @@ const StyledSubTitle = styled.span``;
 
 const LobbyPageWrapper = styled.div`
   display: flex;
-  background: url(${loginLobbyBackground});
+  background: center / cover url(${loginLobbyBackground});
   height: 100vh;
   display: flex;
   justify-content: center;

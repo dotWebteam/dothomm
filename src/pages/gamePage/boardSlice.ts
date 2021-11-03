@@ -51,6 +51,7 @@ export const gameSlice = createSlice({
       state.units = units;
       state.board = board;
       state.activeUnit = activeUnit;
+      state.winner = "";
     },
 
     moveToSquare: (

@@ -32,7 +32,7 @@ const StyledSubTitle = styled.span``;
 
 const LoginPageWrapper = styled.div`
   display: flex;
-  background: url(${loginLobbyBackground});
+  background: center / cover url(${loginLobbyBackground});
   height: 100vh;
   display: flex;
   justify-content: center;

@@ -12,6 +12,11 @@ import {
   NUMBERS_OF_BOARD_COLUMNS,
 } from "./constants/boardConstants";
 import { getBackgroundPictureByName } from "../../pictures/utils";
+import Modal from "../../../../components/Modal";
+
+import leatherBackground from "../../../../pictures/leatherBackground.png";
+import windowBorder from "../../../../pictures/windowBorders.png";
+import Button from "../../../../components/Button";
 
 const Board: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -60,9 +65,33 @@ const Board: FC = () => {
   const winner = useSelector((state: RootState) => state.game.winner);
 
   return (
-    <StyledWrapper hasWinner={Boolean(winner)}>{boardState}</StyledWrapper>
+    <>
+      {winner ? (
+        <Modal>
+          <StyledModalWindow>
+            The winner is {winner}
+            <Button isOk to="/lobby" />
+          </StyledModalWindow>
+        </Modal>
+      ) : null}
+      <StyledWrapper hasWinner={Boolean(winner)}>{boardState}</StyledWrapper>
+    </>
   );
 };
+
+const StyledModalWindow = styled.div`
+  min-height: 80px;
+  min-width: 150px;
+  background: url(${leatherBackground});
+  padding: 40px;
+  background-color: #2d1d0f;
+  border: 1px solid #ad8e42;
+  border-image: url(${windowBorder}) 40 / 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const StyledWrapper = styled.div<{ hasWinner?: boolean }>`
   background: center / cover url(${getBackgroundPictureByName("BEACH")});
