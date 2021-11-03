@@ -101,6 +101,7 @@ const StyledModalWindow = styled.div`
 
 const StyledWrapper = styled.div<{ hasWinner?: boolean }>`
   padding: 20px;
+  border: 1px solid #ffe98c;
   background: center / cover url(${getBackgroundPictureByName("BEACH")});
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
