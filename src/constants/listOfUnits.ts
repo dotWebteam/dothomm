@@ -10,7 +10,7 @@ export const SWORDSMAN: UnitTemplate = {
     max: 35,
     current: 35,
   },
-  actionPoints: { max: 3, current: 3 }, // Action Points MUST NOT BE MORE THAN 3 since my algorythm is too slow to do that kind of recursion ;(
+  actionPoints: { max: 5, current: 5 }, // Action Points MUST NOT BE MORE THAN 3 since my algorythm is too slow to do that kind of recursion ;(
   cost: 300,
   isDead: false,
 };
@@ -25,7 +25,7 @@ export const PEASANT: UnitTemplate = {
     max: 1,
     current: 1,
   },
-  actionPoints: { max: 1, current: 1 },
+  actionPoints: { max: 3, current: 3 },
   cost: 10,
   isDead: false,
 };

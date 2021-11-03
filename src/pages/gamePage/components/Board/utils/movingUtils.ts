@@ -1,5 +1,3 @@
-import { uniqWith } from "lodash";
-
 import {
   NUMBERS_OF_BOARD_ROWS,
   NUMBERS_OF_BOARD_COLUMNS,
@@ -22,26 +20,17 @@ export const getAdjacentSquaresCoordinates = (x: number, y: number) => {
 export const getAdjacentSquaresCoordinatesWithActionPoints = (
   x: number,
   y: number,
-  actionPoints: number,
-  arrOfAdjCoordinates: Array<Array<number>> = []
+  actionPoints: number
 ) => {
-  if (actionPoints <= 0) {
-    return arrOfAdjCoordinates;
-  }
-  getAdjacentSquaresCoordinates(x, y).forEach(([adjX, adjY]) => {
-    arrOfAdjCoordinates.push([adjX, adjY]);
-
-    getAdjacentSquaresCoordinatesWithActionPoints(
-      adjX,
-      adjY,
-      actionPoints - 1,
-      arrOfAdjCoordinates
-    );
-  });
-  return uniqWith(
-    arrOfAdjCoordinates,
-    ([firstX, firstY], [secondX, secondY]) =>
-      firstX === secondX && firstY === secondY
+  let arrOfAdjCoordinates: Array<Array<number>> = [];
+  for (let i = -actionPoints; i <= actionPoints; ++i)
+    for (let j = -actionPoints; j <= actionPoints; ++j) {
+      arrOfAdjCoordinates.push([x + i, y + j]);
+    }
+  return arrOfAdjCoordinates.filter(
+    (coordinates) =>
+      coordinates[0] < NUMBERS_OF_BOARD_COLUMNS &&
+      coordinates[1] < NUMBERS_OF_BOARD_ROWS
   );
 };
 
