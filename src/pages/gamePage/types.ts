@@ -1,6 +1,7 @@
 type UnitTypes = {
   HERO: "SWORDSMAN";
   PEASANT: "PEASANT";
+  PIKEMAN: "PIKEMAN";
 };
 
 export type UnitType = UnitTypes[keyof UnitTypes];
@@ -8,6 +9,7 @@ export type UnitType = UnitTypes[keyof UnitTypes];
 export type DeadBodyTypes = {
   DEAD_BODY_HERO: "DEAD_BODY_SWORDSMAN";
   DEAD_BODY_PEASANT: "DEAD_BODY_PEASANT";
+  DEAD_BODY_PIKEMAN: "DEAD_BODY_PIKEMAN";
 };
 
 type ObstacleTypes = DeadBodyTypes & {

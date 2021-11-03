@@ -101,6 +101,7 @@ export const gameSlice = createSlice({
       state.activeUnit = nextActiveUnit;
       if (!state.isOnline && nextActiveUnit.owner !== state.myName) {
         [state.opponentName, state.myName] = [state.myName, state.opponentName];
+        state.lastAction = `The turn goes to ${state.opponentName}`;
       }
     },
 

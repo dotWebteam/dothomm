@@ -1,14 +1,17 @@
 // units
 import PeasantIcon from "./units/Peasant.png";
 import SwordsmanIcon from "./units/Swordsman.png";
+import PikemanIcon from "./units/Pikeman.png";
 
 // unit icons
 import swordsmanSmallIcon from "./unitIcons/swordsman.png";
 import peasantSmallIcon from "./unitIcons/peasant.png";
+import pikemanSmallIcon from "./unitIcons/pikeman.png";
 
 // dead bodies
 import SwordsmanDeadBodyIcon from "./obstacles/deadBodies/SwordsmanDeadBody.png";
 import PeasantDeadBodyIcon from "./obstacles/deadBodies/PeasantDeadBody.png";
+import PikemanDeadBodyIcon from "./obstacles/deadBodies/PikemanDeadBody.png";
 
 // obstacles
 import StonesIcon from "./obstacles/Stones.png";
@@ -24,6 +27,8 @@ export const getUnitSpriteByName = (unitname: UnitType) => {
   switch (unitname) {
     case "SWORDSMAN":
       return SwordsmanIcon;
+    case "PIKEMAN":
+      return PikemanIcon;
     case "PEASANT":
       return PeasantIcon;
   }
@@ -44,6 +49,8 @@ export const getDeadBodySpriteByName = (deadBodyName: ObstacleType) => {
   switch (deadBodyName.replace("DEAD_BODY_", "")) {
     case "SWORDSMAN":
       return SwordsmanDeadBodyIcon;
+    case "PIKEMAN":
+      return PikemanDeadBodyIcon;
     case "PEASANT":
       return PeasantDeadBodyIcon;
   }
@@ -54,6 +61,8 @@ export const getUnitIconByName = (unitName: UnitType) => {
   switch (unitName) {
     case "SWORDSMAN":
       return swordsmanSmallIcon;
+    case "PIKEMAN":
+      return pikemanSmallIcon;
     case "PEASANT":
       return peasantSmallIcon;
   }

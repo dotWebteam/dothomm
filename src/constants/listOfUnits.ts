@@ -15,6 +15,21 @@ export const SWORDSMAN: UnitTemplate = {
   isDead: false,
 };
 
+export const PIKEMAN: UnitTemplate = {
+  unitType: "PIKEMAN",
+  attack: {
+    min: 1,
+    max: 3,
+  },
+  healthPoints: {
+    max: 10,
+    current: 10,
+  },
+  actionPoints: { max: 4, current: 4 },
+  cost: 60,
+  isDead: false,
+};
+
 export const PEASANT: UnitTemplate = {
   unitType: "PEASANT",
   attack: {
@@ -30,6 +45,6 @@ export const PEASANT: UnitTemplate = {
   isDead: false,
 };
 
-const LIST_OF_UNITS = [SWORDSMAN, PEASANT];
+const LIST_OF_UNITS = [SWORDSMAN, PIKEMAN, PEASANT];
 
 export default LIST_OF_UNITS;
