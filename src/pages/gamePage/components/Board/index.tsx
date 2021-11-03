@@ -17,6 +17,7 @@ import Modal from "../../../../components/Modal";
 import leatherBackground from "../../../../pictures/leatherBackground.png";
 import windowBorder from "../../../../pictures/windowBorders.png";
 import Button from "../../../../components/Button";
+import UnitInfoSidebar from "./components/UnitInfoSidebar";
 
 const Board: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -65,7 +66,7 @@ const Board: FC = () => {
   const winner = useSelector((state: RootState) => state.game.winner);
 
   return (
-    <>
+    <StyledBoardContainer>
       {winner ? (
         <Modal>
           <StyledModalWindow>
@@ -75,9 +76,14 @@ const Board: FC = () => {
         </Modal>
       ) : null}
       <StyledWrapper hasWinner={Boolean(winner)}>{boardState}</StyledWrapper>
-    </>
+      <UnitInfoSidebar />
+    </StyledBoardContainer>
   );
 };
+
+const StyledBoardContainer = styled.div`
+  display: flex;
+`;
 
 const StyledModalWindow = styled.div`
   min-height: 80px;
@@ -94,7 +100,8 @@ const StyledModalWindow = styled.div`
 `;
 
 const StyledWrapper = styled.div<{ hasWinner?: boolean }>`
-  background: center / cover url(${getBackgroundPictureByName("BEACH")});
+  padding: 20px;
+  background: center / cover url(${getBackgroundPictureByName("BOAT")});
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2px;

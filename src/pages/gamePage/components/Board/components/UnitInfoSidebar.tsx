@@ -2,8 +2,11 @@ import { FC } from "react";
 import styled from "styled-components";
 import { capitalize } from "lodash";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
-import { getUnitIconByName } from "../../pictures/utils";
+import { RootState } from "../../../../../store/store";
+import { getUnitIconByName } from "../../../pictures/utils";
+
+import marbleBackground from "../../../../pictures/marbleBackground.png";
+import marbleBorder from "../../../../pictures/marbleBorder.png";
 
 const UnitInfoSidebar: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -30,10 +33,15 @@ const UnitInfoSidebar: FC = () => {
   );
 };
 
-const StyledImg = styled.img``;
+const StyledImg = styled.img`
+  width: 80px;
+`;
 
 const StyledUnitInfoSidebar = styled.div`
-  width: 200px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 export default UnitInfoSidebar;

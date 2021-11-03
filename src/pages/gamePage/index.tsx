@@ -1,12 +1,14 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Redirect, Route } from "react-router";
+import { Redirect } from "react-router";
 import { RootState } from "../../store/store";
 
 import Board from "./components/Board";
 import Footer from "./components/Footer";
-import UnitInfoSidebar from "./components/UnitUnfoSidebar";
+
+import leatherBackground from "../../pictures/leatherBackground.png";
+import marbleBackground from "../../pictures/marbleBackground.png";
 
 const GamePage: FC = () => {
   const board = useSelector((state: RootState) => state.game.board);
@@ -16,11 +18,12 @@ const GamePage: FC = () => {
         <Redirect to="/ " />
       ) : (
         <GamePageWrapper>
-          <UnitInfoSidebar />
-          <StyledMainContainer>
-            <Board />
-            <Footer />
-          </StyledMainContainer>
+          <GamePageContainer>
+            <StyledMainContainer>
+              <Board />
+              <Footer />
+            </StyledMainContainer>
+          </GamePageContainer>
         </GamePageWrapper>
       )}
     </>
@@ -29,8 +32,23 @@ const GamePage: FC = () => {
 
 const GamePageWrapper = styled.div`
   display: flex;
+
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: url(${marbleBackground});
 `;
 
-const StyledMainContainer = styled.div``;
+const GamePageContainer = styled.div`
+  display: flex;
+  padding: 20px;
+  border: 1px solid #ffe98c;
+  background: url(${leatherBackground});
+`;
+
+const StyledMainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export default GamePage;
