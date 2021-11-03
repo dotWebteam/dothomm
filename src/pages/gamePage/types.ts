@@ -79,3 +79,9 @@ export type BackgroundTypes = {
 };
 
 export type BackgroundType = BackgroundTypes[keyof BackgroundTypes];
+
+export type HeroesTypes = {
+  ORRIN: "ORRIN";
+};
+
+export type HeroType = HeroesTypes[keyof HeroesTypes];

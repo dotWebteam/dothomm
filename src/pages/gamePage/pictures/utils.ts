@@ -20,7 +20,10 @@ import StonesIcon from "./obstacles/Stones.png";
 import BeachBackground from "./boardBackgrounds/CmBkBch.png";
 import BoatBackground from "./boardBackgrounds/CmBkBoat.png";
 
-import { UnitType, ObstacleType, BackgroundType } from "../types";
+// heroes portraits
+import OrrinPortrait from "./heroes/portraits/Orrin.png";
+
+import { UnitType, ObstacleType, BackgroundType, HeroType } from "../types";
 
 /** Return unit sprite src by its name */
 export const getUnitSpriteByName = (unitname: UnitType) => {
@@ -75,5 +78,13 @@ export const getBackgroundPictureByName = (picName: BackgroundType) => {
       return BeachBackground;
     case "BOAT":
       return BoatBackground;
+  }
+};
+
+/** Return hero portrait picture src by its name */
+export const getHeroPortraitPictureByName = (heroName: HeroType) => {
+  switch (heroName) {
+    case "ORRIN":
+      return OrrinPortrait;
   }
 };
