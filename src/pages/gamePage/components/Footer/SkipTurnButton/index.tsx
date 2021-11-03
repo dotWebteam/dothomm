@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "../../../../../components/Button";
 import { RootState } from "../../../../../store/store";
 import { nextTurn } from "../../../boardSlice";
+import clockIcon from "../../../../../pictures/clock.png";
 
 const SkipTurnButton: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -11,7 +12,11 @@ const SkipTurnButton: FC = () => {
   const handleClick = () => {
     activeUnit && dispatch(nextTurn({ activeUnit }));
   };
-  return <Button onClick={handleClick}>Skip turn</Button>;
+  return (
+    <Button onClick={handleClick}>
+      <img src={clockIcon} />
+    </Button>
+  );
 };
 
 export default SkipTurnButton;

@@ -28,7 +28,7 @@ const Unit: FC<IUnit> = ({
   setMyUnits,
   money,
 }) => {
-  const [unitsCount, setUnitsCount] = useState<number>(0);
+  const [unitsCount, setUnitsCount] = useState<number>(1);
 
   const handleClick = () => {
     if (unitsCount <= 0 || money - cost * unitsCount < 0) return null;
