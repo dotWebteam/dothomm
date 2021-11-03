@@ -47,11 +47,12 @@ export type Unit = {
   isActive: boolean;
   owner: string;
   isDead: boolean;
+  viewDirection: string; // TODO: union instead of string - troubles in initializeUtils
 };
 
 export type UnitTemplate = Omit<
   Unit,
-  "id" | "coordinates" | "isActive" | "owner" | "count"
+  "id" | "coordinates" | "isActive" | "owner" | "count" | "viewDirection"
 > & {
   cost: number;
 };

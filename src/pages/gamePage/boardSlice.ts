@@ -52,6 +52,10 @@ export const gameSlice = createSlice({
       state.board = board;
       state.activeUnit = activeUnit;
       state.winner = "";
+      state.lastAction = "The battle has began!";
+      state.deadUnits = [];
+      state.myName = "player 1"; // TODO: replace this with something
+      state.opponentName = "player 2"; // TODO: replace this with something
     },
 
     moveToSquare: (
@@ -147,10 +151,20 @@ export const gameSlice = createSlice({
         if (opponentUnits.length === 0) state.winner = userName;
       }
     },
+
+    concede: (state) => {
+      state.winner = state.opponentName;
+    },
   },
 });
 
-export const { initBoard, moveToSquare, nextTurn, attack, checkForWinner } =
-  gameSlice.actions;
+export const {
+  initBoard,
+  moveToSquare,
+  nextTurn,
+  attack,
+  checkForWinner,
+  concede,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

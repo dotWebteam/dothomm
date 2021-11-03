@@ -5,7 +5,7 @@ import Button from "../../../../../components/Button";
 import { RootState } from "../../../../../store/store";
 import { nextTurn } from "../../../boardSlice";
 
-const SkipTurn: FC = () => {
+const SkipTurnButton: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -14,4 +14,4 @@ const SkipTurn: FC = () => {
   return <Button onClick={handleClick}>Skip turn</Button>;
 };
 
-export default SkipTurn;
+export default SkipTurnButton;

@@ -9,6 +9,7 @@ interface IUnit {
   count?: number;
   healthPoints?: number;
   actionPoints?: number;
+  viewDirection?: string;
 }
 
 const Unit: FC<IUnit> = ({
@@ -17,10 +18,15 @@ const Unit: FC<IUnit> = ({
   healthPoints,
   actionPoints,
   count,
+  viewDirection,
 }) => {
   return (
     <StyledWrapper>
-      <StyledImg className={className} src={getUnitSpriteByName(unitType)} />
+      <StyledImg
+        lookLeft={viewDirection === "left"}
+        className={className}
+        src={getUnitSpriteByName(unitType)}
+      />
       <StyledCounters>
         {healthPoints && (
           <StyledHealthCounter>{healthPoints}</StyledHealthCounter>
@@ -41,7 +47,8 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledImg = styled.img`
+const StyledImg = styled.img<{ lookLeft: boolean }>`
+  ${({ lookLeft }) => lookLeft && "transform: scaleX(-1);"}
   max-height: 100px;
 `;
 

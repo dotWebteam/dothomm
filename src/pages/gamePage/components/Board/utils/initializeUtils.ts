@@ -8,7 +8,7 @@ import {
   SECOND_PLAYER_POSSIBLE_INITIAL_COORDINATES,
 } from "../constants/boardConstants";
 
-/** Setting the owners and unique indexes */
+/** Setting the owners and unique indexes and directions of view */
 const getUnitsForPlayersWithOwnerAndId = (
   firstPlayerUnitTemplates: UnitTemplateWithCount[],
   secondPlayerUnitTemplates: UnitTemplateWithCount[],
@@ -17,13 +17,23 @@ const getUnitsForPlayersWithOwnerAndId = (
 ) => {
   const firstPlayerUnits = firstPlayerUnitTemplates.map(
     (UnitTemplate, index) => {
-      return { ...UnitTemplate, owner: firstPlayer, id: index };
+      return {
+        ...UnitTemplate,
+        owner: firstPlayer,
+        id: index,
+        viewDirection: "right",
+      };
     }
   );
   const offset = firstPlayerUnitTemplates.length;
   const secondPlayerUnits = secondPlayerUnitTemplates.map(
     (UnitTemplate, index) => {
-      return { ...UnitTemplate, owner: secondPlayer, id: offset + index };
+      return {
+        ...UnitTemplate,
+        owner: secondPlayer,
+        id: offset + index,
+        viewDirection: "left",
+      };
     }
   );
   return { firstPlayerUnits, secondPlayerUnits };

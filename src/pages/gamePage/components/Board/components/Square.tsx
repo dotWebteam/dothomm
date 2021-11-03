@@ -98,14 +98,13 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       className={className}
       onClick={handleClick}
     >
-      {isPossibleToMove}
-      {Boolean(isOwnerOfActiveUnit)}
       {hasUnit && (
         <Unit
           unitType={unitType}
           healthPoints={unitInSquare?.healthPoints.current}
           actionPoints={hasActiveUnit ? currentActionPoints : undefined}
           count={unitInSquare?.count}
+          viewDirection={unitInSquare?.viewDirection}
         />
       )}
       {hasObstacle && <Obstacle obstacleType={obstacleType} />}
