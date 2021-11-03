@@ -50,7 +50,11 @@ const LobbyPage: FC = () => {
         />
         <StyledMyTroopsTitle>My units</StyledMyTroopsTitle>
         <MyUnits units={myUnits} setMoney={setMoney} setMyUnits={setMyUnits} />
-        <Button onClick={handleClick} to="/game">
+        <Button
+          disabled={myUnits.length > 5 || myUnits.length <= 0}
+          onClick={handleClick}
+          to="/game"
+        >
           {" "}
           Start the game!{" "}
         </Button>

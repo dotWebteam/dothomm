@@ -24,7 +24,12 @@ const Button: FC<IButton> = (props) => {
     <StyledButton onClick={onClick} disabled={disabled} {...props} />
   );
 
-  if (to) return <StyledLink to={to}>{ButtonComponent}</StyledLink>;
+  if (to)
+    return (
+      <StyledLink disabled={disabled} to={to}>
+        {ButtonComponent}
+      </StyledLink>
+    );
   return ButtonComponent;
 };
 
@@ -56,7 +61,8 @@ const StyledOKButton = styled.div`
   box-shadow: 4px 4px 8px 0px rgba(47, 23, 0, 0.68);
 `;
 
-const StyledButton = styled.div`
+const StyledButton = styled.div<{ disabled?: boolean }>`
+  ${({ disabled }) => disabled && "pointer-events: none;"}
   background: url(${buttonBackground});
   padding: 10px 20px;
   background-color: #2d1d0f;
@@ -83,7 +89,8 @@ const StyledButton = styled.div`
   box-shadow: 4px 4px 8px 0px rgba(47, 23, 0, 0.68);
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<{ disabled?: boolean }>`
+  ${({ disabled }) => disabled && "pointer-events: none;"}
   text-decoration: none;
   color: #ffe98c;
   text-shadow: 2px 2px 0 #000;
