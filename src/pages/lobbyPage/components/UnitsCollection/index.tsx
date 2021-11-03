@@ -14,6 +14,7 @@ interface IUnitsCollection {
   setMoney: Dispatch<SetStateAction<number>>;
   setMyUnits: Dispatch<SetStateAction<UnitTemplateWithCount[]>>;
   className?: string;
+  money: number;
 }
 
 const BuyUnitsCollection: FC<IUnitsCollection> = ({
@@ -21,11 +22,13 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
   className,
   setMoney,
   setMyUnits,
+  money,
 }) => {
   return (
     <StyledUnitsCollection className={className}>
       {units?.map((unit) => (
         <UnitComponent
+          money={money}
           unit={unit}
           setMoney={setMoney}
           setMyUnits={setMyUnits}

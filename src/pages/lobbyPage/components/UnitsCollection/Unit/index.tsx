@@ -1,6 +1,8 @@
 import { FC, SetStateAction, Dispatch, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../../../components/Button";
+import Input from "../../../../../components/Input";
+import { getUnitIconByName } from "../../../../gamePage/pictures/utils";
 import {
   UnitTemplate,
   UnitTemplateWithCount,
@@ -8,6 +10,7 @@ import {
 
 interface IUnit {
   unit: UnitTemplate;
+  money: number;
   setMoney: Dispatch<SetStateAction<number>>;
   setMyUnits: Dispatch<SetStateAction<UnitTemplateWithCount[]>>;
 }
@@ -23,10 +26,12 @@ const Unit: FC<IUnit> = ({
   unit,
   setMoney,
   setMyUnits,
+  money,
 }) => {
   const [unitsCount, setUnitsCount] = useState<number>(0);
 
   const handleClick = () => {
+    if (unitsCount <= 0 || money - cost * unitsCount < 0) return null;
     setMoney((prevState) => prevState - cost * unitsCount);
     const addedUnit = { ...unit, count: unitsCount };
     setMyUnits((prevState) => [...prevState, addedUnit]);
@@ -34,19 +39,21 @@ const Unit: FC<IUnit> = ({
 
   return (
     <StyledUnitWrapper>
-      <StyledUnitName>Name: {unitType}</StyledUnitName>
+      <img src={getUnitIconByName(unitType)} />
+      <StyledUnitName>{unitType}</StyledUnitName>
+      <StyledCharachteristic>AP: {maxActionPoints}</StyledCharachteristic>
       <StyledCharachteristic>
-        Max action points for turn: {maxActionPoints}
-      </StyledCharachteristic>
-      <StyledCharachteristic>
-        Attack:{" "}
+        Atk:{" "}
         {minAttack === maxAttack ? minAttack : `${minAttack} - ${maxAttack}`}
       </StyledCharachteristic>
-      <StyledCharachteristic>
-        Health points per 1 unit: {maxHealthPoints}
-      </StyledCharachteristic>
-      <StyledCharachteristic>Cost per 1 unit: {cost}</StyledCharachteristic>
-      <input
+      <StyledCharachteristic>HP: {maxHealthPoints}</StyledCharachteristic>
+      <StyledCharachteristic>Cost: {cost}</StyledCharachteristic>
+      <Input
+        type="range"
+        value={unitsCount}
+        onChange={(e) => setUnitsCount(Number(e.target.value))}
+      />
+      <Input
         type="number"
         value={unitsCount}
         onChange={(e) => setUnitsCount(Number(e.target.value))}
@@ -61,6 +68,7 @@ const StyledImg = styled.img`
 `;
 
 const StyledUnitWrapper = styled.div`
+  width: 100px;
   display: flex;
   flex-direction: column;
   flex: 1;

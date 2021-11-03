@@ -1,6 +1,7 @@
 import { FC, SetStateAction, Dispatch, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../../../components/Button";
+import { getUnitIconByName } from "../../../../gamePage/pictures/utils";
 import { UnitTemplateWithCount } from "../../../../gamePage/types";
 
 interface IUnit {
@@ -25,37 +26,36 @@ const Unit: FC<IUnit> = ({
   const [unitsCount, setUnitsCount] = useState<number>(count);
 
   const handleClick = () => {
-    // setMoney((prevState) => prevState + cost * unitsCount);
-    // setMyUnits((prevState) => prevState.map((unit) => unit.filter));
+    setMoney((prevState) => prevState + cost * unitsCount);
+    setMyUnits((prevState) => {
+      let wasFound = false;
+      return prevState.filter(({ count, unitType: currentUnitType }) => {
+        if (count === unitsCount && unitType === currentUnitType && !wasFound) {
+          wasFound = true;
+          return false;
+        }
+        return true;
+      });
+    });
   };
 
   return (
     <StyledUnitWrapper>
-      <StyledUnitName>Name: {unitType}</StyledUnitName>
-      <StyledCharachteristic>
-        Max action points for turn: {maxActionPoints}
-      </StyledCharachteristic>
-      <StyledCharachteristic>
-        Attack:{" "}
-        {minAttack === maxAttack ? minAttack : `${minAttack} - ${maxAttack}`}
-      </StyledCharachteristic>
-      <StyledCharachteristic>
-        Health points per 1 unit: {maxHealthPoints}
-      </StyledCharachteristic>
-      <StyledCharachteristic>Cost per 1 unit: {cost}</StyledCharachteristic>
-      <StyledCharachteristic>
-        Total cost: {cost * unitsCount}
-      </StyledCharachteristic>
-      <StyledCharachteristic>Total amount: {count}</StyledCharachteristic>
-      <Button onClick={handleClick} disabled>
-        Sell
-      </Button>
+      <StyledIconWrapper>
+        <StyledImg src={getUnitIconByName(unitType)} />
+        <StyledCount> {count}</StyledCount>
+      </StyledIconWrapper>
+      <Button onClick={handleClick}>Sell</Button>
     </StyledUnitWrapper>
   );
 };
 
+const StyledIconWrapper = styled.div`
+  transform: scale(1);
+`;
+
 const StyledImg = styled.img`
-  max-height: 100px;
+  width: 100%;
 `;
 
 const StyledUnitWrapper = styled.div`
@@ -69,8 +69,11 @@ const StyledUnitWrapper = styled.div`
   }
 `;
 
-const StyledUnitName = styled.span``;
-
-const StyledCharachteristic = styled.span``;
+const StyledCount = styled.span`
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  color: white;
+`;
 
 export default Unit;

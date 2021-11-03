@@ -19,7 +19,7 @@ import { UnitTemplateWithCount } from "../gamePage/types";
 import MyUnits from "./components/MyUnits";
 
 const LobbyPage: FC = () => {
-  const [money, setMoney] = useState<number>(500);
+  const [money, setMoney] = useState<number>(5000);
 
   const [myUnits, setMyUnits] = useState<Array<UnitTemplateWithCount>>([]);
 
@@ -44,6 +44,7 @@ const LobbyPage: FC = () => {
         <StyledSubTitle>Number of available money: {money}</StyledSubTitle>
         <StyledShopTitle>Buy units</StyledShopTitle>
         <UnitsCollection
+          money={money}
           units={LIST_OF_UNITS}
           setMoney={setMoney}
           setMyUnits={setMyUnits}

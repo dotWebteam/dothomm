@@ -2,6 +2,10 @@
 import PeasantIcon from "./units/Peasant.png";
 import SwordsmanIcon from "./units/Swordsman.png";
 
+// unit icons
+import swordsmanSmallIcon from "./unitIcons/swordsman.png";
+import peasantSmallIcon from "./unitIcons/peasant.png";
+
 // dead bodies
 import SwordsmanDeadBodyIcon from "./obstacles/deadBodies/SwordsmanDeadBody.png";
 import PeasantDeadBodyIcon from "./obstacles/deadBodies/PeasantDeadBody.png";
@@ -42,6 +46,16 @@ export const getDeadBodySpriteByName = (deadBodyName: ObstacleType) => {
       return SwordsmanDeadBodyIcon;
     case "PEASANT":
       return PeasantDeadBodyIcon;
+  }
+};
+
+/** Return unit icon src by its name */
+export const getUnitIconByName = (unitName: UnitType) => {
+  switch (unitName) {
+    case "SWORDSMAN":
+      return swordsmanSmallIcon;
+    case "PEASANT":
+      return peasantSmallIcon;
   }
 };
 
