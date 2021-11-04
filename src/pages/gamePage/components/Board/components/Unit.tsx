@@ -3,11 +3,13 @@ import styled from "styled-components";
 import { getUnitSpriteByName } from "../../../pictures/utils";
 import { UnitType } from "../../../types";
 
+type IHealthPoints = { max: number; current: number };
+
 interface IUnit {
   className?: string;
   unitType: UnitType;
   count?: number;
-  healthPoints?: number;
+  healthPoints?: IHealthPoints;
   actionPoints?: number;
   viewDirection?: string;
 }
@@ -20,6 +22,7 @@ const Unit: FC<IUnit> = ({
   count,
   viewDirection,
 }) => {
+  if (healthPoints) console.log(healthPoints.current);
   return (
     <StyledWrapper>
       <StyledImg
@@ -27,7 +30,12 @@ const Unit: FC<IUnit> = ({
         className={className}
         src={getUnitSpriteByName(unitType)}
       />
-      {count && <StyledArmyCountCounter>{count}</StyledArmyCountCounter>}
+      {healthPoints && (
+        <HealthBar>
+          <HealthLine value={healthPoints} />
+        </HealthBar>
+      )}
+      <StyledArmyCountCounter>{count}</StyledArmyCountCounter>
       {/* <StyledCounters>
         {healthPoints && (
           <StyledHealthCounter>{healthPoints}</StyledHealthCounter>
@@ -60,11 +68,25 @@ const StyledArmyCountCounter = styled.div`
     rgba(144, 13, 163, 1) 0%,
     rgba(57, 9, 121, 1) 100%
   );
-  margin-top: 5px;
   min-width: 40px;
   display: flex;
   justify-content: center;
   border: 2px solid #ffe98c;
+`;
+
+const HealthBar = styled.div`
+  border: 2px solid #ffe98c;
+  border-bottom: none;
+  margin-top: 5px;
+  background: black;
+  height: 4px;
+  width: 40px;
+`;
+
+const HealthLine = styled.div<{ value: IHealthPoints }>`
+  background: red;
+  height: 4px;
+  width: ${({ value }) => Math.round((value.current * 40) / value.max)}px;
 `;
 
 // const StyledHealthCounter = styled.div`

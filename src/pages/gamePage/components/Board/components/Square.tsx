@@ -101,7 +101,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       {hasUnit && (
         <Unit
           unitType={unitType}
-          healthPoints={unitInSquare?.healthPoints.current}
+          healthPoints={unitInSquare?.healthPoints}
           actionPoints={hasActiveUnit ? currentActionPoints : undefined}
           count={unitInSquare?.count}
           viewDirection={unitInSquare?.viewDirection}
