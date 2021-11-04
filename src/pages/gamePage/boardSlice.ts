@@ -54,6 +54,7 @@ export const gameSlice = createSlice({
       state.winner = "";
       state.lastAction = "The battle has began!";
       state.deadUnits = [];
+      console.log("sdfds");
       state.myName = "player 1"; // TODO: replace this with something
       state.opponentName = "player 2"; // TODO: replace this with something
     },

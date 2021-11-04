@@ -111,7 +111,7 @@ const getInitialBoardState = (unitsArray: Unit[]) => {
   // Add random obstacles to board
   board.forEach((row) =>
     row.forEach((square) => {
-      square = Boolean(random())
+      square = random()
         ? { type: "obstacle", id: 1, obstacleType: "STONES" }
         : {};
     })

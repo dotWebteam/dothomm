@@ -14,8 +14,9 @@ interface IMyUnits {
 const MyUnits: FC<IMyUnits> = ({ units, setMoney, setMyUnits }) => {
   return (
     <StyledMyUnits>
-      {units?.map((unit) => (
+      {units?.map((unit, index) => (
         <UnitComponent
+          key={index}
           unit={unit}
           setMoney={setMoney}
           setMyUnits={setMyUnits}

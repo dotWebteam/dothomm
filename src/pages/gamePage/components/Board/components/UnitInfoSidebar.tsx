@@ -30,10 +30,10 @@ const InfoSidebar: FC = () => {
         <StyledImg src={getUnitIconByName(unitType)} />
         <div>Unit name: {capitalize(activeUnit.unitType)}</div>
         <div>
-          Unit's attack: {minAttack} - {maxAttack}
+          Unit attack: {minAttack} - {maxAttack}
         </div>
-        <div>Unit's action points: {currentActionPoints}</div>
-        <div>Unit's count: {unitCount}</div>
+        <div>Unit action points: {currentActionPoints}</div>
+        <div>Unit count: {unitCount}</div>
         <div>Owner: {unitOwner}</div>
       </StyledUnitInfo>
     </StyledInfoSidebar>
