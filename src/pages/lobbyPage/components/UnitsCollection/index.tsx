@@ -26,8 +26,9 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
 }) => {
   return (
     <StyledUnitsCollection className={className}>
-      {units?.map((unit) => (
+      {units?.map((unit, index) => (
         <UnitComponent
+          key={index}
           money={money}
           unit={unit}
           setMoney={setMoney}
