@@ -82,6 +82,7 @@ export type BackgroundType = BackgroundTypes[keyof BackgroundTypes];
 
 export type HeroesTypes = {
   ORRIN: "ORRIN";
+  ADELAIDE: "ADELAIDE";
 };
 
 export type HeroType = HeroesTypes[keyof HeroesTypes];

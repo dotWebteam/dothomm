@@ -15,6 +15,7 @@ interface IUnitsCollection {
   setMyUnits: Dispatch<SetStateAction<UnitTemplateWithCount[]>>;
   className?: string;
   money: number;
+  totalUnits: Array<UnitTemplate>;
 }
 
 const BuyUnitsCollection: FC<IUnitsCollection> = ({
@@ -23,6 +24,7 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
   setMoney,
   setMyUnits,
   money,
+  totalUnits,
 }) => {
   return (
     <StyledUnitsCollection className={className}>
@@ -33,6 +35,7 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
           unit={unit}
           setMoney={setMoney}
           setMyUnits={setMyUnits}
+          totalUnits={totalUnits}
         />
       ))}
     </StyledUnitsCollection>
@@ -41,7 +44,17 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
 
 const StyledUnitsCollection = styled.div`
   display: flex;
+  flex-direction: column;
+  height: 278px;
   overflow-y: auto;
+  ::-webkit-scrollbar-track {
+    display: none;
+  }
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
 
 export default BuyUnitsCollection;

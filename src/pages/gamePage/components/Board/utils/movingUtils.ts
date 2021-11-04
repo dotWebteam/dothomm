@@ -22,7 +22,7 @@ export const getAdjacentSquaresCoordinatesWithActionPoints = (
   y: number,
   actionPoints: number
 ) => {
-  let arrOfAdjCoordinates: Array<Array<number>> = [];
+  const arrOfAdjCoordinates: Array<Array<number>> = [];
   for (let i = -actionPoints; i <= actionPoints; ++i)
     for (let j = -actionPoints; j <= actionPoints; ++j) {
       arrOfAdjCoordinates.push([x + i, y + j]);

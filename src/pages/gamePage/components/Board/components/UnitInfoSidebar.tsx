@@ -7,6 +7,7 @@ import {
   getHeroPortraitPictureByName,
   getUnitIconByName,
 } from "../../../pictures/utils";
+import { PLAYERS } from "../../../../../constants/players";
 
 const InfoSidebar: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -16,14 +17,14 @@ const InfoSidebar: FC = () => {
     unitType,
     actionPoints: { current: currentActionPoints },
     attack: { max: maxAttack, min: minAttack },
-    healthPoints: { max: maxHealthPoints },
     count: unitCount,
     owner: unitOwner,
   } = activeUnit;
+  const portraitName = unitOwner === PLAYERS[0] ? "ORRIN" : "ADELAIDE";
   return (
     <StyledInfoSidebar>
       <StyledPlayerInfo>
-        <StyledImg src={getHeroPortraitPictureByName("ORRIN")} />
+        <StyledImg src={getHeroPortraitPictureByName(portraitName)} />
         <div>{capitalize(activePlayer)}</div>
       </StyledPlayerInfo>
       <StyledUnitInfo>

@@ -22,6 +22,7 @@ import BoatBackground from "./boardBackgrounds/CmBkBoat.png";
 
 // heroes portraits
 import OrrinPortrait from "./heroes/portraits/Orrin.png";
+import AdelaidePortrait from "./heroes/portraits/Adelaide.png";
 
 import { UnitType, ObstacleType, BackgroundType, HeroType } from "../types";
 
@@ -86,5 +87,7 @@ export const getHeroPortraitPictureByName = (heroName: HeroType) => {
   switch (heroName) {
     case "ORRIN":
       return OrrinPortrait;
+    case "ADELAIDE":
+      return AdelaidePortrait;
   }
 };

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import defaultCursor from "../../pictures/cursor/defaultCursor.png";
 
-import leatherBackground from "../../pictures/leatherBackground.png";
 import buttonBackground from "../../pictures/buttons/buttonBackground.png";
 import okButton from "../../pictures/buttons/okButton.png";
 

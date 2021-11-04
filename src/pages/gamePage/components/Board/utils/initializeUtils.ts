@@ -1,4 +1,4 @@
-import { random, shuffle } from "lodash";
+import { isEmpty, random, shuffle } from "lodash";
 
 import { SquareState, Unit, UnitTemplateWithCount } from "../../../types";
 import {
@@ -44,7 +44,7 @@ const getUnitsWithRandomCoordinates = (
   firstPlayerUnits: Omit<Unit, "coordinates" | "isActive">[],
   secondPlayerUnits: Omit<Unit, "coordinates" | "isActive">[]
 ) => {
-  let firstPlayerPossibleInitialCoordinates = shuffle(
+  const firstPlayerPossibleInitialCoordinates = shuffle(
     FIRST_PLAYER_POSSIBLE_INITIAL_COORDINATES
   );
 
@@ -60,7 +60,7 @@ const getUnitsWithRandomCoordinates = (
     };
   });
 
-  let secondPlayerPossibleInitialCoordinates = shuffle(
+  const secondPlayerPossibleInitialCoordinates = shuffle(
     SECOND_PLAYER_POSSIBLE_INITIAL_COORDINATES
   );
 
@@ -109,11 +109,13 @@ const getInitialBoardState = (unitsArray: Unit[]) => {
   });
 
   // Add random obstacles to board
-  board.forEach((row) =>
-    row.forEach((square) => {
-      square = random()
-        ? { type: "obstacle", id: 1, obstacleType: "STONES" }
-        : {};
+  board = board.map((row) =>
+    row.map((square) => {
+      square =
+        !random(0, 15) && isEmpty(square)
+          ? { type: "obstacle", id: 1, obstacleType: "STONES" }
+          : square;
+      return square;
     })
   );
   return board;

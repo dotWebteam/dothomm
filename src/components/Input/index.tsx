@@ -8,6 +8,7 @@ import defaultCursor from "../../pictures/cursor/defaultCursor.png";
 interface IInput {
   className?: string;
   type?: string;
+  min?: string;
   value?: any;
   onChange?: (e: any) => void;
 }

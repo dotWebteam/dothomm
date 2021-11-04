@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import styled from "styled-components";
 
 import Button from "../../components/Button";
-import Modal from "../../components/Modal";
 
 import UnitsCollection from "./components/UnitsCollection";
 
@@ -18,60 +17,87 @@ import LIST_OF_UNITS from "../../constants/listOfUnits";
 import { UnitTemplateWithCount } from "../gamePage/types";
 import MyUnits from "./components/MyUnits";
 
+import goldIcon from "../../pictures/gold.png";
+import { PLAYERS } from "../../constants/players";
+
 const LobbyPage: FC = () => {
   const [money, setMoney] = useState<number>(5000);
 
-  const [myUnits, setMyUnits] = useState<Array<UnitTemplateWithCount>>([]);
+  const [currentPlayerName, setCurrentPlayerName] = useState<string>(
+    PLAYERS[0]
+  );
+
+  const [firstPlayerUnits, setFirstPlayerUnits] = useState<
+    Array<UnitTemplateWithCount>
+  >([]);
+  const [secondPlayerUnits, setSecondPlayerUnits] = useState<
+    Array<UnitTemplateWithCount>
+  >([]);
+
+  const isFirstPlayer = currentPlayerName === PLAYERS[0];
+
+  const units = isFirstPlayer ? firstPlayerUnits : secondPlayerUnits;
+
+  const hasValidAmountOfMinions = units.length > 0 && units.length < 6;
+
+  const setUnits = isFirstPlayer ? setFirstPlayerUnits : setSecondPlayerUnits;
 
   const dispatch = useDispatch();
 
-  const userName = useSelector((state: RootState) => state.game.myName);
-
-  const handleClick = () =>
-    dispatch(
-      initBoard({
-        firstPlayerUnitTemplates: myUnits,
-        secondPlayerUnitTemplates: myUnits,
-        userName: userName,
-        opponentName: "player 2",
-      })
-    );
+  const handlePressReady = () => {
+    isFirstPlayer
+      ? setCurrentPlayerName(PLAYERS[1])
+      : dispatch(
+          initBoard({
+            firstPlayerUnitTemplates: firstPlayerUnits,
+            secondPlayerUnitTemplates: secondPlayerUnits,
+            userName: PLAYERS[0],
+            opponentName: PLAYERS[1],
+          })
+        );
+  };
 
   return (
     <LobbyPageWrapper>
-      <LoginContainer>
-        <StyledTitle>Match Lobby</StyledTitle>
-        <StyledSubTitle>Number of available money: {money}</StyledSubTitle>
+      <Container>
         <StyledShopTitle>Buy units</StyledShopTitle>
+        <StyledSubTitle>
+          Number of available money: {money} <StyledMoneyImg src={goldIcon} />
+        </StyledSubTitle>
         <UnitsCollection
           money={money}
           units={LIST_OF_UNITS}
           setMoney={setMoney}
-          setMyUnits={setMyUnits}
+          setMyUnits={setUnits}
+          totalUnits={units}
         />
-        <StyledMyTroopsTitle>My units</StyledMyTroopsTitle>
-        <MyUnits units={myUnits} setMoney={setMoney} setMyUnits={setMyUnits} />
-        <Button
-          disabled={myUnits.length > 5 || myUnits.length <= 0}
-          onClick={handleClick}
-          to="/game"
-        >
-          {" "}
-          Start the game!{" "}
-        </Button>
-      </LoginContainer>
+      </Container>
+      <Container>
+        <MyUnits
+          units={units}
+          setMoney={setMoney}
+          setMyUnits={setUnits}
+          handlePressReady={handlePressReady}
+          playerName={currentPlayerName}
+        />
+      </Container>
     </LobbyPageWrapper>
   );
 };
 
-const StyledTitle = styled.span`
-  font-size: 100px;
+const StyledMoneyImg = styled.img`
+  width: 30px;
+  margin-left: 4px;
 `;
 
-const StyledSubTitle = styled.span``;
+const StyledSubTitle = styled.span`
+  display: flex;
+  align-items: center;
+`;
 
 const LobbyPageWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   background: center / cover url(${loginLobbyBackground});
   height: 100vh;
   display: flex;
@@ -79,7 +105,7 @@ const LobbyPageWrapper = styled.div`
   align-items: center;
 `;
 
-const LoginContainer = styled.div`
+const Container = styled.div`
   background: url(${leatherBackground});
   padding: 40px;
   background-color: #2d1d0f;
@@ -88,6 +114,9 @@ const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  :last-child {
+    margin-top: 16px;
+  }
 `;
 
 const ButtonSection = styled.div`

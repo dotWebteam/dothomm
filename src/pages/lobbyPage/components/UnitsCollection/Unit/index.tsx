@@ -8,11 +8,14 @@ import {
   UnitTemplateWithCount,
 } from "../../../../gamePage/types";
 
+import goldIcon from "../../../../../pictures/gold.png";
+
 interface IUnit {
   unit: UnitTemplate;
   money: number;
   setMoney: Dispatch<SetStateAction<number>>;
   setMyUnits: Dispatch<SetStateAction<UnitTemplateWithCount[]>>;
+  totalUnits: UnitTemplate[];
 }
 
 const Unit: FC<IUnit> = ({
@@ -27,11 +30,17 @@ const Unit: FC<IUnit> = ({
   setMoney,
   setMyUnits,
   money,
+  totalUnits,
 }) => {
   const [unitsCount, setUnitsCount] = useState<number>(1);
 
   const handleClick = () => {
-    if (unitsCount <= 0 || money - cost * unitsCount < 0) return null;
+    if (
+      unitsCount <= 0 ||
+      money - cost * unitsCount < 0 ||
+      totalUnits?.length >= 5
+    )
+      return null;
     setMoney((prevState) => prevState - cost * unitsCount);
     const addedUnit = { ...unit, count: unitsCount };
     setMyUnits((prevState) => [...prevState, addedUnit]);
@@ -39,48 +48,88 @@ const Unit: FC<IUnit> = ({
 
   return (
     <StyledUnitWrapper>
-      <img src={getUnitIconByName(unitType)} />
-      <StyledUnitName>{unitType}</StyledUnitName>
-      <StyledCharachteristic>AP: {maxActionPoints}</StyledCharachteristic>
-      <StyledCharachteristic>
-        Atk:{" "}
-        {minAttack === maxAttack ? minAttack : `${minAttack} - ${maxAttack}`}
-      </StyledCharachteristic>
-      <StyledCharachteristic>HP: {maxHealthPoints}</StyledCharachteristic>
-      <StyledCharachteristic>Cost: {cost}</StyledCharachteristic>
-      <Input
-        type="range"
-        value={unitsCount}
-        onChange={(e) => setUnitsCount(Number(e.target.value))}
-      />
-      <Input
-        type="number"
-        value={unitsCount}
-        onChange={(e) => setUnitsCount(Number(e.target.value))}
-      />
-      <Button onClick={handleClick}>Buy</Button>
+      <StyledCharactericticsSection>
+        <StyledImg src={getUnitIconByName(unitType)} />
+        <StyledRow>
+          <StyledUnitName>{unitType}</StyledUnitName>
+          <StyledCharachteristic>AP: {maxActionPoints}</StyledCharachteristic>
+          <StyledCharachteristic>
+            Atk:{" "}
+            {minAttack === maxAttack
+              ? minAttack
+              : `${minAttack} - ${maxAttack}`}
+          </StyledCharachteristic>
+          <StyledCharachteristic>HP: {maxHealthPoints}</StyledCharachteristic>
+          <StyledCharachteristic>Cost: {cost}</StyledCharachteristic>
+        </StyledRow>
+      </StyledCharactericticsSection>
+      <StyledInputSection>
+        <StyledInputContainer>
+          Count:
+          <StyledInput
+            type="number"
+            min="0"
+            value={unitsCount}
+            onChange={(e) => setUnitsCount(Number(e.target.value))}
+          />
+        </StyledInputContainer>
+        <StyledButton onClick={handleClick}>
+          <img src={goldIcon} />
+        </StyledButton>
+      </StyledInputSection>
     </StyledUnitWrapper>
   );
 };
 
 const StyledImg = styled.img`
-  max-height: 100px;
+  margin-right: 16px;
+  width: 70px;
+  border: 1px solid #ad8e42;
 `;
 
 const StyledUnitWrapper = styled.div`
-  width: 100px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   flex: 1;
   padding: 16px;
   border: 1px solid #ad8e42;
   :not(:last-child) {
-    margin-right: 8px;
+    margin-bottom: 8px;
   }
 `;
 
 const StyledUnitName = styled.span``;
 
 const StyledCharachteristic = styled.span``;
+
+const StyledInputContainer = styled.div`
+  display: flex;
+  align-items: baseline;
+`;
+
+const StyledCharactericticsSection = styled.div`
+  display: flex;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 5px;
+`;
+
+const StyledInput = styled(Input)`
+  margin-left: 4px;
+  padding: 5px;
+  margin-bottom: 4px;
+`;
+
+const StyledRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 16px;
+`;
+
+const StyledInputSection = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export default Unit;
