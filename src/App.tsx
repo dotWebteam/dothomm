@@ -37,6 +37,7 @@ const StyledAppContainer = styled.div`
   font-family: Alagard;
   color: #ffe98c;
   text-shadow: 2px 2px 0 #000;
+  user-select: none;
 `;
 
 export default App;
