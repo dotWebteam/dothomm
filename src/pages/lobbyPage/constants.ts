@@ -1,0 +1,1 @@
+export const INITIAL_AMOUNT_OF_MONEY = 10000;

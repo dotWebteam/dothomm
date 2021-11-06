@@ -19,9 +19,10 @@ import MyUnits from "./components/MyUnits";
 
 import goldIcon from "../../pictures/gold.png";
 import { PLAYERS } from "../../constants/players";
+import { INITIAL_AMOUNT_OF_MONEY } from "./constants";
 
 const LobbyPage: FC = () => {
-  const [money, setMoney] = useState<number>(5000);
+  const [money, setMoney] = useState<number>(INITIAL_AMOUNT_OF_MONEY);
 
   const [currentPlayerName, setCurrentPlayerName] = useState<string>(
     PLAYERS[0]
@@ -44,9 +45,15 @@ const LobbyPage: FC = () => {
 
   const dispatch = useDispatch();
 
+  const goToSecondPlayer = () => {
+    if (!hasValidAmountOfMinions) return null;
+    setCurrentPlayerName(PLAYERS[1]);
+    setMoney(INITIAL_AMOUNT_OF_MONEY);
+  };
+
   const handlePressReady = () => {
     isFirstPlayer
-      ? setCurrentPlayerName(PLAYERS[1])
+      ? goToSecondPlayer()
       : dispatch(
           initBoard({
             firstPlayerUnitTemplates: firstPlayerUnits,

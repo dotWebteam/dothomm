@@ -18,11 +18,9 @@ const Unit: FC<IUnit> = ({
   className,
   unitType,
   healthPoints,
-  actionPoints,
   count,
   viewDirection,
 }) => {
-  if (healthPoints) console.log(healthPoints.current);
   return (
     <StyledWrapper>
       <StyledImg
@@ -36,15 +34,6 @@ const Unit: FC<IUnit> = ({
         </HealthBar>
       )}
       <StyledArmyCountCounter>{count}</StyledArmyCountCounter>
-      {/* <StyledCounters>
-        {healthPoints && (
-          <StyledHealthCounter>{healthPoints}</StyledHealthCounter>
-        )}
-        {actionPoints && (
-          <StyledActionPointsCounter>{actionPoints}</StyledActionPointsCounter>
-        )}
-        {count && <StyledArmyCountCounter>{count}</StyledArmyCountCounter>}
-      </StyledCounters> */}
     </StyledWrapper>
   );
 };
@@ -88,25 +77,5 @@ const HealthLine = styled.div<{ value: IHealthPoints }>`
   height: 4px;
   width: ${({ value }) => Math.round((value.current * 40) / value.max)}px;
 `;
-
-// const StyledHealthCounter = styled.div`
-//   background-color: red;
-//   min-width: 30px;
-// `;
-
-// const StyledActionPointsCounter = styled.div`
-//   background-color: yellow;
-//   min-width: 30px;
-// `;
-
-// const StyledArmyCountCounter = styled.div`
-//   background-color: blue;
-//   min-width: 30px;
-// `;
-
-// const StyledCounters = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `;
 
 export default Unit;
