@@ -16,6 +16,7 @@ import Unit from "./Unit";
 // utils
 import { isAdjacentCoordinateWithActionPoints } from "../utils/movingUtils";
 import Obstacle from "./Obstacle";
+import DeadBody from "./DeadBody";
 
 interface ISquare {
   x: number;
@@ -25,7 +26,13 @@ interface ISquare {
 
 const Square: FC<ISquare> = ({ x, y, className }) => {
   const squareState = useSelector((state: RootState) => state.game.board[y][x]);
-  const { type: squareFillType, id, unitType, obstacleType } = squareState;
+  const {
+    type: squareFillType,
+    id,
+    unitType,
+    obstacleType,
+    deadBodyType,
+  } = squareState;
 
   const unitInSquare = useSelector((state: RootState) =>
     state.game.units.find(({ id: unitID }) => unitID === id)
@@ -33,6 +40,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const hasObstacle = squareFillType === "obstacle" && obstacleType;
   const hasUnit = squareFillType === "unit" && unitType;
+  const hasDeadBody = squareFillType === "deadBody" && deadBodyType;
   const isFreeSquare = !hasObstacle && !hasUnit;
 
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -108,6 +116,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
         />
       )}
       {hasObstacle && <Obstacle obstacleType={obstacleType} />}
+      {hasDeadBody && <DeadBody deadBodyType={deadBodyType} />}
     </StyledSquare>
   );
 };

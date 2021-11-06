@@ -12,7 +12,7 @@ export type DeadBodyTypes = {
   DEAD_BODY_PIKEMAN: "DEAD_BODY_PIKEMAN";
 };
 
-type ObstacleTypes = DeadBodyTypes & {
+type ObstacleTypes = {
   STONES: "STONES";
 };
 
@@ -24,6 +24,7 @@ export type SquareState = {
   id?: number;
   unitType?: UnitType;
   obstacleType?: ObstacleType;
+  deadBodyType?: DeadBodyType;
 };
 
 export type Unit = {

@@ -24,7 +24,13 @@ import BoatBackground from "./boardBackgrounds/CmBkBoat.png";
 import OrrinPortrait from "./heroes/portraits/Orrin.png";
 import AdelaidePortrait from "./heroes/portraits/Adelaide.png";
 
-import { UnitType, ObstacleType, BackgroundType, HeroType } from "../types";
+import {
+  UnitType,
+  ObstacleType,
+  BackgroundType,
+  HeroType,
+  DeadBodyType,
+} from "../types";
 
 /** Return unit sprite src by its name */
 export const getUnitSpriteByName = (unitname: UnitType) => {
@@ -40,8 +46,6 @@ export const getUnitSpriteByName = (unitname: UnitType) => {
 
 /** Return obstacle sprite src by its name */
 export const getObstacleSpriteByName = (obstacleName: ObstacleType) => {
-  if (obstacleName.startsWith("DEAD_BODY"))
-    return getDeadBodySpriteByName(obstacleName);
   switch (obstacleName) {
     case "STONES":
       return StonesIcon;
@@ -49,7 +53,7 @@ export const getObstacleSpriteByName = (obstacleName: ObstacleType) => {
 };
 
 /** Return dead body sprite src by its name */
-export const getDeadBodySpriteByName = (deadBodyName: ObstacleType) => {
+export const getDeadBodySpriteByName = (deadBodyName: DeadBodyType) => {
   switch (deadBodyName.replace("DEAD_BODY_", "")) {
     case "SWORDSMAN":
       return SwordsmanDeadBodyIcon;

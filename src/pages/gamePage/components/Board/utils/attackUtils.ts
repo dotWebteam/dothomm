@@ -11,7 +11,7 @@ export const getDeadBody: (id: number, unitType: UnitType) => SquareState = (
   id: number,
   unitType: UnitType
 ) => {
-  return { type: "obstacle", id: id, obstacleType: `DEAD_BODY_${unitType}` };
+  return { type: "deadBody", id: id, deadBodyType: `DEAD_BODY_${unitType}` };
 };
 
 /** Returns an object with units killed number and current unit health  */
