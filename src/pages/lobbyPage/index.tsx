@@ -20,6 +20,7 @@ import MyUnits from "./components/MyUnits";
 import goldIcon from "../../pictures/gold.png";
 import { PLAYERS } from "../../constants/players";
 import { INITIAL_AMOUNT_OF_MONEY } from "./constants";
+import Modal from "../../components/Modal";
 
 const LobbyPage: FC = () => {
   const [money, setMoney] = useState<number>(INITIAL_AMOUNT_OF_MONEY);
@@ -46,26 +47,50 @@ const LobbyPage: FC = () => {
   const dispatch = useDispatch();
 
   const goToSecondPlayer = () => {
-    if (!hasValidAmountOfMinions) return null;
+    if (!hasValidAmountOfMinions) {
+      setShowModal(true);
+      return null;
+    }
     setCurrentPlayerName(PLAYERS[1]);
     setMoney(INITIAL_AMOUNT_OF_MONEY);
   };
 
-  const handlePressReady = () => {
-    isFirstPlayer
-      ? goToSecondPlayer()
-      : dispatch(
-          initBoard({
-            firstPlayerUnitTemplates: firstPlayerUnits,
-            secondPlayerUnitTemplates: secondPlayerUnits,
-            userName: PLAYERS[0],
-            opponentName: PLAYERS[1],
-          })
-        );
+  const goToGame = () => {
+    if (!hasValidAmountOfMinions) {
+      setShowModal(true);
+      return null;
+    }
+    dispatch(
+      initBoard({
+        firstPlayerUnitTemplates: firstPlayerUnits,
+        secondPlayerUnitTemplates: secondPlayerUnits,
+        userName: PLAYERS[0],
+        opponentName: PLAYERS[1],
+      })
+    );
   };
+
+  const handlePressReady = () => {
+    isFirstPlayer ? goToSecondPlayer() : goToGame();
+  };
+
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <LobbyPageWrapper>
+      {showModal && (
+        <Modal>
+          <StyledModalWindow>
+            The number of units must not be larger than 5 and not less than 1!
+            <Button
+              isOk
+              onClick={() => {
+                setShowModal(false);
+              }}
+            />
+          </StyledModalWindow>
+        </Modal>
+      )}
       <Container>
         <StyledShopTitle>Buy units</StyledShopTitle>
         <StyledSubTitle>
@@ -91,6 +116,20 @@ const LobbyPage: FC = () => {
     </LobbyPageWrapper>
   );
 };
+
+const StyledModalWindow = styled.div`
+  min-height: 80px;
+  min-width: 150px;
+  background: url(${leatherBackground});
+  padding: 40px;
+  background-color: #2d1d0f;
+  border: 1px solid #ad8e42;
+  border-image: url(${windowBorder}) 40 / 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const StyledMoneyImg = styled.img`
   width: 30px;
