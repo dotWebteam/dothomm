@@ -39,6 +39,7 @@ const Modal: FC<IModal> = ({ children, className, onOutsideClick }) => {
 };
 
 const StyledBackground = styled.div`
+  user-select: none;
   position: fixed;
   top: 0;
   background: #1e171796;
