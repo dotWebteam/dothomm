@@ -4,11 +4,12 @@ import styled from "styled-components";
 // assets
 import attackCursor from "../../../../../pictures/cursor/attackCursor.png";
 import moveCursor from "../../../../../pictures/cursor/moveCursor.png";
+import castCursor from "../../../../../pictures/spellbook.png";
 
 // redux
 import { RootState } from "../../../../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { attack, moveToSquare } from "../../../boardSlice";
+import { attack, castSpell, moveToSquare } from "../../../boardSlice";
 
 //components
 import Unit from "./Unit";
@@ -82,7 +83,15 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     currentActionPoints > 0 &&
     isOwnerOfActiveUnit;
 
+  const spellStack = useSelector((state: RootState) => state.game.spellStack);
+
+  const spellIsCasting = spellStack.isCasting;
+
   const handleClick = () => {
+    if (spellIsCasting) {
+      dispatch(castSpell({ x, y }));
+      return null;
+    }
     if (isPossibleToMove)
       dispatch(
         moveToSquare({
@@ -103,6 +112,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       isPossibleToMove={isPossibleToMove}
       hasActiveUnit={hasActiveUnit}
       isPossibleToAttack={isPossibleToAttack}
+      spellIsCasting={spellIsCasting}
       className={className}
       onClick={handleClick}
     >
@@ -125,6 +135,7 @@ const StyledSquare = styled.div<{
   isPossibleToMove?: boolean;
   hasActiveUnit?: boolean;
   isPossibleToAttack?: boolean;
+  spellIsCasting?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -141,6 +152,8 @@ const StyledSquare = styled.div<{
       isPossibleToAttack && `cursor: url(${attackCursor}), auto;`}
     ${({ isPossibleToMove }) =>
       isPossibleToMove && `cursor: url(${moveCursor}), auto;`};
+    ${({ spellIsCasting }) =>
+      spellIsCasting && `cursor: url(${castCursor}), auto;`};
   }
 `;
 

@@ -4,11 +4,16 @@ import Button from "../../../../../components/Button";
 import Modal from "../../../../../components/Modal";
 import Spellbook from "../../Spellbook";
 import spellbookIcon from "../../../../../pictures/spellbook.png";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../store/store";
 
 const SpellbookButton: FC = () => {
   const [showModal, setShowModal] = useState(false);
 
+  const spellPoints = useSelector((state: RootState) => state.game.spellPoints);
+
   const handleClick = () => {
+    if (spellPoints.isTired) return null;
     setShowModal(true);
   };
 
@@ -16,7 +21,7 @@ const SpellbookButton: FC = () => {
     <>
       {showModal && (
         <Modal onOutsideClick={() => setShowModal(false)}>
-          <Spellbook />
+          <Spellbook onCastSpell={() => setShowModal(false)} />
         </Modal>
       )}
       <StyledButton onClick={handleClick}>

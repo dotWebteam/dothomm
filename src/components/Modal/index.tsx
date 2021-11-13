@@ -30,7 +30,7 @@ const Modal: FC<IModal> = ({ children, className, onOutsideClick }) => {
     ? createPortal(
         <StyledBackground onClick={handleOutsideClick}>
           <StyledModal className={className} onClick={handleInsideClick}>
-            {children}{" "}
+            {children}
           </StyledModal>
         </StyledBackground>,
         rootNode

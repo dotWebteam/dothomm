@@ -43,6 +43,7 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
 };
 
 const StyledUnitsCollection = styled.div`
+  height: 350px;
   display: flex;
   flex-direction: column;
   height: 278px;

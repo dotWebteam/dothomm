@@ -12,6 +12,8 @@ import { PLAYERS } from "../../../../../constants/players";
 const InfoSidebar: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
   const activePlayer = useSelector((state: RootState) => state.game.myName);
+  const spellPoints = useSelector((state: RootState) => state.game.spellPoints);
+
   if (!activeUnit) return null;
   const {
     unitType,
@@ -26,6 +28,7 @@ const InfoSidebar: FC = () => {
       <StyledPlayerInfo>
         <StyledImg src={getHeroPortraitPictureByName(portraitName)} />
         <div>{capitalize(activePlayer)}</div>
+        {`Spell Points: ${spellPoints.max} / ${spellPoints.current}`}
       </StyledPlayerInfo>
       <StyledUnitInfo>
         <StyledImg src={getUnitIconByName(unitType)} />

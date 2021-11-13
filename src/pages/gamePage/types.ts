@@ -62,18 +62,6 @@ export type UnitTemplate = Omit<
 
 export type UnitTemplateWithCount = UnitTemplate & { count: number };
 
-export interface BoardState {
-  board: Array<Array<SquareState>>;
-  units: Array<Unit>;
-  activeUnit?: Unit;
-  deadUnits?: Array<Unit>;
-  lastAction: string;
-  myName: string;
-  opponentName: string;
-  winner: string;
-  isOnline: boolean;
-}
-
 export type BackgroundTypes = {
   BEACH: "BEACH";
   BOAT: "BOAT";
@@ -87,3 +75,53 @@ export type HeroesTypes = {
 };
 
 export type HeroType = HeroesTypes[keyof HeroesTypes];
+
+export type SpellNames = {
+  MAGIC_ARROW: "Magic Arrow";
+};
+
+export type SpellName = SpellNames[keyof SpellNames];
+
+export type Spell = {
+  id: number;
+  name: SpellName;
+  iconSrc: string; // new approach to get icons, probably also try it with other icons
+  cost: number;
+};
+
+export type SpellStack = {
+  isCasting: boolean;
+  spellName?: SpellName;
+  cost: number;
+};
+
+export type SpellPoints = {
+  isTired: boolean;
+  max: number;
+  current: number;
+};
+
+export interface BoardState {
+  board: Array<Array<SquareState>>;
+  units: Array<Unit>;
+  activeUnit?: Unit;
+  deadUnits?: Array<Unit>;
+  lastAction: string;
+  myName: string;
+  opponentName: string;
+  winner: string;
+  isOnline: boolean;
+  spellStack: SpellStack;
+  turn: number;
+  spellPoints: SpellPoints;
+  opponentSpellPoints: SpellPoints;
+}
+
+export type BoardAndUnitsState = {
+  spellName: SpellName;
+  board: Array<Array<SquareState>>;
+  units: Array<Unit>;
+  deadUnits?: Array<Unit>;
+  lastAction: string;
+  target: { x: number; y: number };
+};

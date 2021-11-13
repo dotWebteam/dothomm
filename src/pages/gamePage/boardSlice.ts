@@ -1,15 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { partition, random } from "lodash";
+import { partition } from "lodash";
 
 import { getHowManyActionPointsToMove } from "./components/Board/utils/movingUtils";
 import { getInitialBoardAndUnitsState } from "./components/Board/utils/initializeUtils";
 
-import { BoardState, Unit, UnitTemplateWithCount } from "./types";
+import { BoardState, SpellName, Unit, UnitTemplateWithCount } from "./types";
 import {
   getDeadBody,
   isUnitDead,
   getHowManyUnitsDied,
 } from "./components/Board/utils/attackUtils";
+import { applySpellEffect } from "./components/Spellbook/spellEffects";
 
 const initialState: BoardState = {
   board: [],
@@ -20,6 +21,10 @@ const initialState: BoardState = {
   opponentName: "player 2",
   winner: "",
   isOnline: false,
+  spellStack: { isCasting: false, spellName: undefined, cost: 0 },
+  turn: 0,
+  spellPoints: { isTired: false, max: 10, current: 10 },
+  opponentSpellPoints: { isTired: false, max: 10, current: 10 },
 };
 
 export const gameSlice = createSlice({
@@ -58,6 +63,8 @@ export const gameSlice = createSlice({
         activeUnit.owner === userName
           ? [userName, opponentName]
           : [opponentName, userName];
+      state.spellStack = { isCasting: false, spellName: undefined, cost: 0 };
+      state.turn = 0;
     },
 
     moveToSquare: (
@@ -99,10 +106,18 @@ export const gameSlice = createSlice({
         ({ id }) => id === prevActiveUserID
       );
       const nextActiveUnitArrayPosition = (prevUnitIndex + 1) % units.length;
+      if (nextActiveUnitArrayPosition < prevUnitIndex) {
+        ++state.turn;
+        state.spellPoints.isTired = state.opponentSpellPoints.isTired = false;
+      }
       const nextActiveUnit = units[nextActiveUnitArrayPosition];
       state.activeUnit = nextActiveUnit;
       if (!state.isOnline && nextActiveUnit.owner !== state.myName) {
         [state.opponentName, state.myName] = [state.myName, state.opponentName];
+        [state.opponentSpellPoints, state.spellPoints] = [
+          state.spellPoints,
+          state.opponentSpellPoints,
+        ];
         state.lastAction = `The turn goes to ${state.opponentName}`;
       }
     },
@@ -158,6 +173,37 @@ export const gameSlice = createSlice({
     concede: (state) => {
       state.winner = state.opponentName;
     },
+
+    startCastSpell: (
+      state,
+      action: PayloadAction<{ spellName: SpellName; cost: number }>
+    ) => {
+      const { spellName, cost } = action.payload;
+      state.spellStack.cost = cost;
+      state.spellStack.isCasting = true;
+      state.spellStack.spellName = spellName;
+    },
+
+    castSpell: (state, action: PayloadAction<{ x: number; y: number }>) => {
+      const { x, y } = action.payload;
+      if (!state.spellStack.spellName) return state;
+      const { board, units, deadUnits, lastAction } = applySpellEffect({
+        spellName: state.spellStack.spellName,
+        board: state.board,
+        units: state.units,
+        deadUnits: state.deadUnits,
+        lastAction: state.lastAction,
+        target: { x, y },
+      });
+      state.spellPoints.current -= state.spellStack.cost;
+      state.spellPoints.isTired = true;
+      state.spellStack.isCasting = false;
+      state.spellStack.spellName = undefined;
+      state.board = board;
+      state.units = units;
+      state.deadUnits = deadUnits;
+      state.lastAction = lastAction;
+    },
   },
 });
 
@@ -168,6 +214,8 @@ export const {
   attack,
   checkForWinner,
   concede,
+  startCastSpell,
+  castSpell,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

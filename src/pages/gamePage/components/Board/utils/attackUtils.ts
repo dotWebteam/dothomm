@@ -14,7 +14,7 @@ export const getDeadBody: (id: number, unitType: UnitType) => SquareState = (
   return { type: "deadBody", id: id, deadBodyType: `DEAD_BODY_${unitType}` };
 };
 
-/** Returns an object with units killed number and current unit health  */
+/** Returns an object with units killed number and current unit health TODO: look in magicArrowEffect func for damage and remake this*/
 export const getHowManyUnitsDied = (attacker: Unit, defender: Unit) => {
   const totalDamagePoints =
     random(attacker.attack.min, attacker.attack.max) * attacker.count;
@@ -31,5 +31,12 @@ export const getHowManyUnitsDied = (attacker: Unit, defender: Unit) => {
   const unitsKilled =
     Math.round(remainingDamagePoints / defender.healthPoints.max) + 1;
 
-  return { unitsKilled, currentUnitHealthPoints: defender.healthPoints.max };
+  const excessDamage = Math.round(
+    remainingDamagePoints % defender.healthPoints.max
+  );
+
+  return {
+    unitsKilled,
+    currentUnitHealthPoints: defender.healthPoints.max - excessDamage,
+  };
 };
