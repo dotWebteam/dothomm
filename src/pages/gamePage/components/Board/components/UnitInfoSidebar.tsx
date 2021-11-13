@@ -56,6 +56,7 @@ const StyledImg = styled.img`
 `;
 
 const StyledUnitInfo = styled.div`
+  width: 200px;
   padding: 0 20px;
   display: flex;
   flex-direction: column;

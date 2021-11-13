@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, MouseEventHandler, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
@@ -9,15 +9,29 @@ import defaultCursor from "../../pictures/cursor/defaultCursor.png";
 interface IModal {
   className?: string;
   children: ReactNode;
+  onOutsideClick?: () => void;
 }
 
 const rootNode = document.querySelector("#root");
 
-const Modal: FC<IModal> = ({ children, className }) => {
+const Modal: FC<IModal> = ({ children, className, onOutsideClick }) => {
+  const handleOutsideClick = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onOutsideClick) onOutsideClick();
+  };
+
+  const handleInsideClick = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return rootNode
     ? createPortal(
-        <StyledBackground>
-          <StyledModal className={className}>{children} </StyledModal>
+        <StyledBackground onClick={handleOutsideClick}>
+          <StyledModal className={className} onClick={handleInsideClick}>
+            {children}{" "}
+          </StyledModal>
         </StyledBackground>,
         rootNode
       )
