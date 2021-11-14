@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 
 // assets
@@ -13,11 +13,13 @@ import { attack, castSpell, moveToSquare } from "../../../boardSlice";
 
 //components
 import Unit from "./Unit";
+import SpellEffect from "../../Spellbook/components/SpellEffect";
 
 // utils
 import { isAdjacentCoordinateWithActionPoints } from "../utils/movingUtils";
 import Obstacle from "./Obstacle";
 import DeadBody from "./DeadBody";
+import { useTimeout } from "../../../../../utils/useTimeout";
 
 interface ISquare {
   x: number;
@@ -52,6 +54,12 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     (state: RootState) => state.game.myName
   );
 
+  const spellStack = useSelector((state: RootState) => state.game.spellStack);
+
+  const [showSpellEffect, setShowSpellEffect] = useState(false);
+
+  useTimeout(() => setShowSpellEffect(false), 1000, [spellStack]);
+
   if (!activeUnit) return null; // TODO: Think and remove this
 
   const isOwnerOfActiveUnit = currentPlayerName === activeUnit.owner;
@@ -83,13 +91,12 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     currentActionPoints > 0 &&
     isOwnerOfActiveUnit;
 
-  const spellStack = useSelector((state: RootState) => state.game.spellStack);
-
-  const spellIsCasting = spellStack.isCasting;
+  const { isCasting: spellIsCasting, effectSrc } = spellStack;
 
   const handleClick = () => {
     if (spellIsCasting) {
       dispatch(castSpell({ x, y }));
+      setShowSpellEffect(true);
       return null;
     }
     if (isPossibleToMove)
@@ -116,6 +123,10 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       className={className}
       onClick={handleClick}
     >
+      <SpellEffect
+        show={Boolean(showSpellEffect && effectSrc)}
+        imgSrc={effectSrc}
+      />
       {hasUnit && (
         <Unit
           unitType={unitType}

@@ -13,7 +13,7 @@ const SpellbookButton: FC = () => {
   const spellPoints = useSelector((state: RootState) => state.game.spellPoints);
 
   const handleClick = () => {
-    if (spellPoints.isTired) return null;
+    if (spellPoints.isTired || spellPoints.current <= 0) return null;
     setShowModal(true);
   };
 

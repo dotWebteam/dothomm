@@ -21,7 +21,12 @@ const initialState: BoardState = {
   opponentName: "player 2",
   winner: "",
   isOnline: false,
-  spellStack: { isCasting: false, spellName: undefined, cost: 0 },
+  spellStack: {
+    isCasting: false,
+    spellName: undefined,
+    cost: 0,
+    effectSrc: "",
+  },
   turn: 0,
   spellPoints: { isTired: false, max: 10, current: 10 },
   opponentSpellPoints: { isTired: false, max: 10, current: 10 },
@@ -63,7 +68,12 @@ export const gameSlice = createSlice({
         activeUnit.owner === userName
           ? [userName, opponentName]
           : [opponentName, userName];
-      state.spellStack = { isCasting: false, spellName: undefined, cost: 0 };
+      state.spellStack = {
+        isCasting: false,
+        spellName: undefined,
+        cost: 0,
+        effectSrc: "",
+      };
       state.turn = 0;
     },
 
@@ -106,8 +116,10 @@ export const gameSlice = createSlice({
         ({ id }) => id === prevActiveUserID
       );
       const nextActiveUnitArrayPosition = (prevUnitIndex + 1) % units.length;
+      state.lastAction = "";
       if (nextActiveUnitArrayPosition < prevUnitIndex) {
         ++state.turn;
+        state.lastAction += `Turn ${state.turn} has come! `;
         state.spellPoints.isTired = state.opponentSpellPoints.isTired = false;
       }
       const nextActiveUnit = units[nextActiveUnitArrayPosition];
@@ -118,7 +130,7 @@ export const gameSlice = createSlice({
           state.spellPoints,
           state.opponentSpellPoints,
         ];
-        state.lastAction = `The turn goes to ${state.opponentName}`;
+        state.lastAction += `The turn goes to ${state.opponentName}`;
       }
     },
 
@@ -176,9 +188,14 @@ export const gameSlice = createSlice({
 
     startCastSpell: (
       state,
-      action: PayloadAction<{ spellName: SpellName; cost: number }>
+      action: PayloadAction<{
+        spellName: SpellName;
+        cost: number;
+        effectSrc: string;
+      }>
     ) => {
-      const { spellName, cost } = action.payload;
+      const { spellName, cost, effectSrc } = action.payload;
+      state.spellStack.effectSrc = effectSrc;
       state.spellStack.cost = cost;
       state.spellStack.isCasting = true;
       state.spellStack.spellName = spellName;
@@ -196,6 +213,7 @@ export const gameSlice = createSlice({
         target: { x, y },
       });
       state.spellPoints.current -= state.spellStack.cost;
+      state.spellStack.cost = 0;
       state.spellPoints.isTired = true;
       state.spellStack.isCasting = false;
       state.spellStack.spellName = undefined;

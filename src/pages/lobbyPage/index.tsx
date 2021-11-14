@@ -79,7 +79,7 @@ const LobbyPage: FC = () => {
   return (
     <LobbyPageWrapper>
       {showModal && (
-        <Modal>
+        <Modal onOutsideClick={() => setShowModal(false)}>
           <StyledModalWindow>
             The number of units must not be larger than 5 and not less than 1!
             <Button

@@ -86,6 +86,7 @@ export type Spell = {
   id: number;
   name: SpellName;
   iconSrc: string; // new approach to get icons, probably also try it with other icons
+  effectSrc: string;
   cost: number;
 };
 
@@ -93,6 +94,7 @@ export type SpellStack = {
   isCasting: boolean;
   spellName?: SpellName;
   cost: number;
+  effectSrc: string;
 };
 
 export type SpellPoints = {

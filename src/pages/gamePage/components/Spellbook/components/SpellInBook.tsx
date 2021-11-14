@@ -10,12 +10,12 @@ interface ISpellInBook {
 }
 
 const SpellInBook: FC<ISpellInBook> = ({ spell, onCastSpell }) => {
-  const { name, iconSrc, cost } = spell;
+  const { name, iconSrc, cost, effectSrc } = spell;
 
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(startCastSpell({ spellName: name, cost: cost }));
+    dispatch(startCastSpell({ spellName: name, cost: cost, effectSrc }));
     onCastSpell();
   };
 

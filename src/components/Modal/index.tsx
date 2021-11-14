@@ -1,6 +1,7 @@
 import { FC, MouseEventHandler, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
+import { animated, useSpring } from "react-spring";
 
 import alagardFont from "../../fonts/alagard.ttf";
 
@@ -26,10 +27,24 @@ const Modal: FC<IModal> = ({ children, className, onOutsideClick }) => {
     e.stopPropagation();
   };
 
+  const modalStyles = useSpring({
+    to: [{ opacity: 1, marginTop: "0px" }],
+    from: { opacity: 0, marginTop: "100px" },
+  });
+
+  const backgroundStyles = useSpring({
+    to: [{ opacity: 1 }],
+    from: { opacity: 0 },
+  });
+
   return rootNode
     ? createPortal(
-        <StyledBackground onClick={handleOutsideClick}>
-          <StyledModal className={className} onClick={handleInsideClick}>
+        <StyledBackground onClick={handleOutsideClick} style={backgroundStyles}>
+          <StyledModal
+            className={className}
+            onClick={handleInsideClick}
+            style={modalStyles}
+          >
             {children}
           </StyledModal>
         </StyledBackground>,
@@ -38,7 +53,7 @@ const Modal: FC<IModal> = ({ children, className, onOutsideClick }) => {
     : null;
 };
 
-const StyledBackground = styled.div`
+const StyledBackground = styled(animated.div)`
   user-select: none;
   position: fixed;
   top: 0;
@@ -59,6 +74,6 @@ const StyledBackground = styled.div`
   text-shadow: 2px 2px 0 #000;
 `;
 
-const StyledModal = styled.div``;
+const StyledModal = styled(animated.div)``;
 
 export default Modal;
