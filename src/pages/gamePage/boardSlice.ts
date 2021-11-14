@@ -83,6 +83,11 @@ export const gameSlice = createSlice({
         cost: 0,
         effectSrc: "",
       };
+      state.spellPoints = state.opponentSpellPoints = {
+        isTired: false,
+        max: 10,
+        current: 10,
+      };
       state.turn = 0;
       state.backgroundSrc = backgroundSrc;
     },
