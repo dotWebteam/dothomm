@@ -40,6 +40,7 @@ export type Unit = {
   };
   count: number;
   healthPoints: {
+    lastTakenDamage?: number;
     max: number;
     current: number;
   };

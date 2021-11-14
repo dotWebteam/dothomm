@@ -5,9 +5,8 @@ import Button from "../../components/Button";
 
 import UnitsCollection from "./components/UnitsCollection";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { initBoard } from "../gamePage/boardSlice";
-import { RootState } from "../../store/store";
 
 import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 import leatherBackground from "../../pictures/leatherBackground.png";
@@ -165,25 +164,7 @@ const Container = styled.div`
   }
 `;
 
-const ButtonSection = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-const StyledButton = styled(Button)`
-  flex: 1;
-  margin-top: 8px;
-  :last-child {
-    margin-left: 8px;
-  }
-`;
-
 const StyledShopTitle = styled.span`
   font-size: 40px;
 `;
-
-const StyledMyTroopsTitle = styled.span`
-  font-size: 40px;
-`;
-
 export default LobbyPage;

@@ -146,10 +146,10 @@ export const gameSlice = createSlice({
       const attackerUnit = units.find(({ id }) => id === attackerID);
       const defenderUnit = units.find(({ id }) => id === defenderID);
       if (attackerUnit && defenderUnit) {
-        const { unitsKilled, currentUnitHealthPoints } = getHowManyUnitsDied(
-          attacker,
-          defender
-        );
+        const { unitsKilled, currentUnitHealthPoints, totalDamagePoints } =
+          getHowManyUnitsDied(attacker, defender);
+        console.log("totalDamagePoints ", totalDamagePoints);
+        defenderUnit.healthPoints.lastTakenDamage = totalDamagePoints;
         defenderUnit.healthPoints.current = currentUnitHealthPoints;
         defenderUnit.count -= unitsKilled;
         state.lastAction = `${defender.unitType} of ${defender.owner} was attacked by ${attacker.unitType} of ${attacker.owner}! ${unitsKilled} units was killed`;

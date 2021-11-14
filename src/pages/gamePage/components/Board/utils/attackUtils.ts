@@ -23,7 +23,7 @@ export const getHowManyUnitsDied = (attacker: Unit, defender: Unit) => {
     defender.healthPoints.current - totalDamagePoints;
 
   if (currentUnitHealthPoints > 0)
-    return { unitsKilled: 0, currentUnitHealthPoints };
+    return { totalDamagePoints, unitsKilled: 0, currentUnitHealthPoints };
 
   const remainingDamagePoints =
     totalDamagePoints - defender.healthPoints.current;
@@ -38,5 +38,6 @@ export const getHowManyUnitsDied = (attacker: Unit, defender: Unit) => {
   return {
     unitsKilled,
     currentUnitHealthPoints: defender.healthPoints.max - excessDamage,
+    totalDamagePoints,
   };
 };

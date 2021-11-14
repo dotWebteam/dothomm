@@ -20,6 +20,7 @@ import { isAdjacentCoordinateWithActionPoints } from "../utils/movingUtils";
 import Obstacle from "./Obstacle";
 import DeadBody from "./DeadBody";
 import { useTimeout } from "../../../../../utils/useTimeout";
+import DamagePopup from "./DamagePopup";
 
 interface ISquare {
   x: number;
@@ -58,7 +59,13 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const [showSpellEffect, setShowSpellEffect] = useState(false);
 
-  useTimeout(() => setShowSpellEffect(false), 1000, [spellStack]);
+  useTimeout(() => setShowSpellEffect(false), 300, [spellStack]);
+
+  const [showDamagePopup, setShowDamagePopup] = useState(false);
+
+  useTimeout(() => setShowDamagePopup(false), 300, [
+    unitInSquare?.healthPoints,
+  ]);
 
   if (!activeUnit) return null; // TODO: Think and remove this
 
@@ -111,6 +118,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       );
     if (isPossibleToAttack) {
       dispatch(attack({ attacker: activeUnit, defender: unitInSquare }));
+      setShowDamagePopup(true);
     }
   };
 
@@ -123,6 +131,10 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       className={className}
       onClick={handleClick}
     >
+      <DamagePopup
+        show={showDamagePopup}
+        damage={unitInSquare?.healthPoints.lastTakenDamage}
+      />
       <SpellEffect
         show={Boolean(showSpellEffect && effectSrc)}
         imgSrc={effectSrc}
