@@ -63,6 +63,7 @@ const StyledBackground = styled(animated.div)`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 
   cursor: url(${defaultCursor}), auto;
   @font-face {

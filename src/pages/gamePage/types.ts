@@ -66,6 +66,13 @@ export type UnitTemplateWithCount = UnitTemplate & { count: number };
 export type BackgroundTypes = {
   BEACH: "BEACH";
   BOAT: "BOAT";
+  CLEVER_FIELD: "CLEVER_FIELD";
+  DESERT: "DESERT";
+  GREEN_MOUNTAINS: "GREEN_MOUNTAINS";
+  GREEN_TREES: "GREEN_TREES";
+  LAVA: "LAVA";
+  SWAMP: "SWAMP";
+  WASTELAND: "WASTELAND";
 };
 
 export type BackgroundType = BackgroundTypes[keyof BackgroundTypes];
@@ -118,6 +125,7 @@ export interface BoardState {
   turn: number;
   spellPoints: SpellPoints;
   opponentSpellPoints: SpellPoints;
+  backgroundSrc: BackgroundType;
 }
 
 export type BoardAndUnitsState = {

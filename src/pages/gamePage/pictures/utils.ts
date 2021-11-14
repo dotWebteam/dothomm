@@ -17,8 +17,15 @@ import PikemanDeadBodyIcon from "./obstacles/deadBodies/PikemanDeadBody.png";
 import StonesIcon from "./obstacles/Stones.png";
 
 // backgrounds
-import BeachBackground from "./boardBackgrounds/CmBkBch.png";
-import BoatBackground from "./boardBackgrounds/CmBkBoat.png";
+import BeachBackground from "./boardBackgrounds/BEACH.png";
+import BoatBackground from "./boardBackgrounds/BOAT.png";
+import CleverFieldBackground from "./boardBackgrounds/CLEVER_FIELD.png";
+import DesertBackground from "./boardBackgrounds/DESERT.png";
+import GreenMountainsBackground from "./boardBackgrounds/GREEN_MOUNTAINS.png";
+import GreenTreesBackground from "./boardBackgrounds/GREEN_TREES.png";
+import LavaBackground from "./boardBackgrounds/LAVA.png";
+import SwampBackground from "./boardBackgrounds/SWAMP.png";
+import WastelandBackground from "./boardBackgrounds/WASTELAND.png";
 
 // heroes portraits
 import OrrinPortrait from "./heroes/portraits/Orrin.png";
@@ -76,6 +83,7 @@ export const getUnitIconByName = (unitName: UnitType) => {
   }
 };
 
+// TODO: STORE IMAGE SOURCES IN LISTS!!!
 /** Return background picture src by its name */
 export const getBackgroundPictureByName = (picName: BackgroundType) => {
   switch (picName) {
@@ -83,7 +91,36 @@ export const getBackgroundPictureByName = (picName: BackgroundType) => {
       return BeachBackground;
     case "BOAT":
       return BoatBackground;
+    case "CLEVER_FIELD":
+      return CleverFieldBackground;
+    case "DESERT":
+      return DesertBackground;
+    case "GREEN_MOUNTAINS":
+      return GreenMountainsBackground;
+    case "GREEN_TREES":
+      return GreenTreesBackground;
+    case "LAVA":
+      return LavaBackground;
+    case "SWAMP":
+      return SwampBackground;
+    case "WASTELAND":
+      return WastelandBackground;
   }
+};
+
+/** Get list of background pictures src */
+export const getBackgroundsList = () => {
+  return [
+    { name: "BEACH", src: BeachBackground },
+    { name: "BOAT", src: BoatBackground },
+    { name: "CLEVER_FIELD", src: CleverFieldBackground },
+    { name: "DESERT", src: DesertBackground },
+    { name: "GREEN_MOUNTAINS", src: GreenMountainsBackground },
+    { name: "GREEN_TREES", src: GreenTreesBackground },
+    { name: "LAVA", src: LavaBackground },
+    { name: "SWAMP", src: SwampBackground },
+    { name: "WASTELAND", src: WastelandBackground },
+  ];
 };
 
 /** Return hero portrait picture src by its name */

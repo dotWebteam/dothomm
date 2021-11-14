@@ -166,7 +166,7 @@ const StyledSquare = styled.div<{
   align-items: center;
   border: 1px solid ${({ hasActiveUnit }) => (hasActiveUnit ? "red" : "black")};
   ${({ isPossibleToMove }) =>
-    isPossibleToMove && "background-color: #90ee9026;"}
+    isPossibleToMove && "background-color: #00000070;"}
   width: 50px;
   height: 50px;
   :hover {

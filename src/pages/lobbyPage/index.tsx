@@ -20,6 +20,9 @@ import goldIcon from "../../pictures/gold.png";
 import { PLAYERS } from "../../constants/players";
 import { INITIAL_AMOUNT_OF_MONEY } from "./constants";
 import Modal from "../../components/Modal";
+import BackgroundSelector from "./components/BackgroundSelector";
+
+import { BackgroundType } from "../gamePage/types";
 
 const LobbyPage: FC = () => {
   const [money, setMoney] = useState<number>(INITIAL_AMOUNT_OF_MONEY);
@@ -65,6 +68,7 @@ const LobbyPage: FC = () => {
         secondPlayerUnitTemplates: secondPlayerUnits,
         userName: PLAYERS[0],
         opponentName: PLAYERS[1],
+        backgroundSrc: combatBackgroundName,
       })
     );
   };
@@ -74,6 +78,9 @@ const LobbyPage: FC = () => {
   };
 
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const [combatBackgroundName, setCombatBackgroundName] =
+    useState<BackgroundType>("BEACH");
 
   return (
     <LobbyPageWrapper>
@@ -90,31 +97,52 @@ const LobbyPage: FC = () => {
           </StyledModalWindow>
         </Modal>
       )}
-      <Container>
-        <StyledShopTitle>Buy units</StyledShopTitle>
-        <StyledSubTitle>
-          Number of available money: {money} <StyledMoneyImg src={goldIcon} />
-        </StyledSubTitle>
-        <UnitsCollection
-          money={money}
-          units={LIST_OF_UNITS}
-          setMoney={setMoney}
-          setMyUnits={setUnits}
-          totalUnits={units}
-        />
-      </Container>
-      <Container>
-        <MyUnits
-          units={units}
-          setMoney={setMoney}
-          setMyUnits={setUnits}
-          handlePressReady={handlePressReady}
-          playerName={currentPlayerName}
-        />
-      </Container>
+      <CentralContainer>
+        <MainPartWrapper>
+          <Container>
+            <StyledShopTitle>Buy units</StyledShopTitle>
+            <StyledSubTitle>
+              Number of available money: {money}{" "}
+              <StyledMoneyImg src={goldIcon} />
+            </StyledSubTitle>
+            <UnitsCollection
+              money={money}
+              units={LIST_OF_UNITS}
+              setMoney={setMoney}
+              setMyUnits={setUnits}
+              totalUnits={units}
+            />
+          </Container>
+          <Container>
+            <MyUnits
+              units={units}
+              setMoney={setMoney}
+              setMyUnits={setUnits}
+              handlePressReady={handlePressReady}
+              playerName={currentPlayerName}
+            />
+          </Container>
+        </MainPartWrapper>
+        <RightContainer>
+          <BackgroundSelector
+            selectedBackgroundName={combatBackgroundName}
+            onSelect={setCombatBackgroundName}
+          />
+        </RightContainer>
+      </CentralContainer>
     </LobbyPageWrapper>
   );
 };
+
+const CentralContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
+const MainPartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const StyledModalWindow = styled.div`
   min-height: 80px;
@@ -142,7 +170,6 @@ const StyledSubTitle = styled.span`
 
 const LobbyPageWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   background: center / cover url(${loginLobbyBackground});
   height: 100vh;
   display: flex;
@@ -159,8 +186,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  :last-child {
+  :not(:first-child) {
     margin-top: 16px;
+  }
+`;
+
+const RightContainer = styled(Container)`
+  margin-left: 20px;
+  :not(:first-child) {
+    margin-top: 0px;
   }
 `;
 

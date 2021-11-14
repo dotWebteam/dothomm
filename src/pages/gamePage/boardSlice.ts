@@ -4,7 +4,13 @@ import { partition } from "lodash";
 import { getHowManyActionPointsToMove } from "./components/Board/utils/movingUtils";
 import { getInitialBoardAndUnitsState } from "./components/Board/utils/initializeUtils";
 
-import { BoardState, SpellName, Unit, UnitTemplateWithCount } from "./types";
+import {
+  BackgroundType,
+  BoardState,
+  SpellName,
+  Unit,
+  UnitTemplateWithCount,
+} from "./types";
 import {
   getDeadBody,
   isUnitDead,
@@ -30,6 +36,7 @@ const initialState: BoardState = {
   turn: 0,
   spellPoints: { isTired: false, max: 10, current: 10 },
   opponentSpellPoints: { isTired: false, max: 10, current: 10 },
+  backgroundSrc: "BEACH",
 };
 
 export const gameSlice = createSlice({
@@ -43,6 +50,7 @@ export const gameSlice = createSlice({
         secondPlayerUnitTemplates: Array<UnitTemplateWithCount>;
         userName: string;
         opponentName: string;
+        backgroundSrc: BackgroundType;
       }>
     ) => {
       const {
@@ -50,6 +58,7 @@ export const gameSlice = createSlice({
         secondPlayerUnitTemplates,
         opponentName,
         userName,
+        backgroundSrc,
       } = action.payload;
       state.opponentName = opponentName;
       const { units, board, activeUnit } = getInitialBoardAndUnitsState(
@@ -75,6 +84,7 @@ export const gameSlice = createSlice({
         effectSrc: "",
       };
       state.turn = 0;
+      state.backgroundSrc = backgroundSrc;
     },
 
     moveToSquare: (
@@ -148,7 +158,6 @@ export const gameSlice = createSlice({
       if (attackerUnit && defenderUnit) {
         const { unitsKilled, currentUnitHealthPoints, totalDamagePoints } =
           getHowManyUnitsDied(attacker, defender);
-        console.log("totalDamagePoints ", totalDamagePoints);
         defenderUnit.healthPoints.lastTakenDamage = totalDamagePoints;
         defenderUnit.healthPoints.current = currentUnitHealthPoints;
         defenderUnit.count -= unitsKilled;

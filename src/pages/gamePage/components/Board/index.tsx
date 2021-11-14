@@ -19,6 +19,8 @@ import windowBorder from "../../../../pictures/windowBorders.png";
 import Button from "../../../../components/Button";
 import UnitInfoSidebar from "./components/UnitInfoSidebar";
 
+import { BackgroundType } from "../../types";
+
 const Board: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
   const [boardState, setBoardState] = useState<any>([]);
@@ -65,6 +67,10 @@ const Board: FC = () => {
 
   const winner = useSelector((state: RootState) => state.game.winner);
 
+  const backgroundSrc = useSelector(
+    (state: RootState) => state.game.backgroundSrc
+  );
+
   return (
     <StyledBoardContainer>
       {winner ? (
@@ -75,7 +81,9 @@ const Board: FC = () => {
           </StyledModalWindow>
         </Modal>
       ) : null}
-      <StyledWrapper hasWinner={Boolean(winner)}>{boardState}</StyledWrapper>
+      <StyledWrapper hasWinner={Boolean(winner)} backgroundSrc={backgroundSrc}>
+        {boardState}
+      </StyledWrapper>
       <UnitInfoSidebar />
     </StyledBoardContainer>
   );
@@ -99,10 +107,14 @@ const StyledModalWindow = styled.div`
   justify-content: space-between;
 `;
 
-const StyledWrapper = styled.div<{ hasWinner?: boolean }>`
+const StyledWrapper = styled.div<{
+  hasWinner?: boolean;
+  backgroundSrc: BackgroundType;
+}>`
   padding: 20px;
   border: 1px solid #ffe98c;
-  background: center / cover url(${getBackgroundPictureByName("BEACH")});
+  background: center / cover
+    url(${({ backgroundSrc }) => getBackgroundPictureByName(backgroundSrc)});
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2px;

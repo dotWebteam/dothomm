@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../../../../../components/Button";
 import { concede } from "../../../boardSlice";
@@ -27,7 +27,7 @@ const ConcedeButton: FC = () => {
       {showModal && (
         <Modal onOutsideClick={() => setShowModal(false)}>
           <StyledModalWindow>
-            Are you sure you want to concede?
+            Do you want to run away?
             <Button isOk onClick={handleConcede} />
           </StyledModalWindow>
         </Modal>
