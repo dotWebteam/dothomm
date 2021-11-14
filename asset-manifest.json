@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/dothomm/static/js/main.ed701033.chunk.js",
-    "main.js.map": "/dothomm/static/js/main.ed701033.chunk.js.map",
+    "main.js": "/dothomm/static/js/main.f660e8e4.chunk.js",
+    "main.js.map": "/dothomm/static/js/main.f660e8e4.chunk.js.map",
     "runtime-main.js": "/dothomm/static/js/runtime-main.b3234de5.js",
     "runtime-main.js.map": "/dothomm/static/js/runtime-main.b3234de5.js.map",
-    "static/js/2.f2bbf373.chunk.js": "/dothomm/static/js/2.f2bbf373.chunk.js",
-    "static/js/2.f2bbf373.chunk.js.map": "/dothomm/static/js/2.f2bbf373.chunk.js.map",
+    "static/js/2.36e5bcec.chunk.js": "/dothomm/static/js/2.36e5bcec.chunk.js",
+    "static/js/2.36e5bcec.chunk.js.map": "/dothomm/static/js/2.36e5bcec.chunk.js.map",
     "static/js/3.69abf5ef.chunk.js": "/dothomm/static/js/3.69abf5ef.chunk.js",
     "static/js/3.69abf5ef.chunk.js.map": "/dothomm/static/js/3.69abf5ef.chunk.js.map",
     "index.html": "/dothomm/index.html",
-    "static/js/2.f2bbf373.chunk.js.LICENSE.txt": "/dothomm/static/js/2.f2bbf373.chunk.js.LICENSE.txt",
+    "static/js/2.36e5bcec.chunk.js.LICENSE.txt": "/dothomm/static/js/2.36e5bcec.chunk.js.LICENSE.txt",
     "static/media/CmBkBch.6be16200.png": "/dothomm/static/media/CmBkBch.6be16200.png",
     "static/media/CmBkBoat.8527838d.png": "/dothomm/static/media/CmBkBoat.8527838d.png",
     "static/media/alagard.685ec71b.ttf": "/dothomm/static/media/alagard.685ec71b.ttf",
@@ -20,7 +20,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.b3234de5.js",
-    "static/js/2.f2bbf373.chunk.js",
-    "static/js/main.ed701033.chunk.js"
+    "static/js/2.36e5bcec.chunk.js",
+    "static/js/main.f660e8e4.chunk.js"
   ]
 }
