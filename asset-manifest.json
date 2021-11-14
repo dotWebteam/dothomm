@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/dothomm/static/js/main.44620c58.chunk.js",
-    "main.js.map": "/dothomm/static/js/main.44620c58.chunk.js.map",
+    "main.js": "/dothomm/static/js/main.65a4917e.chunk.js",
+    "main.js.map": "/dothomm/static/js/main.65a4917e.chunk.js.map",
     "runtime-main.js": "/dothomm/static/js/runtime-main.b3234de5.js",
     "runtime-main.js.map": "/dothomm/static/js/runtime-main.b3234de5.js.map",
     "static/js/2.e83f6eab.chunk.js": "/dothomm/static/js/2.e83f6eab.chunk.js",
@@ -10,8 +10,15 @@
     "static/js/3.69abf5ef.chunk.js.map": "/dothomm/static/js/3.69abf5ef.chunk.js.map",
     "index.html": "/dothomm/index.html",
     "static/js/2.e83f6eab.chunk.js.LICENSE.txt": "/dothomm/static/js/2.e83f6eab.chunk.js.LICENSE.txt",
-    "static/media/CmBkBch.6be16200.png": "/dothomm/static/media/CmBkBch.6be16200.png",
-    "static/media/CmBkBoat.8527838d.png": "/dothomm/static/media/CmBkBoat.8527838d.png",
+    "static/media/BEACH.6be16200.png": "/dothomm/static/media/BEACH.6be16200.png",
+    "static/media/BOAT.8527838d.png": "/dothomm/static/media/BOAT.8527838d.png",
+    "static/media/CLEVER_FIELD.e2e784d7.png": "/dothomm/static/media/CLEVER_FIELD.e2e784d7.png",
+    "static/media/DESERT.7c792510.png": "/dothomm/static/media/DESERT.7c792510.png",
+    "static/media/GREEN_MOUNTAINS.52c30f04.png": "/dothomm/static/media/GREEN_MOUNTAINS.52c30f04.png",
+    "static/media/GREEN_TREES.4e95133d.png": "/dothomm/static/media/GREEN_TREES.4e95133d.png",
+    "static/media/LAVA.d2953b78.png": "/dothomm/static/media/LAVA.d2953b78.png",
+    "static/media/SWAMP.797d4723.png": "/dothomm/static/media/SWAMP.797d4723.png",
+    "static/media/WASTELAND.f82126d5.png": "/dothomm/static/media/WASTELAND.f82126d5.png",
     "static/media/alagard.685ec71b.ttf": "/dothomm/static/media/alagard.685ec71b.ttf",
     "static/media/leatherBackground.bb90ffef.png": "/dothomm/static/media/leatherBackground.bb90ffef.png",
     "static/media/loginLobbyBackground.1dd56c8b.png": "/dothomm/static/media/loginLobbyBackground.1dd56c8b.png",
@@ -21,6 +28,6 @@
   "entrypoints": [
     "static/js/runtime-main.b3234de5.js",
     "static/js/2.e83f6eab.chunk.js",
-    "static/js/main.44620c58.chunk.js"
+    "static/js/main.65a4917e.chunk.js"
   ]
 }
