@@ -128,8 +128,9 @@ const LobbyPage: FC = () => {
         <MainPartWrapper>
           <Container>
             <StyledShopTitle>Buy units</StyledShopTitle>
+            <StyledHorizontalLine />
             <StyledSubTitle>
-              Number of available money: {money}{" "}
+              Number of available money: {money}
               <StyledMoneyImg src={goldIcon} />
             </StyledSubTitle>
             <UnitsCollection
@@ -188,6 +189,13 @@ const StyledModalWindow = styled.div`
 const StyledMoneyImg = styled.img`
   width: 30px;
   margin-left: 4px;
+`;
+
+const StyledHorizontalLine = styled.hr`
+  width: 400px;
+  border: 1px solid;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 #000;
 `;
 
 const StyledSubTitle = styled.span`
