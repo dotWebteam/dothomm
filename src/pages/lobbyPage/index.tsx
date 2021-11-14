@@ -13,7 +13,7 @@ import leatherBackground from "../../pictures/leatherBackground.png";
 import windowBorder from "../../pictures/windowBorders.png";
 
 import LIST_OF_UNITS from "../../constants/listOfUnits";
-import { UnitTemplateWithCount } from "../gamePage/types";
+import { Artifact, UnitTemplateWithCount } from "../gamePage/types";
 import MyUnits from "./components/MyUnits";
 
 import goldIcon from "../../pictures/gold.png";
@@ -23,6 +23,8 @@ import Modal from "../../components/Modal";
 import BackgroundSelector from "./components/BackgroundSelector";
 
 import { BackgroundType } from "../gamePage/types";
+import ArtifactsShop from "./components/ArtifactsShop";
+import { HELM_OF_ALABASTER_UNICORN } from "../../constants/listOfArtifacts";
 
 const LobbyPage: FC = () => {
   const [money, setMoney] = useState<number>(INITIAL_AMOUNT_OF_MONEY);
@@ -57,6 +59,21 @@ const LobbyPage: FC = () => {
     setMoney(INITIAL_AMOUNT_OF_MONEY);
   };
 
+  const [firstPlayerArtifactArr, setFirstPlayerArtifactArr] = useState<
+    Artifact[]
+  >([]);
+  const [secondPlayerArtifactArr, setSecondPlayerArtifactArr] = useState<
+    Artifact[]
+  >([]);
+
+  const artifactArr = isFirstPlayer
+    ? firstPlayerArtifactArr
+    : secondPlayerArtifactArr;
+
+  const setArtifactArr = isFirstPlayer
+    ? setFirstPlayerArtifactArr
+    : setSecondPlayerArtifactArr;
+
   const goToGame = () => {
     if (!hasValidAmountOfMinions) {
       setShowModal(true);
@@ -69,6 +86,8 @@ const LobbyPage: FC = () => {
         userName: PLAYERS[0],
         opponentName: PLAYERS[1],
         backgroundSrc: combatBackgroundName,
+        firstPlayerArtifactArr,
+        secondPlayerArtifactArr,
       })
     );
   };
@@ -98,6 +117,14 @@ const LobbyPage: FC = () => {
         </Modal>
       )}
       <CentralContainer>
+        <LeftContainer>
+          <ArtifactsShop
+            artifactArr={artifactArr}
+            setArtifactArr={setArtifactArr}
+            setMoney={setMoney}
+            money={money}
+          />
+        </LeftContainer>
         <MainPartWrapper>
           <Container>
             <StyledShopTitle>Buy units</StyledShopTitle>
@@ -193,6 +220,13 @@ const Container = styled.div`
 
 const RightContainer = styled(Container)`
   margin-left: 20px;
+  :not(:first-child) {
+    margin-top: 0px;
+  }
+`;
+
+const LeftContainer = styled(Container)`
+  margin-right: 20px;
   :not(:first-child) {
     margin-top: 0px;
   }

@@ -150,6 +150,5 @@ export const getInitialBoardAndUnitsState = (
   return {
     units: unitsArray,
     board: getInitialBoardState(unitsArray),
-    activeUnit: unitsArray[0],
   };
 };

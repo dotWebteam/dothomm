@@ -111,6 +111,23 @@ export type SpellPoints = {
   current: number;
 };
 
+export type ArtifactNames = {
+  HELM_OF_ALABASTER_UNICORN: "HELM_OF_ALABASTER_UNICORN";
+  CENTAURS_AXE: "CENTAURS_AXE";
+  RING_OF_VITALITY: "RING_OF_VITALITY";
+};
+
+export type ArtifactName = ArtifactNames[keyof ArtifactNames];
+
+export type Artifact = {
+  id: number;
+  name: ArtifactName;
+  humanReadableName: string;
+  iconSrc: string;
+  cost: number;
+  description: string;
+};
+
 export interface BoardState {
   board: Array<Array<SquareState>>;
   units: Array<Unit>;

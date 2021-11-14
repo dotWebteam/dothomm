@@ -5,6 +5,7 @@ import { getHowManyActionPointsToMove } from "./components/Board/utils/movingUti
 import { getInitialBoardAndUnitsState } from "./components/Board/utils/initializeUtils";
 
 import {
+  Artifact,
   BackgroundType,
   BoardState,
   SpellName,
@@ -17,6 +18,7 @@ import {
   getHowManyUnitsDied,
 } from "./components/Board/utils/attackUtils";
 import { applySpellEffect } from "./components/Spellbook/spellEffects";
+import { applyArtifactEffect } from "../../utils/artifactReducers";
 
 const initialState: BoardState = {
   board: [],
@@ -51,6 +53,8 @@ export const gameSlice = createSlice({
         userName: string;
         opponentName: string;
         backgroundSrc: BackgroundType;
+        firstPlayerArtifactArr: Artifact[];
+        secondPlayerArtifactArr: Artifact[];
       }>
     ) => {
       const {
@@ -59,37 +63,66 @@ export const gameSlice = createSlice({
         opponentName,
         userName,
         backgroundSrc,
+        firstPlayerArtifactArr,
+        secondPlayerArtifactArr,
       } = action.payload;
       state.opponentName = opponentName;
-      const { units, board, activeUnit } = getInitialBoardAndUnitsState(
+      const { units, board } = getInitialBoardAndUnitsState(
         firstPlayerUnitTemplates,
         secondPlayerUnitTemplates,
         userName,
         opponentName
       );
-      state.units = units;
-      state.board = board;
-      state.activeUnit = activeUnit;
-      state.winner = "";
-      state.lastAction = "The battle has began!";
-      state.deadUnits = [];
-      [state.myName, state.opponentName] =
-        activeUnit.owner === userName
-          ? [userName, opponentName]
-          : [opponentName, userName];
       state.spellStack = {
         isCasting: false,
         spellName: undefined,
         cost: 0,
         effectSrc: "",
       };
-      state.spellPoints = state.opponentSpellPoints = {
+      state.opponentSpellPoints = {
         isTired: false,
         max: 10,
         current: 10,
       };
+      state.spellPoints = {
+        isTired: false,
+        max: 10,
+        current: 10,
+      };
+      state.units = units;
+      state.board = board;
+
+      state.winner = "";
+      state.lastAction = "The battle has began!";
+      state.deadUnits = [];
       state.turn = 0;
       state.backgroundSrc = backgroundSrc;
+      firstPlayerArtifactArr.forEach((artifact) => {
+        state = applyArtifactEffect(state, artifact.name, userName);
+      });
+      secondPlayerArtifactArr.forEach((artifact) => {
+        state = applyArtifactEffect(state, artifact.name, opponentName);
+      });
+      state.activeUnit = state.units[0];
+      [
+        state.myName,
+        state.spellPoints,
+        state.opponentName,
+        state.opponentSpellPoints,
+      ] =
+        state.activeUnit.owner === userName
+          ? [
+              userName,
+              state.spellPoints,
+              opponentName,
+              state.opponentSpellPoints,
+            ]
+          : [
+              opponentName,
+              state.opponentSpellPoints,
+              userName,
+              state.spellPoints,
+            ];
     },
 
     moveToSquare: (

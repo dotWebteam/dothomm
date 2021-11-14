@@ -1,1 +1,1 @@
-export const INITIAL_AMOUNT_OF_MONEY = 10000;
+export const INITIAL_AMOUNT_OF_MONEY = 15000;
