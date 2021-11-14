@@ -13,7 +13,7 @@ import { attack, castSpell, moveToSquare } from "../../../boardSlice";
 
 //components
 import Unit from "./Unit";
-import SpellEffect from "../../Spellbook/components/SpellEffect";
+import SpellEffect from "../../Spellbook/spellEffects/MagicArrow/SpellEffect";
 
 // utils
 import { isAdjacentCoordinateWithActionPoints } from "../utils/movingUtils";
@@ -38,7 +38,9 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
   } = squareState;
 
   const unitInSquare = useSelector((state: RootState) =>
-    state.game.units.find(({ id: unitID }) => unitID === id)
+    state.game.units.find(
+      ({ id: unitID }) => unitID === id && !obstacleType && !deadBodyType
+    )
   );
 
   const hasObstacle = squareFillType === "obstacle" && obstacleType;

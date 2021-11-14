@@ -1,5 +1,5 @@
-import { BoardAndUnitsState, Unit } from "../../../types";
-import { getDeadBody } from "../../Board/utils/attackUtils";
+import { BoardAndUnitsState, Unit } from "../../../../types";
+import { getDeadBody } from "../../../Board/utils/attackUtils";
 
 const MAGIC_ARROW_DMG = 50;
 
