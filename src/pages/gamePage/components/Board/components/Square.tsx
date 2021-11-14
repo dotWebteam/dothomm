@@ -38,9 +38,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
   } = squareState;
 
   const unitInSquare = useSelector((state: RootState) =>
-    state.game.units.find(
-      ({ id: unitID }) => unitID === id && !obstacleType && !deadBodyType
-    )
+    state.game.units.find(({ id: unitID }) => unitID === id && !obstacleType)
   );
 
   const hasObstacle = squareFillType === "obstacle" && obstacleType;
