@@ -59,11 +59,11 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const [showSpellEffect, setShowSpellEffect] = useState(false);
 
-  useTimeout(() => setShowSpellEffect(false), 4000, [spellStack]);
+  useTimeout(() => setShowSpellEffect(false), 300, [spellStack]);
 
   const [showDamagePopup, setShowDamagePopup] = useState(false);
 
-  useTimeout(() => setShowDamagePopup(false), 4000, [
+  useTimeout(() => setShowDamagePopup(false), 300, [
     unitInSquare?.healthPoints,
   ]);
 
