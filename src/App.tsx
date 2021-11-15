@@ -8,18 +8,24 @@ import GamePage from "./pages/gamePage";
 import LoginPage from "./pages/loginPage";
 import LobbyPage from "./pages/lobbyPage";
 
+import {
+  GAME_PAGE_ROUTE,
+  LOBBY_PAGE_ROUTE,
+  LOGIN_PAGE_ROUTE,
+} from "./constants/routeConstants";
+
 const App = () => {
   return (
     <StyledAppContainer>
       <Router>
         <Switch>
-          <Route path="/lobby">
+          <Route path={LOBBY_PAGE_ROUTE}>
             <LobbyPage />
           </Route>
-          <Route path="/game">
+          <Route path={GAME_PAGE_ROUTE}>
             <GamePage />
           </Route>
-          <Route path="/">
+          <Route path={LOGIN_PAGE_ROUTE}>
             <LoginPage />
           </Route>
         </Switch>

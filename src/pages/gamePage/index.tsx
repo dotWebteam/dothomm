@@ -9,13 +9,14 @@ import Footer from "./components/Footer";
 
 import leatherBackground from "../../pictures/leatherBackground.png";
 import marbleBackground from "../../pictures/marbleBackground.png";
+import { LOGIN_PAGE_ROUTE } from "../../constants/routeConstants";
 
 const GamePage: FC = () => {
   const board = useSelector((state: RootState) => state.game.board);
   return (
     <>
       {!board.length ? (
-        <Redirect to="/ " />
+        <Redirect to={LOGIN_PAGE_ROUTE} />
       ) : (
         <GamePageWrapper>
           <GamePageContainer>

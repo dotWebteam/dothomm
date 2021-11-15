@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 import Button from "../../components/Button";
+import { LOBBY_PAGE_ROUTE } from "../../constants/routeConstants";
 
 import leatherBackground from "../../pictures/leatherBackground.png";
 import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
@@ -17,7 +18,9 @@ const LoginPage: FC = () => {
         </StyledSubTitle>
         <ButtonSection>
           <StyledButton> Play online</StyledButton>
-          <StyledButton to="/lobby">Play offline (hotseat)</StyledButton>
+          <StyledButton to={LOBBY_PAGE_ROUTE}>
+            Play offline (hotseat)
+          </StyledButton>
         </ButtonSection>
       </LoginContainer>
     </LoginPageWrapper>

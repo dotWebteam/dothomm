@@ -20,6 +20,7 @@ import Button from "../../../../components/Button";
 import UnitInfoSidebar from "./components/UnitInfoSidebar";
 
 import { BackgroundType } from "../../types";
+import { LOBBY_PAGE_ROUTE } from "../../../../constants/routeConstants";
 
 const Board: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -77,7 +78,7 @@ const Board: FC = () => {
         <Modal>
           <StyledModalWindow>
             The winner is {winner}
-            <Button isOk to="/lobby" />
+            <Button isOk to={LOBBY_PAGE_ROUTE} />
           </StyledModalWindow>
         </Modal>
       ) : null}

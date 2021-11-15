@@ -12,6 +12,7 @@ import { RootState } from "../../../../store/store";
 
 import { PLAYERS } from "../../../../constants/players";
 import { capitalize } from "lodash";
+import { GAME_PAGE_ROUTE } from "../../../../constants/routeConstants";
 
 interface IMyUnits {
   units?: Array<UnitTemplateWithCount>;
@@ -72,7 +73,7 @@ const MyUnits: FC<IMyUnits> = ({
           onClick={handlePressReady}
           to={
             playerName === PLAYERS[1] && hasValidAmountOfMinions
-              ? "/game"
+              ? GAME_PAGE_ROUTE
               : undefined
           }
         />
