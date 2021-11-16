@@ -1,3 +1,5 @@
+import { useSpring } from "@react-spring/core";
+import { animated } from "@react-spring/web";
 import { isEmpty } from "lodash";
 import { FC, SetStateAction, Dispatch, useState, useEffect } from "react";
 import styled from "styled-components";
@@ -13,6 +15,8 @@ interface IUnit {
 
 const Unit: FC<IUnit> = ({ unit, setMoney, setMyUnits }) => {
   const [unitsCount, setUnitsCount] = useState<number | undefined>(unit?.count);
+
+  const isNotEmpty = !isEmpty(unit) && unit;
 
   useEffect(() => {
     setUnitsCount(unit?.count);
@@ -39,12 +43,18 @@ const Unit: FC<IUnit> = ({ unit, setMoney, setMyUnits }) => {
     });
   };
 
+  const fadeIn = useSpring({
+    opacity: isNotEmpty ? 1 : 0,
+    marginTop: isNotEmpty ? "0px" : "-100px",
+  });
+
   return (
     <StyledUnitWrapper>
-      {!isEmpty(unit) && unit ? (
+      {isNotEmpty ? (
         <StyledIconWrapper>
           <StyledImgWrapper>
             <StyledImg
+              style={fadeIn}
               src={getUnitIconByName(unit.unitType)}
               onClick={handleClick}
             />
@@ -72,7 +82,7 @@ const StyledIconWrapper = styled.div`
 
 const StyledImgWrapper = styled.div``;
 
-const StyledImg = styled.img`
+const StyledImg = styled(animated.img)`
   width: 100%;
   border: 1px solid #ad8e42;
   :hover {
@@ -89,7 +99,7 @@ const StyledUnitWrapper = styled.div`
   }
 `;
 
-const StyledCount = styled.span`
+const StyledCount = styled(animated.span)`
   position: absolute;
   bottom: 3px;
   right: 5px;

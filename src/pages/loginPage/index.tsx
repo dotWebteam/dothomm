@@ -1,3 +1,5 @@
+import { useSpring } from "@react-spring/core";
+import { animated } from "@react-spring/web";
 import { FC } from "react";
 import styled from "styled-components";
 
@@ -9,9 +11,14 @@ import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 import windowBorder from "../../pictures/windowBorders.png";
 
 const LoginPage: FC = () => {
+  const fadeIn = useSpring({
+    from: { opacity: 0, marginTop: "10px" },
+    to: { opacity: 1, marginTop: "0px" },
+  });
+
   return (
     <LoginPageWrapper>
-      <LoginContainer>
+      <LoginContainer style={fadeIn}>
         <StyledTitle>dotHeroes</StyledTitle>
         <StyledSubTitle>
           Heroes of Might and Magic inspired webgame
@@ -42,7 +49,7 @@ const LoginPageWrapper = styled.div`
   align-items: center;
 `;
 
-const LoginContainer = styled.div`
+const LoginContainer = styled(animated.div)`
   background: url(${leatherBackground});
   padding: 40px;
   background-color: #2d1d0f;
