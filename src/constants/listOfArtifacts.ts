@@ -4,6 +4,7 @@ import helmOfAlabasterUnicornIcon from "../pages/gamePage/pictures/artifacts/hel
 import centaursAxeIcon from "../pages/gamePage/pictures/artifacts/centaursAxe.png";
 import ringOfVitalityIcon from "../pages/gamePage/pictures/artifacts/ringOfVitality.png";
 import shieldOfDwarwenLordsIcon from "../pages/gamePage/pictures/artifacts/shieldOfDwarwenLords.png";
+import bootsOfSpeedIcon from "../pages/gamePage/pictures/artifacts/bootsOfSpeed.png";
 
 export const HELM_OF_ALABASTER_UNICORN: Artifact = {
   id: 1,
@@ -45,10 +46,21 @@ export const SHIELD_OF_DWARWEN_LORDS: Artifact = {
   rarity: "EPIC",
 };
 
+export const BOOTS_OF_SPEED: Artifact = {
+  id: 5,
+  name: "BOOTS_OF_SPEED",
+  humanReadableName: "Boots of speed",
+  description: "Gives +1 action point for all your units",
+  iconSrc: bootsOfSpeedIcon,
+  cost: 5000,
+  rarity: "RARE",
+};
+
 const LIST_OF_ARTIFACTS = [
   HELM_OF_ALABASTER_UNICORN,
   CENTAURS_AXE,
   RING_OF_VITALITY,
+  BOOTS_OF_SPEED,
   SHIELD_OF_DWARWEN_LORDS,
 ];
 

@@ -119,6 +119,7 @@ export type ArtifactNames = {
   CENTAURS_AXE: "CENTAURS_AXE";
   RING_OF_VITALITY: "RING_OF_VITALITY";
   SHIELD_OF_DWARWEN_LORDS: "SHIELD_OF_DWARWEN_LORDS";
+  BOOTS_OF_SPEED: "BOOTS_OF_SPEED";
 };
 
 export type ArtifactName = ArtifactNames[keyof ArtifactNames];

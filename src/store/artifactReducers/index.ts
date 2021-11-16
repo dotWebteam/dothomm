@@ -1,4 +1,5 @@
 import { ArtifactName, BoardState } from "../../pages/gamePage/types";
+import { bootsOfSpeedReducer } from "./bootsOfSpeed";
 import { centaursAxeReducer } from "./centaursAxe";
 import { helmOfAlabasterUnicornReducer } from "./helmOfAlabasterUnicorn";
 import { ringOfVitalityReducer } from "./ringOfVitality";
@@ -18,5 +19,7 @@ export const applyArtifactEffect = (
       return ringOfVitalityReducer(board, owner);
     case "SHIELD_OF_DWARWEN_LORDS":
       return shieldOfDwarwenLordsReducer(board, owner);
+    case "BOOTS_OF_SPEED":
+      return bootsOfSpeedReducer(board, owner);
   }
 };
