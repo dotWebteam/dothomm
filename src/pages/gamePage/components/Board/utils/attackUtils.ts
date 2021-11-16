@@ -16,11 +16,15 @@ export const getDeadBody: (id: number, unitType: UnitType) => SquareState = (
 
 /** Returns an object with units killed number and current unit health */
 export const getHowManyUnitsDied = (attacker: Unit, defender: Unit) => {
-  let totalDamagePoints =
-    random(attacker.attack.min, attacker.attack.max) * attacker.count -
-    defender.defense * defender.count;
+  const attackPoints =
+    random(attacker.attack.min, attacker.attack.max) * attacker.count;
 
-  if (totalDamagePoints <= 0) totalDamagePoints = 1;
+  const defendPoints = defender.defense * defender.count;
+
+  const totalDamagePoints =
+    attackPoints - defendPoints > 0
+      ? attackPoints - defendPoints
+      : Math.round(attackPoints * 0.3);
 
   const currentUnitHealthPoints =
     defender.healthPoints.current - totalDamagePoints;
