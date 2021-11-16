@@ -50,10 +50,12 @@ const ArtifactsShop: FC<IArtifactsShop> = ({
             >
               <StyledInfo>
                 {humanReadableName}
-                <br />
-                {description}
-                <br />
-                Cost: {cost}
+                <StyledHorizontalLine />
+                <StyledText>
+                  {description}
+                  <br />
+                  Cost: {cost}
+                </StyledText>
               </StyledInfo>
               <StyledImg src={iconSrc} />
             </StyledArtifactOption>
@@ -76,7 +78,21 @@ const StyledTitle = styled.div`
 
 const StyledInfo = styled.div`
   display: flex;
+  flex-direction: column;
   width: 200px;
+`;
+
+const StyledHorizontalLine = styled.hr`
+  width: 100%;
+  border: 1px solid;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 #000;
+  margin-top: 4px;
+  margin-bottom: 4px;
+`;
+
+const StyledText = styled.div`
+  font-size: 14px;
 `;
 
 const StyledImg = styled.img``;

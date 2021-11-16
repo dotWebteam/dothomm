@@ -42,13 +42,15 @@ const StyledTitle = styled.div`
 `;
 
 const StyledImg = styled.img`
-  width: 100px;
+  width: 50px;
   border: 1px solid #ad8e42;
+  margin-left: 16px;
 `;
 
 const StyledBackgroundOption = styled.div<{ selected?: boolean }>`
   padding: 10px;
   display: flex;
+  align-items: center;
   width: 280px;
   justify-content: space-between;
   border: 1px solid #ad8e42;
