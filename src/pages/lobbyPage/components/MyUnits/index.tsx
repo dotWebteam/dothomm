@@ -83,8 +83,8 @@ const MyUnits: FC<IMyUnits> = ({
 };
 
 const StyledImg = styled.img`
-  width: 58px;
-  margin-bottom: 4px;
+  width: 60px;
+  border: 1px solid #ad8e42;
 `;
 
 const StyledMyUnits = styled.div`

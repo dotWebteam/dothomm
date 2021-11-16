@@ -66,6 +66,7 @@ const EmptyUnitContainer = styled.div`
 `;
 
 const StyledIconWrapper = styled.div`
+  height: 68px;
   transform: scale(1);
 `;
 

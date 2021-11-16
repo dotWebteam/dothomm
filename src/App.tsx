@@ -2,7 +2,7 @@ import styled from "styled-components";
 import defaultCursor from "./pictures/cursor/defaultCursor.png";
 import alagardFont from "./fonts/alagard.ttf";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import GamePage from "./pages/gamePage";
 import LoginPage from "./pages/loginPage";

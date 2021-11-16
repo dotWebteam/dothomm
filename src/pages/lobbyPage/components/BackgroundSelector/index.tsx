@@ -22,7 +22,7 @@ const BackgroundSelector: FC<IBackgroundSelector> = ({
             onClick={() => onSelect(name as BackgroundType)}
             selected={name === selectedBackgroundName}
           >
-            <div>{name}</div>
+            <div>{name.replaceAll("_", " ")}</div>
             <StyledImg src={src} />
           </StyledBackgroundOption>
         ))}
