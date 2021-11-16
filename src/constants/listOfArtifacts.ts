@@ -49,7 +49,7 @@ export const SHIELD_OF_DWARWEN_LORDS: Artifact = {
 export const BOOTS_OF_SPEED: Artifact = {
   id: 5,
   name: "BOOTS_OF_SPEED",
-  humanReadableName: "Boots of speed",
+  humanReadableName: "Boots of Speed",
   description: "Gives +1 action point for all your units",
   iconSrc: bootsOfSpeedIcon,
   cost: 5000,
