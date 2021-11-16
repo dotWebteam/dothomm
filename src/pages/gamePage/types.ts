@@ -38,6 +38,7 @@ export type Unit = {
     min: number;
     max: number;
   };
+  defense: number;
   count: number;
   healthPoints: {
     lastTakenDamage?: number;

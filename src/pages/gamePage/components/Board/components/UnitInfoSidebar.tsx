@@ -19,6 +19,7 @@ const InfoSidebar: FC = () => {
     unitType,
     actionPoints: { current: currentActionPoints },
     attack: { max: maxAttack, min: minAttack },
+    defense,
     count: unitCount,
     owner: unitOwner,
   } = activeUnit;
@@ -46,6 +47,7 @@ const InfoSidebar: FC = () => {
           Unit attack: {minAttack} - {maxAttack}
         </div>
         <div>Unit action points: {currentActionPoints}</div>
+        <div>Defense: {defense}</div>
         <div>Unit count: {unitCount}</div>
         <div>Owner: {unitOwner}</div>
       </StyledUnitInfo>

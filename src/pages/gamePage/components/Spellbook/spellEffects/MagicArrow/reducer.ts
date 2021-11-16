@@ -3,6 +3,7 @@ import { getDeadBody } from "../../../Board/utils/attackUtils";
 
 const MAGIC_ARROW_DMG = 50;
 
+// TODO: fix like attack reducer in board slice
 const applyDirectDamageToUnits = (
   units: Unit[],
   targetX: number,
@@ -14,12 +15,11 @@ const applyDirectDamageToUnits = (
       const totalHpBeforeDmg =
         unit.healthPoints.max * (unit.count - 1) + unit.healthPoints.current;
       const totalHpAfterDmg = totalHpBeforeDmg - totalDamage;
-      const unitCountAfterDmg = Math.round(
+      const unitCountAfterDmg = Math.ceil(
         totalHpAfterDmg / unit.healthPoints.max
       );
-      const currentHealthAfterDmg = Math.round(
-        totalHpAfterDmg % unit.healthPoints.max
-      );
+      const currentHealthAfterDmg = totalHpAfterDmg % unit.healthPoints.max;
+
       return {
         ...unit,
         healthPoints: {

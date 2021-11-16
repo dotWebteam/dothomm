@@ -1,3 +1,5 @@
+import { useSpring } from "@react-spring/core";
+import { animated } from "@react-spring/web";
 import { FC } from "react";
 import styled from "styled-components";
 import { getUnitSpriteByName } from "../../../pictures/utils";
@@ -21,12 +23,17 @@ const Unit: FC<IUnit> = ({
   count,
   viewDirection,
 }) => {
+  const fadeIn = useSpring({
+    from: { opacity: 0.5 },
+    to: { opacity: 1 },
+  });
   return (
     <StyledWrapper>
       <StyledImg
         lookLeft={viewDirection === "left"}
         className={className}
         src={getUnitSpriteByName(unitType)}
+        style={fadeIn}
       />
       {healthPoints && (
         <HealthBar>
@@ -45,7 +52,7 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledImg = styled.img<{ lookLeft: boolean }>`
+const StyledImg = styled(animated.img)<{ lookLeft: boolean }>`
   ${({ lookLeft }) => lookLeft && "transform: scaleX(-1);"}
   max-height: 100px;
 `;

@@ -42,6 +42,12 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     state.game.units.find(({ id: unitID }) => unitID === id && !obstacleType)
   );
 
+  const deadUnitInSquare = useSelector((state: RootState) =>
+    state.game.deadUnits?.find(
+      ({ id: unitID }) => unitID === id && !obstacleType
+    )
+  );
+
   const hasObstacle = squareFillType === "obstacle" && obstacleType;
   const hasUnit = squareFillType === "unit" && unitType;
   const hasDeadBody = squareFillType === "deadBody" && deadBodyType;
@@ -74,7 +80,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
   const {
     id: activeUserID,
     coordinates: { x: prevX, y: prevY },
-    actionPoints: { max, current: currentActionPoints },
+    actionPoints: { current: currentActionPoints },
   } = activeUnit;
 
   const hasActiveUnit = prevX === x && prevY === y;
@@ -133,7 +139,10 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     >
       <DamagePopup
         show={showDamagePopup}
-        damage={unitInSquare?.healthPoints.lastTakenDamage}
+        damage={
+          unitInSquare?.healthPoints.lastTakenDamage ||
+          deadUnitInSquare?.healthPoints.lastTakenDamage
+        }
       />
       <SpellEffect
         show={Boolean(showSpellEffect && effectSrc)}

@@ -6,6 +6,7 @@ export const SWORDSMAN: UnitTemplate = {
     min: 6,
     max: 9,
   },
+  defense: 2,
   healthPoints: {
     max: 35,
     current: 35,
@@ -21,6 +22,7 @@ export const PIKEMAN: UnitTemplate = {
     min: 1,
     max: 3,
   },
+  defense: 1,
   healthPoints: {
     max: 10,
     current: 10,
@@ -36,6 +38,7 @@ export const PEASANT: UnitTemplate = {
     min: 1,
     max: 1,
   },
+  defense: 0,
   healthPoints: {
     max: 1,
     current: 1,

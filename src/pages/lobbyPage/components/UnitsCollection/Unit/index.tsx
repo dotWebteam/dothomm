@@ -23,6 +23,7 @@ const Unit: FC<IUnit> = ({
     unitType,
     actionPoints: { max: maxActionPoints },
     attack: { max: maxAttack, min: minAttack },
+    defense,
     healthPoints: { max: maxHealthPoints },
     cost,
   },
@@ -59,7 +60,9 @@ const Unit: FC<IUnit> = ({
               ? minAttack
               : `${minAttack} - ${maxAttack}`}
           </StyledCharachteristic>
-          <StyledCharachteristic>HP: {maxHealthPoints}</StyledCharachteristic>
+          <StyledCharachteristic>
+            HP: {maxHealthPoints} | Def: {defense}
+          </StyledCharachteristic>
           <StyledCharachteristic>Cost: {cost}</StyledCharachteristic>
         </StyledRow>
       </StyledCharactericticsSection>
