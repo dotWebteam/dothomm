@@ -112,10 +112,13 @@ export type SpellPoints = {
   current: number;
 };
 
+export type Rarity = "COMMON" | "RARE" | "EPIC";
+
 export type ArtifactNames = {
   HELM_OF_ALABASTER_UNICORN: "HELM_OF_ALABASTER_UNICORN";
   CENTAURS_AXE: "CENTAURS_AXE";
   RING_OF_VITALITY: "RING_OF_VITALITY";
+  SHIELD_OF_DWARWEN_LORDS: "SHIELD_OF_DWARWEN_LORDS";
 };
 
 export type ArtifactName = ArtifactNames[keyof ArtifactNames];
@@ -127,6 +130,7 @@ export type Artifact = {
   iconSrc: string;
   cost: number;
   description: string;
+  rarity: Rarity;
 };
 
 export interface BoardState {

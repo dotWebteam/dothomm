@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction } from "react";
 import styled from "styled-components";
 import LIST_OF_ARTIFACTS from "../../../../constants/listOfArtifacts";
-import { Artifact } from "../../../gamePage/types";
+import { Artifact, Rarity } from "../../../gamePage/types";
 
 interface IArtifactsShop {
   artifactArr: Artifact[];
@@ -21,7 +21,8 @@ const ArtifactsShop: FC<IArtifactsShop> = ({
       <StyledTitle>Buy items</StyledTitle>
       <StyledArtifactsList>
         {LIST_OF_ARTIFACTS.map((artifact, index) => {
-          const { humanReadableName, cost, iconSrc, description } = artifact;
+          const { humanReadableName, cost, iconSrc, description, rarity } =
+            artifact;
 
           const indexInArr = artifactArr.findIndex(
             (currentArtifact) => artifact === currentArtifact
@@ -47,6 +48,7 @@ const ArtifactsShop: FC<IArtifactsShop> = ({
               key={index}
               onClick={handleClick}
               selected={selected}
+              rarity={rarity}
             >
               <StyledInfo>
                 {humanReadableName}
@@ -97,13 +99,29 @@ const StyledText = styled.div`
 
 const StyledImg = styled.img``;
 
-const StyledArtifactOption = styled.div<{ selected?: boolean }>`
+const StyledArtifactOption = styled.div<{ selected?: boolean; rarity: Rarity }>`
   padding: 10px;
   display: flex;
   align-items: flex-start;
   width: 280px;
   justify-content: space-between;
   border: 1px solid #ad8e42;
+  position: relative;
+  :before {
+    content: " ";
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    ${({ rarity }) => {
+      if (rarity === "EPIC") return `border: 1px solid #9800ff`;
+      if (rarity === "RARE") return `border: 1px solid #0024ff`;
+      if (rarity === "COMMON") return `border: 1px solid #979797`;
+    }};
+  }
+
   background-color: ${({ selected }) => (selected ? "#000000a3" : "#00000070")};
   :not(:last-child) {
     margin-bottom: 8px;

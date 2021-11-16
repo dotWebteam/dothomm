@@ -18,7 +18,7 @@ import {
   getHowManyUnitsDied,
 } from "./components/Board/utils/attackUtils";
 import { applySpellEffect } from "./components/Spellbook/spellEffects";
-import { applyArtifactEffect } from "../../utils/artifactReducers";
+import { applyArtifactEffect } from "../../store/artifactReducers";
 
 const initialState: BoardState = {
   board: [],
