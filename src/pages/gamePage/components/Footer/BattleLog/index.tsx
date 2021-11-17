@@ -32,6 +32,7 @@ const BattleLog: FC = () => {
 };
 
 const StyledBattleLog = styled.div`
+  border: 1px solid #ffe98c;
   flex: 2;
   background: #00000057;
   padding: 10px;

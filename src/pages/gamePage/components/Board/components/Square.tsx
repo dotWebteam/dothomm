@@ -173,19 +173,38 @@ const StyledSquare = styled.div<{
   justify-content: center;
   align-content: center;
   align-items: center;
-  border: 1px solid ${({ hasActiveUnit }) => (hasActiveUnit ? "red" : "black")};
+  border: 1px solid
+    ${({ hasActiveUnit }) => (hasActiveUnit ? "#ffe98c" : "black")};
   ${({ isPossibleToMove }) =>
     isPossibleToMove && "background-color: #0000002b;"}
+  ${({ hasActiveUnit }) =>
+    hasActiveUnit &&
+    `background: rgb(255,233,140);
+    background: radial-gradient(circle, rgba(255,233,140,0.17970938375350143) 0%, rgba(74,58,38,0.5914740896358543) 100%);
+  `};
   width: 50px;
   height: 50px;
   :hover {
-    border: 1px solid red;
     ${({ isPossibleToAttack }) =>
-      isPossibleToAttack && `cursor: url(${attackCursor}), auto;`}
+      isPossibleToAttack &&
+      `cursor: url(${attackCursor}), auto;
+      border: 1px solid rgb(199,13,0);
+      background: rgb(199,13,0);
+      background: radial-gradient(circle, rgba(199,13,0,0.17970938375350143) 0%, rgba(150,0,0,0.5914740896358543) 100%);
+    `}
     ${({ isPossibleToMove }) =>
-      isPossibleToMove && `cursor: url(${moveCursor}), auto;`};
+      isPossibleToMove &&
+      `cursor: url(${moveCursor}), auto;
+      background: rgb(61,61,61);
+      background: radial-gradient(circle, rgba(61,61,61,0.41220238095238093) 0%, rgba(19,19,19,0.6222864145658263) 100%);
+    `};
     ${({ spellIsCasting }) =>
-      spellIsCasting && `cursor: url(${castCursor}), auto;`};
+      spellIsCasting &&
+      `cursor: url(${castCursor}), auto;
+      border: 1px solid rgb(0,148,199);
+      background: rgb(0,148,199);
+      background: radial-gradient(circle, rgba(0,148,199,0.17970938375350143) 0%, rgba(5,0,150,0.5914740896358543) 100%);
+      `};
   }
 `;
 

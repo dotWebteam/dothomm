@@ -20,6 +20,8 @@ const DamagePopup: FC<IDamagePopup> = ({ show, damage }) => {
 };
 
 const StyledSpellEffect = styled(animated.div)`
+  font-size: 30px;
+  text-shadow: -4px -3px 0px #000000;
   z-index: 10;
   margin-bottom: 180px;
   margin-right: 30px;
