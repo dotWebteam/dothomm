@@ -22,9 +22,9 @@ export const getHowManyUnitsDied = (attacker: Unit, defender: Unit) => {
   const defendPoints = defender.defense * defender.count;
 
   const totalDamagePoints =
-    attackPoints - defendPoints > 0
+    attackPoints - defendPoints > Math.ceil(attackPoints * 0.3)
       ? attackPoints - defendPoints
-      : Math.round(attackPoints * 0.3);
+      : Math.ceil(attackPoints * 0.3);
 
   const currentUnitHealthPoints =
     defender.healthPoints.current - totalDamagePoints;
