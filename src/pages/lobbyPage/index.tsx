@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import styled from "styled-components";
 
 import Button from "../../components/Button";
+import Container from "../../components/Container";
 
 import UnitsCollection from "./components/UnitsCollection";
 
@@ -24,9 +25,6 @@ import BackgroundSelector from "./components/BackgroundSelector";
 
 import { BackgroundType } from "../gamePage/types";
 import ArtifactsShop from "./components/ArtifactsShop";
-import { HELM_OF_ALABASTER_UNICORN } from "../../constants/listOfArtifacts";
-import { useSpring } from "@react-spring/core";
-import { animated } from "@react-spring/web";
 
 const LobbyPage: FC = () => {
   const [money, setMoney] = useState<number>(INITIAL_AMOUNT_OF_MONEY);
@@ -103,11 +101,6 @@ const LobbyPage: FC = () => {
   const [combatBackgroundName, setCombatBackgroundName] =
     useState<BackgroundType>("BEACH");
 
-  const fadeIn = useSpring({
-    from: { opacity: 0, marginTop: "10px" },
-    to: { opacity: 1, marginTop: "0px" },
-  });
-
   return (
     <LobbyPageWrapper>
       {showModal && (
@@ -124,7 +117,7 @@ const LobbyPage: FC = () => {
         </Modal>
       )}
       <CentralContainer>
-        <LeftContainer style={fadeIn}>
+        <LeftContainer>
           <ArtifactsShop
             artifactArr={artifactArr}
             setArtifactArr={setArtifactArr}
@@ -133,7 +126,7 @@ const LobbyPage: FC = () => {
           />
         </LeftContainer>
         <MainPartWrapper>
-          <Container style={fadeIn}>
+          <Container>
             <StyledShopTitle>Buy units</StyledShopTitle>
             <StyledHorizontalLine />
             <StyledSubTitle>
@@ -148,7 +141,7 @@ const LobbyPage: FC = () => {
               totalUnits={units}
             />
           </Container>
-          <Container>
+          <UnitsContainer>
             <MyUnits
               units={units}
               setMoney={setMoney}
@@ -156,9 +149,9 @@ const LobbyPage: FC = () => {
               handlePressReady={handlePressReady}
               playerName={currentPlayerName}
             />
-          </Container>
+          </UnitsContainer>
         </MainPartWrapper>
-        <RightContainer style={fadeIn}>
+        <RightContainer>
           <BackgroundSelector
             selectedBackgroundName={combatBackgroundName}
             onSelect={setCombatBackgroundName}
@@ -219,18 +212,8 @@ const LobbyPageWrapper = styled.div`
   align-items: center;
 `;
 
-const Container = styled(animated.div)`
-  background: url(${leatherBackground});
-  padding: 40px;
-  background-color: #2d1d0f;
-  border: 1px solid #ad8e42;
-  border-image: url(${windowBorder}) 40 / 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  :not(:first-child) {
-    margin-top: 16px;
-  }
+const UnitsContainer = styled(Container)`
+  margin-top: 20px !important;
 `;
 
 const RightContainer = styled(Container)`

@@ -1,24 +1,16 @@
-import { useSpring } from "@react-spring/core";
-import { animated } from "@react-spring/web";
 import { FC } from "react";
 import styled from "styled-components";
 
 import Button from "../../components/Button";
+import Container from "../../components/Container";
 import { LOBBY_PAGE_ROUTE } from "../../constants/routeConstants";
 
-import leatherBackground from "../../pictures/leatherBackground.png";
 import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
-import windowBorder from "../../pictures/windowBorders.png";
 
 const LoginPage: FC = () => {
-  const fadeIn = useSpring({
-    from: { opacity: 0, marginTop: "10px" },
-    to: { opacity: 1, marginTop: "0px" },
-  });
-
   return (
     <LoginPageWrapper>
-      <LoginContainer style={fadeIn}>
+      <Container>
         <StyledTitle>dotHeroes</StyledTitle>
         <StyledSubTitle>
           Heroes of Might and Magic inspired webgame
@@ -29,7 +21,7 @@ const LoginPage: FC = () => {
             Play offline (hotseat)
           </StyledButton>
         </ButtonSection>
-      </LoginContainer>
+      </Container>
     </LoginPageWrapper>
   );
 };
@@ -46,17 +38,6 @@ const LoginPageWrapper = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-`;
-
-const LoginContainer = styled(animated.div)`
-  background: url(${leatherBackground});
-  padding: 40px;
-  background-color: #2d1d0f;
-  border: 1px solid #ad8e42;
-  border-image: url(${windowBorder}) 40 / 40px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
 `;
 
