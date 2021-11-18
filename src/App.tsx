@@ -13,10 +13,12 @@ import {
   LOBBY_PAGE_ROUTE,
   LOGIN_PAGE_ROUTE,
 } from "./constants/routeConstants";
+import Header from "./components/Header";
 
 const App = () => {
   return (
     <StyledAppContainer>
+      <Header />
       <Router>
         <Switch>
           <Route path={LOBBY_PAGE_ROUTE}>
