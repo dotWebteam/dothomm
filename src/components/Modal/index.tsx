@@ -11,11 +11,19 @@ interface IModal {
   className?: string;
   children: ReactNode;
   onOutsideClick?: () => void;
+  customBackgroundStyle?: any;
+  customModalStyle?: any;
 }
 
 const rootNode = document.querySelector("#root");
 
-const Modal: FC<IModal> = ({ children, className, onOutsideClick }) => {
+const Modal: FC<IModal> = ({
+  children,
+  className,
+  onOutsideClick,
+  customBackgroundStyle,
+  customModalStyle,
+}) => {
   const handleOutsideClick = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -39,11 +47,16 @@ const Modal: FC<IModal> = ({ children, className, onOutsideClick }) => {
 
   return rootNode
     ? createPortal(
-        <StyledBackground onClick={handleOutsideClick} style={backgroundStyles}>
+        <StyledBackground
+          onClick={handleOutsideClick}
+          style={
+            customBackgroundStyle ? customBackgroundStyle : backgroundStyles
+          }
+        >
           <StyledModal
             className={className}
             onClick={handleInsideClick}
-            style={modalStyles}
+            style={customModalStyle ? customModalStyle : modalStyles}
           >
             {children}
           </StyledModal>
