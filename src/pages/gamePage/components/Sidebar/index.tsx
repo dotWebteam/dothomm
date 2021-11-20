@@ -2,13 +2,14 @@ import { FC } from "react";
 import styled from "styled-components";
 import { capitalize } from "lodash";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store/store";
+import { RootState } from "../../../../store/store";
 import {
   getHeroPortraitPictureByName,
   getUnitIconByName,
-} from "../../../pictures/utils";
-import { PLAYERS } from "../../../../../constants/players";
-import UnitStats from "./UnitStats";
+} from "../../pictures/utils";
+import { PLAYERS } from "../../../../constants/players";
+import UnitStats from "../Board/components/UnitStats";
+import Inventory from "./components/Inventory";
 
 const InfoSidebar: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -34,6 +35,7 @@ const InfoSidebar: FC = () => {
           </ManaBar>
         </StyledInfoSection>
       </StyledPlayerInfo>
+      <Inventory />
       <div>
         <StyledActiveUnitTitle>Active Unit</StyledActiveUnitTitle>
         <StyledUnitStats unit={activeUnit} />

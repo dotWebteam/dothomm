@@ -39,6 +39,8 @@ const initialState: BoardState = {
   spellPoints: { isTired: false, max: 10, current: 10 },
   opponentSpellPoints: { isTired: false, max: 10, current: 10 },
   backgroundSrc: "BEACH",
+  myArtifacts: [],
+  opponentArtifacts: [],
 };
 
 export const gameSlice = createSlice({
@@ -97,6 +99,8 @@ export const gameSlice = createSlice({
       state.deadUnits = [];
       state.turn = 0;
       state.backgroundSrc = backgroundSrc;
+      state.myArtifacts = firstPlayerArtifactArr;
+      state.opponentArtifacts = secondPlayerArtifactArr;
       firstPlayerArtifactArr.forEach((artifact) => {
         state = applyArtifactEffect(state, artifact.name, userName);
       });
@@ -107,21 +111,27 @@ export const gameSlice = createSlice({
       [
         state.myName,
         state.spellPoints,
+        state.myArtifacts,
         state.opponentName,
         state.opponentSpellPoints,
+        state.opponentArtifacts,
       ] =
         state.activeUnit.owner === userName
           ? [
               userName,
               state.spellPoints,
+              state.myArtifacts,
               opponentName,
               state.opponentSpellPoints,
+              state.opponentArtifacts,
             ]
           : [
               opponentName,
               state.opponentSpellPoints,
+              state.opponentArtifacts,
               userName,
               state.spellPoints,
+              state.myArtifacts,
             ];
     },
 
@@ -177,6 +187,10 @@ export const gameSlice = createSlice({
         [state.opponentSpellPoints, state.spellPoints] = [
           state.spellPoints,
           state.opponentSpellPoints,
+        ];
+        [state.myArtifacts, state.opponentArtifacts] = [
+          state.opponentArtifacts,
+          state.myArtifacts,
         ];
         state.lastAction += `The turn goes to ${state.opponentName}`;
       }

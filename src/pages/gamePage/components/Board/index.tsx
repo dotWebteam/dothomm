@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 
 // Redux
@@ -17,14 +17,14 @@ import Modal from "../../../../components/Modal";
 import leatherBackground from "../../../../pictures/leatherBackground.png";
 import windowBorder from "../../../../pictures/windowBorders.png";
 import Button from "../../../../components/Button";
-import UnitInfoSidebar from "./components/UnitInfoSidebar";
+import UnitInfoSidebar from "../Sidebar";
 
 import { BackgroundType } from "../../types";
 import { LOBBY_PAGE_ROUTE } from "../../../../constants/routeConstants";
 
 const Board: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
-  const [boardState, setBoardState] = useState<any>([]);
+  const [boardState, setBoardState] = useState<ReactNode>([]);
 
   const getSquares = () => {
     const squaresArr = [];

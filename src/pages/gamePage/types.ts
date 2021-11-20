@@ -149,6 +149,8 @@ export interface BoardState {
   spellPoints: SpellPoints;
   opponentSpellPoints: SpellPoints;
   backgroundSrc: BackgroundType;
+  myArtifacts: Artifact[];
+  opponentArtifacts: Artifact[];
 }
 
 export type BoardAndUnitsState = {
