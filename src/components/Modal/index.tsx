@@ -49,12 +49,12 @@ const Modal: FC<IModal> = ({
     ? createPortal(
         <StyledBackground
           onClick={handleOutsideClick}
+          className={className}
           style={
             customBackgroundStyle ? customBackgroundStyle : backgroundStyles
           }
         >
           <StyledModal
-            className={className}
             onClick={handleInsideClick}
             style={customModalStyle ? customModalStyle : modalStyles}
           >

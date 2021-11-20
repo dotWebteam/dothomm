@@ -8,6 +8,7 @@ import {
   getUnitIconByName,
 } from "../../../pictures/utils";
 import { PLAYERS } from "../../../../../constants/players";
+import UnitStats from "./UnitStats";
 
 const InfoSidebar: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -15,21 +16,14 @@ const InfoSidebar: FC = () => {
   const spellPoints = useSelector((state: RootState) => state.game.spellPoints);
 
   if (!activeUnit) return null;
-  const {
-    unitType,
-    actionPoints: { current: currentActionPoints },
-    attack: { max: maxAttack, min: minAttack },
-    defense,
-    count: unitCount,
-    owner: unitOwner,
-  } = activeUnit;
+  const { owner: unitOwner } = activeUnit;
   const portraitName = unitOwner === PLAYERS[0] ? "ORRIN" : "ADELAIDE";
   return (
     <StyledInfoSidebar>
       <StyledPlayerInfo>
         <StyledImg src={getHeroPortraitPictureByName(portraitName)} />
         <StyledInfoSection>
-          <div>{capitalize(activePlayer)}</div>
+          <StyledPlayerName>{capitalize(activePlayer)}</StyledPlayerName>
           <ManaBar>
             <StyledManaTitle>
               {spellPoints.current}/{spellPoints.max}
@@ -40,29 +34,32 @@ const InfoSidebar: FC = () => {
           </ManaBar>
         </StyledInfoSection>
       </StyledPlayerInfo>
-      <StyledUnitInfo>
-        <StyledImg src={getUnitIconByName(unitType)} />
-        <div>Unit name: {capitalize(activeUnit.unitType)}</div>
-        <div>
-          Unit attack: {minAttack} - {maxAttack}
-        </div>
-        <div>Unit action points: {currentActionPoints}</div>
-        <div>Defense: {defense}</div>
-        <div>Unit count: {unitCount}</div>
-        <div>Owner: {unitOwner}</div>
-      </StyledUnitInfo>
+      <div>
+        <StyledActiveUnitTitle>Active Unit</StyledActiveUnitTitle>
+        <StyledUnitStats unit={activeUnit} />
+      </div>
     </StyledInfoSidebar>
   );
 };
 
+const StyledPlayerName = styled.div`
+  font-size: 20px;
+`;
+
 const StyledInfoSection = styled.div`
-  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 120px;
+  padding: 10px;
 `;
 
 const StyledPlayerInfo = styled.div`
-  padding: 0 20px;
+  margin: 0 0 0 20px;
+  width: 290px;
   display: flex;
+  border: 1px solid #ffe98c;
+  background-color: #000000a3;
 `;
 
 const StyledInfoSidebar = styled.div`
@@ -72,14 +69,26 @@ const StyledInfoSidebar = styled.div`
 `;
 
 const StyledImg = styled.img`
-  width: 80px;
+  width: 60px;
+  border: 1px solid #ffe98c;
 `;
 
-const StyledUnitInfo = styled.div`
-  width: 200px;
-  padding: 0 20px;
+const StyledActiveUnitTitle = styled.div`
+  margin: 0 0 8px 20px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid #ffe98c;
+  background: rgb(15, 102, 10);
+  background: radial-gradient(
+    circle,
+    rgba(15, 102, 10, 1) 0%,
+    rgba(2, 34, 9, 1) 100%
+  );
+`;
+
+const StyledUnitStats = styled(UnitStats)`
+  margin-left: 20px;
 `;
 
 const ManaBar = styled.div`
@@ -94,7 +103,7 @@ const ManaBar = styled.div`
   align-items: center;
   justify-content: center;
   height: 20px;
-  width: 140px;
+  width: 205px;
 `;
 
 const BlackLine = styled.div<{ value: { current: number; max: number } }>`
@@ -109,7 +118,7 @@ const StyledManaTitle = styled.div`
   z-index: 2;
   position: absolute;
   margin-top: 3px;
-  margin-left: 56px;
+  margin-left: 85px;
 `;
 
 export default InfoSidebar;

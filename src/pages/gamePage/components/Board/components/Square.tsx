@@ -21,6 +21,7 @@ import Obstacle from "./Obstacle";
 import DeadBody from "./DeadBody";
 import { useTimeout } from "../../../../../utils/useTimeout";
 import DamagePopup from "./DamagePopup";
+import UnitInfoPopup from "./UnitInfoPopup";
 
 interface ISquare {
   x: number;
@@ -72,6 +73,8 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
   useTimeout(() => setShowDamagePopup(false), 300, [
     unitInSquare?.healthPoints,
   ]);
+
+  const [showUnitInfoPopup, setShowUnitInfoPopup] = useState(false);
 
   if (!activeUnit) return null; // TODO: Think and remove this
 
@@ -128,6 +131,11 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     }
   };
 
+  const handleContextMenu = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setShowUnitInfoPopup(true);
+  };
+
   return (
     <StyledSquare
       isPossibleToMove={isPossibleToMove}
@@ -136,7 +144,14 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       spellIsCasting={spellIsCasting}
       className={className}
       onClick={handleClick}
+      onContextMenu={handleContextMenu}
     >
+      {showUnitInfoPopup && unitInSquare && (
+        <UnitInfoPopup
+          unit={unitInSquare}
+          onHide={() => setShowUnitInfoPopup(false)}
+        />
+      )}
       <DamagePopup
         show={showDamagePopup}
         damage={
