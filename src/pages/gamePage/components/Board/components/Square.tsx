@@ -9,7 +9,7 @@ import castCursor from "../../../../../pictures/spellbook.png";
 // redux
 import { RootState } from "../../../../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { attack, castSpell, moveToSquare } from "../../../boardSlice";
+import { attack, castSpell, moveToSquare, nextTurn } from "../../../boardSlice";
 
 //components
 import Unit from "./Unit";
@@ -131,6 +131,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
     if (isPossibleToAttack) {
       dispatch(attack({ attacker: activeUnit, defender: unitInSquare }));
       setShowDamagePopup(true);
+      dispatch(nextTurn({ activeUnit }));
     }
   };
 
