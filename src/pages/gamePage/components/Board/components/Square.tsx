@@ -14,14 +14,14 @@ import { attack, castSpell, moveToSquare } from "../../../boardSlice";
 //components
 import Unit from "./Unit";
 import SpellEffect from "../../Spellbook/spellEffects/MagicArrow/SpellEffect";
+import DamagePopup from "./DamagePopup";
+import UnitInfoPopup from "./UnitInfoPopup";
 
 // utils
 import { isAdjacentCoordinateWithActionPoints } from "../utils/movingUtils";
 import Obstacle from "./Obstacle";
 import DeadBody from "./DeadBody";
 import { useTimeout } from "../../../../../utils/useTimeout";
-import DamagePopup from "./DamagePopup";
-import UnitInfoPopup from "./UnitInfoPopup";
 
 interface ISquare {
   x: number;
@@ -109,6 +109,9 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
 
   const { isCasting: spellIsCasting, effectSrc } = spellStack;
 
+  const isEnemyInSquare =
+    unitInSquare && currentPlayerName !== unitInSquare.owner;
+
   const handleClick = () => {
     if (spellIsCasting) {
       dispatch(castSpell({ x, y }));
@@ -141,6 +144,7 @@ const Square: FC<ISquare> = ({ x, y, className }) => {
       isPossibleToMove={isPossibleToMove}
       hasActiveUnit={hasActiveUnit}
       isPossibleToAttack={isPossibleToAttack}
+      isEnemyInSquare={isEnemyInSquare}
       spellIsCasting={spellIsCasting}
       className={className}
       onClick={handleClick}
@@ -183,6 +187,7 @@ const StyledSquare = styled.div<{
   hasActiveUnit?: boolean;
   isPossibleToAttack?: boolean;
   spellIsCasting?: boolean;
+  isEnemyInSquare?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -199,6 +204,11 @@ const StyledSquare = styled.div<{
   `};
   width: 50px;
   height: 50px;
+  ${({ isEnemyInSquare }) =>
+    isEnemyInSquare &&
+    `background: rgb(215,83,83);
+    background: radial-gradient(circle, rgba(215,83,83,0.17690826330532217) 0%, rgba(150,0,0,0.2637429971988795) 100%);
+  `}
   :hover {
     ${({ isPossibleToAttack }) =>
       isPossibleToAttack &&
