@@ -194,6 +194,7 @@ const StyledSquare = styled.div<{
   justify-content: center;
   align-content: center;
   align-items: center;
+  transition: all 0.5s ease-out;
   border: 1px solid
     ${({ hasActiveUnit }) => (hasActiveUnit ? "#ffe98c" : "black")};
   ${({ isPossibleToMove }) =>
