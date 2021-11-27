@@ -1,15 +1,20 @@
 {
   "files": {
-    "main.js": "/dothomm/static/js/main.5756a439.chunk.js",
-    "main.js.map": "/dothomm/static/js/main.5756a439.chunk.js.map",
-    "runtime-main.js": "/dothomm/static/js/runtime-main.b3234de5.js",
-    "runtime-main.js.map": "/dothomm/static/js/runtime-main.b3234de5.js.map",
-    "static/js/2.950c6e78.chunk.js": "/dothomm/static/js/2.950c6e78.chunk.js",
-    "static/js/2.950c6e78.chunk.js.map": "/dothomm/static/js/2.950c6e78.chunk.js.map",
-    "static/js/3.69abf5ef.chunk.js": "/dothomm/static/js/3.69abf5ef.chunk.js",
-    "static/js/3.69abf5ef.chunk.js.map": "/dothomm/static/js/3.69abf5ef.chunk.js.map",
+    "main.js": "/dothomm/static/js/main.41abad50.chunk.js",
+    "main.js.map": "/dothomm/static/js/main.41abad50.chunk.js.map",
+    "runtime-main.js": "/dothomm/static/js/runtime-main.a77ec872.js",
+    "runtime-main.js.map": "/dothomm/static/js/runtime-main.a77ec872.js.map",
+    "static/js/2.e5b15e77.chunk.js": "/dothomm/static/js/2.e5b15e77.chunk.js",
+    "static/js/2.e5b15e77.chunk.js.map": "/dothomm/static/js/2.e5b15e77.chunk.js.map",
+    "static/js/3.991f1ef6.chunk.js": "/dothomm/static/js/3.991f1ef6.chunk.js",
+    "static/js/3.991f1ef6.chunk.js.map": "/dothomm/static/js/3.991f1ef6.chunk.js.map",
+    "static/js/4.bbe7113b.chunk.js": "/dothomm/static/js/4.bbe7113b.chunk.js",
+    "static/js/4.bbe7113b.chunk.js.map": "/dothomm/static/js/4.bbe7113b.chunk.js.map",
+    "static/js/5.5d5a7e2c.chunk.js": "/dothomm/static/js/5.5d5a7e2c.chunk.js",
+    "static/js/5.5d5a7e2c.chunk.js.map": "/dothomm/static/js/5.5d5a7e2c.chunk.js.map",
     "index.html": "/dothomm/index.html",
-    "static/js/2.950c6e78.chunk.js.LICENSE.txt": "/dothomm/static/js/2.950c6e78.chunk.js.LICENSE.txt",
+    "static/js/2.e5b15e77.chunk.js.LICENSE.txt": "/dothomm/static/js/2.e5b15e77.chunk.js.LICENSE.txt",
+    "static/js/3.991f1ef6.chunk.js.LICENSE.txt": "/dothomm/static/js/3.991f1ef6.chunk.js.LICENSE.txt",
     "static/media/BEACH.6be16200.png": "/dothomm/static/media/BEACH.6be16200.png",
     "static/media/BOAT.8527838d.png": "/dothomm/static/media/BOAT.8527838d.png",
     "static/media/CLEVER_FIELD.e2e784d7.png": "/dothomm/static/media/CLEVER_FIELD.e2e784d7.png",
@@ -19,15 +24,15 @@
     "static/media/LAVA.d2953b78.png": "/dothomm/static/media/LAVA.d2953b78.png",
     "static/media/SWAMP.797d4723.png": "/dothomm/static/media/SWAMP.797d4723.png",
     "static/media/WASTELAND.f82126d5.png": "/dothomm/static/media/WASTELAND.f82126d5.png",
-    "static/media/alagard.685ec71b.ttf": "/dothomm/static/media/alagard.685ec71b.ttf",
+    "static/media/alagard.ttf": "/dothomm/static/media/alagard.685ec71b.ttf",
     "static/media/leatherBackground.bb90ffef.png": "/dothomm/static/media/leatherBackground.bb90ffef.png",
     "static/media/loginLobbyBackground.1dd56c8b.png": "/dothomm/static/media/loginLobbyBackground.1dd56c8b.png",
     "static/media/spellbook.7832de9a.png": "/dothomm/static/media/spellbook.7832de9a.png",
     "static/media/windowBorders.f69cc088.png": "/dothomm/static/media/windowBorders.f69cc088.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.b3234de5.js",
-    "static/js/2.950c6e78.chunk.js",
-    "static/js/main.5756a439.chunk.js"
+    "static/js/runtime-main.a77ec872.js",
+    "static/js/2.e5b15e77.chunk.js",
+    "static/js/main.41abad50.chunk.js"
   ]
 }
