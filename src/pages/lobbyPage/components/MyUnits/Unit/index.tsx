@@ -3,20 +3,25 @@ import { animated } from "@react-spring/web";
 import { isEmpty } from "lodash";
 import { FC, SetStateAction, Dispatch, useState, useEffect } from "react";
 import styled from "styled-components";
-import Button from "../../../../../components/Button";
 import { getUnitIconByName } from "../../../../gamePage/pictures/utils";
 import { UnitTemplateWithCount } from "../../../../gamePage/types";
+import Tooltip from "../../../../../components/Tooltip";
+
+import UnitTooltip from "./UnitTooltip";
+import { useDispatch } from "react-redux";
+import { removeUnit } from "../../../lobbySlice";
 
 interface IUnit {
   unit?: UnitTemplateWithCount;
-  setMoney: Dispatch<SetStateAction<number>>;
-  setMyUnits: Dispatch<SetStateAction<UnitTemplateWithCount[]>>;
+  id: number;
 }
 
-const Unit: FC<IUnit> = ({ unit, setMoney, setMyUnits }) => {
+const Unit: FC<IUnit> = ({ unit, id }) => {
   const [unitsCount, setUnitsCount] = useState<number | undefined>(unit?.count);
 
   const isNotEmpty = !isEmpty(unit) && unit;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setUnitsCount(unit?.count);
@@ -26,21 +31,7 @@ const Unit: FC<IUnit> = ({ unit, setMoney, setMyUnits }) => {
     if (!unit || !unitsCount) {
       return null;
     }
-    setMoney((prevState) => prevState + unit.cost * unitsCount);
-    setMyUnits((prevState) => {
-      let wasFound = false;
-      return prevState.filter(({ count, unitType: currentUnitType }) => {
-        if (
-          count === unitsCount &&
-          unit.unitType === currentUnitType &&
-          !wasFound
-        ) {
-          wasFound = true;
-          return false;
-        }
-        return true;
-      });
-    });
+    dispatch(removeUnit({ id, unit }));
   };
 
   const fadeIn = useSpring({
@@ -48,25 +39,31 @@ const Unit: FC<IUnit> = ({ unit, setMoney, setMyUnits }) => {
     marginTop: isNotEmpty ? "0px" : "-100px",
   });
 
+  const UnitTooltipWithProps = <UnitTooltip unit={unit} />;
+
   return (
     <StyledUnitWrapper>
       {isNotEmpty ? (
-        <StyledIconWrapper>
-          <StyledImgWrapper>
-            <StyledImg
-              style={fadeIn}
-              src={getUnitIconByName(unit.unitType)}
-              onClick={handleClick}
-            />
-          </StyledImgWrapper>
-          <StyledCount> {unit.count}</StyledCount>
-        </StyledIconWrapper>
+        <Tooltip TooltipContent={() => UnitTooltipWithProps}>
+          <StyledIconWrapper>
+            <StyledImgWrapper>
+              <StyledImg
+                style={fadeIn}
+                src={getUnitIconByName(unit.unitType)}
+                onClick={handleClick}
+              />
+            </StyledImgWrapper>
+            <StyledCount> {unit.count}</StyledCount>
+          </StyledIconWrapper>
+        </Tooltip>
       ) : (
         <EmptyUnitContainer />
       )}
     </StyledUnitWrapper>
   );
 };
+
+const StyledUnitTooltip = styled.div``;
 
 const EmptyUnitContainer = styled.div`
   background-color: #00000070;

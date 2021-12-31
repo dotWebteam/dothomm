@@ -6,7 +6,7 @@ import Container from "../../components/Container";
 
 import UnitsCollection from "./components/UnitsCollection";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initBoard } from "../gamePage/boardSlice";
 
 import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
@@ -25,56 +25,55 @@ import BackgroundSelector from "./components/BackgroundSelector";
 
 import { BackgroundType } from "../gamePage/types";
 import ArtifactsShop from "./components/ArtifactsShop";
+import { RootState } from "../../store/store";
+import { goToSecondPlayer, setBackground } from "./lobbySlice";
+import {
+  getCurrentPlayerName,
+  getCurrentUserArmy,
+  getIsFirstPlayerActive,
+} from "./selectors";
 
 const LobbyPage: FC = () => {
-  const [money, setMoney] = useState<number>(INITIAL_AMOUNT_OF_MONEY);
+  const units = useSelector(getCurrentUserArmy);
 
-  const [currentPlayerName, setCurrentPlayerName] = useState<string>(
-    PLAYERS[0]
+  const firstPlayerUnits = useSelector(
+    (state: RootState) => state.lobby.firstArmy
   );
-
-  const [firstPlayerUnits, setFirstPlayerUnits] = useState<
-    Array<UnitTemplateWithCount>
-  >([]);
-  const [secondPlayerUnits, setSecondPlayerUnits] = useState<
-    Array<UnitTemplateWithCount>
-  >([]);
-
-  const isFirstPlayer = currentPlayerName === PLAYERS[0];
-
-  const units = isFirstPlayer ? firstPlayerUnits : secondPlayerUnits;
+  const secondPlayerUnits = useSelector(
+    (state: RootState) => state.lobby.secondArmy
+  );
 
   const hasValidAmountOfMinions = units.length > 0 && units.length < 6;
 
-  const setUnits = isFirstPlayer ? setFirstPlayerUnits : setSecondPlayerUnits;
+  const isFirstPlayer = useSelector(getIsFirstPlayerActive);
+
+  const currentPlayerName = useSelector(getCurrentPlayerName);
 
   const dispatch = useDispatch();
 
-  const goToSecondPlayer = () => {
+  const handleGoToSecondPlayer = () => {
     if (!hasValidAmountOfMinions) {
       setShowModal(true);
       return null;
     }
-    setCurrentPlayerName(PLAYERS[1]);
-    setMoney(INITIAL_AMOUNT_OF_MONEY);
+    dispatch(goToSecondPlayer());
   };
 
-  const [firstPlayerArtifactArr, setFirstPlayerArtifactArr] = useState<
-    Artifact[]
-  >([]);
-  const [secondPlayerArtifactArr, setSecondPlayerArtifactArr] = useState<
-    Artifact[]
-  >([]);
+  const firstPlayerArtifactArr = useSelector(
+    (state: RootState) => state.lobby.firstEquip
+  );
+  const secondPlayerArtifactArr = useSelector(
+    (state: RootState) => state.lobby.secondEquip
+  );
 
-  const artifactArr = isFirstPlayer
-    ? firstPlayerArtifactArr
-    : secondPlayerArtifactArr;
+  const combatBackgroundName = useSelector(
+    (state: RootState) => state.lobby.backgroundName
+  );
 
-  const setArtifactArr = isFirstPlayer
-    ? setFirstPlayerArtifactArr
-    : setSecondPlayerArtifactArr;
+  const changeBackgroundName = (backgroundName: BackgroundType) =>
+    dispatch(setBackground({ backgroundName }));
 
-  const goToGame = () => {
+  const handleGoToGame = () => {
     if (!hasValidAmountOfMinions) {
       setShowModal(true);
       return null;
@@ -93,13 +92,12 @@ const LobbyPage: FC = () => {
   };
 
   const handlePressReady = () => {
-    isFirstPlayer ? goToSecondPlayer() : goToGame();
+    isFirstPlayer ? handleGoToSecondPlayer() : handleGoToGame();
   };
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const [combatBackgroundName, setCombatBackgroundName] =
-    useState<BackgroundType>("BEACH");
+  const money = useSelector((state: RootState) => state.lobby.activeUserMoney);
 
   return (
     <LobbyPageWrapper>
@@ -118,12 +116,7 @@ const LobbyPage: FC = () => {
       )}
       <CentralContainer>
         <LeftContainer>
-          <ArtifactsShop
-            artifactArr={artifactArr}
-            setArtifactArr={setArtifactArr}
-            setMoney={setMoney}
-            money={money}
-          />
+          <ArtifactsShop money={money} />
         </LeftContainer>
         <MainPartWrapper>
           <Container>
@@ -136,16 +129,11 @@ const LobbyPage: FC = () => {
             <UnitsCollection
               money={money}
               units={LIST_OF_UNITS}
-              setMoney={setMoney}
-              setMyUnits={setUnits}
               totalUnits={units}
             />
           </Container>
           <UnitsContainer>
             <MyUnits
-              units={units}
-              setMoney={setMoney}
-              setMyUnits={setUnits}
               handlePressReady={handlePressReady}
               playerName={currentPlayerName}
             />
@@ -154,7 +142,7 @@ const LobbyPage: FC = () => {
         <RightContainer>
           <BackgroundSelector
             selectedBackgroundName={combatBackgroundName}
-            onSelect={setCombatBackgroundName}
+            onSelect={changeBackgroundName}
           />
         </RightContainer>
       </CentralContainer>

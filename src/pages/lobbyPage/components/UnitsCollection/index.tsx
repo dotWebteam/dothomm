@@ -1,4 +1,5 @@
 import { useState, FC, Dispatch, SetStateAction } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import {
@@ -6,13 +7,12 @@ import {
   UnitTemplate,
   UnitTemplateWithCount,
 } from "../../../gamePage/types";
+import { getCurrentUserArmy } from "../../selectors";
 
 import UnitComponent from "./Unit";
 
 interface IUnitsCollection {
   units?: Array<UnitTemplate>;
-  setMoney: Dispatch<SetStateAction<number>>;
-  setMyUnits: Dispatch<SetStateAction<UnitTemplateWithCount[]>>;
   className?: string;
   money: number;
   totalUnits: Array<UnitTemplate>;
@@ -21,11 +21,9 @@ interface IUnitsCollection {
 const BuyUnitsCollection: FC<IUnitsCollection> = ({
   units,
   className,
-  setMoney,
-  setMyUnits,
   money,
-  totalUnits,
 }) => {
+  const totalUnits = useSelector(getCurrentUserArmy);
   return (
     <StyledUnitsCollection className={className}>
       {units?.map((unit, index) => (
@@ -33,8 +31,6 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
           key={index}
           money={money}
           unit={unit}
-          setMoney={setMoney}
-          setMyUnits={setMyUnits}
           totalUnits={totalUnits}
         />
       ))}

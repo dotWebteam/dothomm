@@ -21,6 +21,7 @@ import UnitInfoSidebar from "../Sidebar";
 
 import { BackgroundType } from "../../types";
 import { LOBBY_PAGE_ROUTE } from "../../../../constants/routeConstants";
+import { setInitialState } from "../../../lobbyPage/lobbySlice";
 
 const Board: FC = () => {
   const activeUnit = useSelector((state: RootState) => state.game.activeUnit);
@@ -72,13 +73,15 @@ const Board: FC = () => {
     (state: RootState) => state.game.backgroundSrc
   );
 
+  const handleFinishGame = () => dispatch(setInitialState());
+
   return (
     <StyledBoardContainer>
       {winner ? (
         <Modal>
           <StyledModalWindow>
             The winner is {winner}
-            <Button isOk to={LOBBY_PAGE_ROUTE} />
+            <Button isOk onClick={handleFinishGame} to={LOBBY_PAGE_ROUTE} />
           </StyledModalWindow>
         </Modal>
       ) : null}

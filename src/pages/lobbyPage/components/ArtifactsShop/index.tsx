@@ -1,21 +1,17 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import LIST_OF_ARTIFACTS from "../../../../constants/listOfArtifacts";
-import { Artifact, Rarity } from "../../../gamePage/types";
+import { Rarity } from "../../../gamePage/types";
+import { addArtifact, removeArtifact } from "../../lobbySlice";
+import { getCurrentUserEquip } from "../../selectors";
 
 interface IArtifactsShop {
-  artifactArr: Artifact[];
-  setArtifactArr: Dispatch<SetStateAction<Artifact[]>>;
   money: number;
-  setMoney: Dispatch<SetStateAction<number>>;
 }
 
-const ArtifactsShop: FC<IArtifactsShop> = ({
-  artifactArr,
-  setArtifactArr,
-  money,
-  setMoney,
-}) => {
+const ArtifactsShop: FC<IArtifactsShop> = ({ money }) => {
+  const artifactArr = useSelector(getCurrentUserEquip);
   return (
     <StyledWrapper>
       <StyledTitle>Buy items</StyledTitle>
@@ -30,17 +26,15 @@ const ArtifactsShop: FC<IArtifactsShop> = ({
 
           const selected = indexInArr !== -1;
 
+          const dispatch = useDispatch();
+
           const handleClick = () => {
             if (selected) {
-              setArtifactArr((prevState) =>
-                prevState.filter((artifact, index) => index !== indexInArr)
-              );
-              setMoney((prevState) => prevState + cost);
+              dispatch(removeArtifact({ artifact }));
               return null;
             }
             if (money - cost < 0) return null;
-            artifactArr.push(artifact);
-            setMoney((prevState) => prevState - cost);
+            dispatch(addArtifact({ artifact }));
           };
 
           return (

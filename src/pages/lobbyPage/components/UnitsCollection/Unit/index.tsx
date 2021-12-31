@@ -7,14 +7,14 @@ import {
   UnitTemplate,
   UnitTemplateWithCount,
 } from "../../../../gamePage/types";
+import { useDispatch } from "react-redux";
 
 import goldIcon from "../../../../../pictures/gold.png";
+import { addUnit } from "../../../lobbySlice";
 
 interface IUnit {
   unit: UnitTemplate;
   money: number;
-  setMoney: Dispatch<SetStateAction<number>>;
-  setMyUnits: Dispatch<SetStateAction<UnitTemplateWithCount[]>>;
   totalUnits: UnitTemplate[];
 }
 
@@ -28,12 +28,12 @@ const Unit: FC<IUnit> = ({
     cost,
   },
   unit,
-  setMoney,
-  setMyUnits,
   money,
   totalUnits,
 }) => {
   const [unitsCount, setUnitsCount] = useState<number>(1);
+
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     if (
@@ -42,9 +42,9 @@ const Unit: FC<IUnit> = ({
       totalUnits?.length >= 5
     )
       return null;
-    setMoney((prevState) => prevState - cost * unitsCount);
     const addedUnit = { ...unit, count: unitsCount };
-    setMyUnits((prevState) => [...prevState, addedUnit]);
+
+    dispatch(addUnit({ unit: addedUnit }));
   };
 
   return (
