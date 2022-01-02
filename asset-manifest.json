@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/dothomm/static/js/main.6111d485.chunk.js",
-    "main.js.map": "/dothomm/static/js/main.6111d485.chunk.js.map",
+    "main.js": "/dothomm/static/js/main.19f997bc.chunk.js",
+    "main.js.map": "/dothomm/static/js/main.19f997bc.chunk.js.map",
     "runtime-main.js": "/dothomm/static/js/runtime-main.b3234de5.js",
     "runtime-main.js.map": "/dothomm/static/js/runtime-main.b3234de5.js.map",
-    "static/js/2.338284f3.chunk.js": "/dothomm/static/js/2.338284f3.chunk.js",
-    "static/js/2.338284f3.chunk.js.map": "/dothomm/static/js/2.338284f3.chunk.js.map",
+    "static/js/2.f7424cf3.chunk.js": "/dothomm/static/js/2.f7424cf3.chunk.js",
+    "static/js/2.f7424cf3.chunk.js.map": "/dothomm/static/js/2.f7424cf3.chunk.js.map",
     "static/js/3.69abf5ef.chunk.js": "/dothomm/static/js/3.69abf5ef.chunk.js",
     "static/js/3.69abf5ef.chunk.js.map": "/dothomm/static/js/3.69abf5ef.chunk.js.map",
     "index.html": "/dothomm/index.html",
-    "static/js/2.338284f3.chunk.js.LICENSE.txt": "/dothomm/static/js/2.338284f3.chunk.js.LICENSE.txt",
+    "static/js/2.f7424cf3.chunk.js.LICENSE.txt": "/dothomm/static/js/2.f7424cf3.chunk.js.LICENSE.txt",
     "static/media/BEACH.6be16200.png": "/dothomm/static/media/BEACH.6be16200.png",
     "static/media/BOAT.8527838d.png": "/dothomm/static/media/BOAT.8527838d.png",
     "static/media/CLEVER_FIELD.e2e784d7.png": "/dothomm/static/media/CLEVER_FIELD.e2e784d7.png",
@@ -20,6 +20,7 @@
     "static/media/SWAMP.797d4723.png": "/dothomm/static/media/SWAMP.797d4723.png",
     "static/media/WASTELAND.f82126d5.png": "/dothomm/static/media/WASTELAND.f82126d5.png",
     "static/media/alagard.685ec71b.ttf": "/dothomm/static/media/alagard.685ec71b.ttf",
+    "static/media/castleTown.024b0b5f.png": "/dothomm/static/media/castleTown.024b0b5f.png",
     "static/media/leatherBackground.bb90ffef.png": "/dothomm/static/media/leatherBackground.bb90ffef.png",
     "static/media/loginLobbyBackground.1dd56c8b.png": "/dothomm/static/media/loginLobbyBackground.1dd56c8b.png",
     "static/media/spellbook.7832de9a.png": "/dothomm/static/media/spellbook.7832de9a.png",
@@ -27,7 +28,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.b3234de5.js",
-    "static/js/2.338284f3.chunk.js",
-    "static/js/main.6111d485.chunk.js"
+    "static/js/2.f7424cf3.chunk.js",
+    "static/js/main.19f997bc.chunk.js"
   ]
 }
