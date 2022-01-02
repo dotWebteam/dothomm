@@ -25,7 +25,7 @@ const BuyUnitModal: FC<IBuyUnitModal> = ({
   money,
   totalUnits,
 }) => {
-  const [unitCount, setUnitCount] = useState(1);
+  const [unitCount, setUnitCount] = useState<number>(1);
 
   const dispatch = useDispatch();
 
@@ -54,12 +54,12 @@ const BuyUnitModal: FC<IBuyUnitModal> = ({
 
   const handleMinusOneClick = () => {
     if (unitCount <= 1) return null;
-    setUnitCount(Number(unitCount - 1));
+    setUnitCount(Number(unitCount) - 1);
   };
 
   const handlePlusOneClick = () => {
     if (unitCount === maxAmountOfUnits) return null;
-    setUnitCount(Number(unitCount + 1));
+    setUnitCount(Number(unitCount) + 1);
   };
 
   const handleMaxClick = () => {
