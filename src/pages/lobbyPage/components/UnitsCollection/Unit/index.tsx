@@ -11,6 +11,10 @@ import { useDispatch } from "react-redux";
 
 import goldIcon from "../../../../../pictures/gold.png";
 import { addUnit } from "../../../lobbySlice";
+import Tooltip from "../../../../../components/Tooltip";
+import UnitTooltip from "./UnitTooltip";
+
+import BuyUnitModal from "./BuyUnitModal";
 
 interface IUnit {
   unit: UnitTemplate;
@@ -47,11 +51,30 @@ const Unit: FC<IUnit> = ({
     dispatch(addUnit({ unit: addedUnit }));
   };
 
+  const BuyUnitTooltipWithProps = <UnitTooltip unit={unit} />;
+
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <StyledUnitWrapper>
-      <StyledCharactericticsSection>
-        <StyledImg src={getUnitIconByName(unitType)} />
-        <StyledRow>
+    <>
+      {showModal && (
+        <BuyUnitModal
+          unit={unit}
+          money={money}
+          onHide={() => setShowModal(false)}
+          totalUnits={totalUnits}
+        />
+      )}
+      <StyledUnitWrapper>
+        <StyledCharactericticsSection>
+          <Tooltip TooltipContent={() => BuyUnitTooltipWithProps}>
+            <StyledImg
+              onClick={() => setShowModal(true)}
+              src={getUnitIconByName(unitType)}
+            />
+          </Tooltip>
+
+          {/* <StyledRow>
           <StyledUnitName>{unitType}</StyledUnitName>
           <StyledCharachteristic>AP: {maxActionPoints}</StyledCharachteristic>
           <StyledCharachteristic>
@@ -64,9 +87,9 @@ const Unit: FC<IUnit> = ({
             HP: {maxHealthPoints} | Def: {defense}
           </StyledCharachteristic>
           <StyledCharachteristic>Cost: {cost}</StyledCharachteristic>
-        </StyledRow>
-      </StyledCharactericticsSection>
-      <StyledInputSection>
+        </StyledRow> */}
+        </StyledCharactericticsSection>
+        {/* <StyledInputSection>
         <StyledInputContainer>
           Count:
           <StyledInput
@@ -79,25 +102,27 @@ const Unit: FC<IUnit> = ({
         <StyledButton onClick={handleClick}>
           <img src={goldIcon} />
         </StyledButton>
-      </StyledInputSection>
-    </StyledUnitWrapper>
+      </StyledInputSection> */}
+      </StyledUnitWrapper>
+    </>
   );
 };
 
 const StyledImg = styled.img`
-  margin-right: 16px;
   width: 70px;
+  height: 70px;
   border: 1px solid #ad8e42;
 `;
 
 const StyledUnitWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  flex: 1;
-  padding: 16px;
+  padding: 4px;
   border: 1px solid #ad8e42;
+  background-color: #00000070;
+  height: 72px;
   :not(:last-child) {
-    margin-bottom: 8px;
+    margin-right: 10px;
   }
 `;
 

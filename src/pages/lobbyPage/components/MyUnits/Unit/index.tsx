@@ -63,8 +63,6 @@ const Unit: FC<IUnit> = ({ unit, id }) => {
   );
 };
 
-const StyledUnitTooltip = styled.div``;
-
 const EmptyUnitContainer = styled.div`
   background-color: #00000070;
   border: 1px solid #ad8e42;

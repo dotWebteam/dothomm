@@ -20,9 +20,18 @@ const Tooltip: FC<ITooltip> = ({ children, TooltipContent }) => {
     setTooltipVisible(false);
   };
 
+  const handleClick = () => {
+    clearTimeout(timer);
+    setTooltipVisible(false);
+  };
+
   return (
     <StyledTooltipContainer ref={tooltipRef}>
-      <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+      >
         {children}
       </div>
 
@@ -39,7 +48,7 @@ const StyledTooltipContainer = styled.div`
 
 const StyledTooltip = styled.div<{ isVisible: boolean }>`
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
-  position: absolute;
+  position: fixed;
   z-index: 1;
   transition: opacity 1s;
   margin-top: 4px;

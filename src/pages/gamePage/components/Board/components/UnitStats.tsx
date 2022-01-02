@@ -1,12 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
-import Container from "../../../../../components/Container";
-import Modal from "../../../../../components/Modal";
 import { getUnitIconByName } from "../../../pictures/utils";
-import { Unit } from "../../../types";
+import { Unit, UnitTemplateWithCount } from "../../../types";
 
 interface IUnitStats {
-  unit: Unit;
+  unit: Unit | UnitTemplateWithCount;
   className?: string;
 }
 

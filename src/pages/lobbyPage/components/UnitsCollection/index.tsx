@@ -39,11 +39,12 @@ const BuyUnitsCollection: FC<IUnitsCollection> = ({
 };
 
 const StyledUnitsCollection = styled.div`
-  height: 350px;
+  margin-top: 20px;
+  width: 640px;
+  height: 86px;
   display: flex;
-  flex-direction: column;
-  height: 278px;
-  overflow-y: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   ::-webkit-scrollbar-track {
     display: none;
   }

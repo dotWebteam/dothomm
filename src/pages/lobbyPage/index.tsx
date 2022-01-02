@@ -13,13 +13,10 @@ import loginLobbyBackground from "../../pictures/loginLobbyBackground.png";
 import leatherBackground from "../../pictures/leatherBackground.png";
 import windowBorder from "../../pictures/windowBorders.png";
 
-import LIST_OF_UNITS from "../../constants/listOfUnits";
-import { Artifact, UnitTemplateWithCount } from "../gamePage/types";
 import MyUnits from "./components/MyUnits";
 
 import goldIcon from "../../pictures/gold.png";
 import { PLAYERS } from "../../constants/players";
-import { INITIAL_AMOUNT_OF_MONEY } from "./constants";
 import Modal from "../../components/Modal";
 import BackgroundSelector from "./components/BackgroundSelector";
 
@@ -32,6 +29,10 @@ import {
   getCurrentUserArmy,
   getIsFirstPlayerActive,
 } from "./selectors";
+
+import LIST_OF_UNITS from "../../constants/listOfUnits";
+import TownPicture from "./components/TownPicture";
+import marbleBackground from "../../pictures/marbleBackground.png";
 
 const LobbyPage: FC = () => {
   const units = useSelector(getCurrentUserArmy);
@@ -114,18 +115,22 @@ const LobbyPage: FC = () => {
           </StyledModalWindow>
         </Modal>
       )}
+
       <CentralContainer>
-        <LeftContainer>
-          <ArtifactsShop money={money} />
-        </LeftContainer>
-        <MainPartWrapper>
-          <Container>
-            <StyledShopTitle>Buy units</StyledShopTitle>
-            <StyledHorizontalLine />
+        <div>
+          <LeftContainer>
+            <ArtifactsShop money={money} />
+          </LeftContainer>
+          <StyledMoneyContainer>
             <StyledSubTitle>
               Number of available money: {money}
               <StyledMoneyImg src={goldIcon} />
             </StyledSubTitle>
+          </StyledMoneyContainer>
+        </div>
+        <MainPartWrapper>
+          <Container>
+            <TownPicture />
             <UnitsCollection
               money={money}
               units={LIST_OF_UNITS}
@@ -179,13 +184,6 @@ const StyledMoneyImg = styled.img`
   margin-left: 4px;
 `;
 
-const StyledHorizontalLine = styled.hr`
-  width: 400px;
-  border: 1px solid;
-  border-radius: 4px;
-  box-shadow: 2px 2px 0 #000;
-`;
-
 const StyledSubTitle = styled.span`
   display: flex;
   align-items: center;
@@ -216,6 +214,10 @@ const LeftContainer = styled(Container)`
   :not(:first-child) {
     margin-top: 0px;
   }
+`;
+
+const StyledMoneyContainer = styled(LeftContainer)`
+  margin-top: 20px !important;
 `;
 
 const StyledShopTitle = styled.span`

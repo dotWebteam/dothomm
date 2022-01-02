@@ -57,7 +57,6 @@ const StyledImg = styled.img`
 
 const StyledMyUnits = styled.div`
   display: flex;
-  background: url(${leatherBackground});
   padding: 5px 5px 0 5px;
 `;
 

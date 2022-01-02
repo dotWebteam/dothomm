@@ -1,26 +1,28 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { capitalize } from "lodash";
-import { UnitTemplateWithCount } from "../../../../gamePage/types";
+import { UnitTemplate } from "../../../../gamePage/types";
 
 interface IUnitTooltip {
-  unit?: UnitTemplateWithCount;
+  unit: UnitTemplate;
 }
 
 const UnitTooltip: FC<IUnitTooltip> = ({ unit }) => {
-  const shownAttack = `${Number(unit?.count) * Number(unit?.attack.min)}-${
-    Number(unit?.count) * Number(unit?.attack.max)
-  }`;
-  const shownHealth = Number(unit?.count) * Number(unit?.healthPoints.max);
-  const shownCost = Number(unit?.count) * Number(unit?.cost);
-
   return (
     <StyledUnitInfo>
       <StyledTitle>{capitalize(unit?.unitType)}</StyledTitle>
       <StyledHorizontalLine />
-      <StyledCharacteristic>Total attack: {shownAttack}</StyledCharacteristic>
-      <StyledCharacteristic>Total health: {shownHealth}</StyledCharacteristic>
-      <StyledCharacteristic>Total cost: {shownCost}</StyledCharacteristic>
+      <StyledCharacteristic>
+        Action points: {unit?.actionPoints.max}
+      </StyledCharacteristic>
+      <StyledCharacteristic>
+        Attack: {unit?.attack.min}-{unit?.attack.max}
+      </StyledCharacteristic>
+      <StyledCharacteristic>
+        Health: {unit?.healthPoints.max}
+      </StyledCharacteristic>
+      <StyledCharacteristic>Defense: {unit?.defense}</StyledCharacteristic>
+      <StyledCharacteristic>Cost: {unit?.cost}</StyledCharacteristic>
     </StyledUnitInfo>
   );
 };
@@ -31,9 +33,10 @@ const StyledCharacteristic = styled.div``;
 
 const StyledUnitInfo = styled.div`
   padding: 4px;
-  background-color: #0000008f;
+  background-color: #000000a6;
   width: 140px;
   border: 1px solid #ad8e42;
+  margin-left: -4px;
 `;
 
 const StyledHorizontalLine = styled.hr`
